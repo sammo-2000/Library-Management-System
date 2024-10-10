@@ -1,5 +1,6 @@
 ---
 date: { 2024-10-07 }
+written-by: { Ahmed Sulaimon, Ayman Sammo, Nayan Stanley }
 decision-makers: { Ahmed Sulaimon, Ayman Sammo, Nayan Stanley }
 ---
 
@@ -11,47 +12,53 @@ decision-makers: { Ahmed Sulaimon, Ayman Sammo, Nayan Stanley }
 
 ## Considered Options
 
-- Service Oriented Architecture
-- Three-Layer Architecture
+- [Service Oriented Architecture](#service-oriented-architecture)
+- [Three-Layer Architecture](#three-layer-architecture)
 
 ## Decision Outcome
 
-Chosen option: "Service Oriented Architecture", because comes out the best [See below pros and cons](#pros-cons)
+**Chosen option:** Service Oriented Architecture  
+**Rationale:** This option presents the best scalability and flexibility for the library system. [See below for pros and cons](#pros-cons).
 
 ### Consequences
 
-- Good, because it can easily be scaled up
-- Good, because it is loosly coupled
-- Bad, because not easily maintainable
-- Bad, because of single point of failure (ESB)
-- Bad, because it can be expensive to develop
+- **Positive:** Easily scalable.
+- **Positive:** Loosely coupled components.
+- **Negative:** Difficult to maintain.
+- **Negative:** Risk of a single point of failure (due to ESB).
+- **Negative:** Potentially high development costs.
 
 ### Confirmation
 
-{Describe how the implementation of/compliance with the ADR can/will be confirmed. Is the chosen design and its implementation in line with the decision? E.g., a design/code review or a test with a library such as ArchUnit can help validate this. Note that although we classify this element as optional, it is included in many ADRs.}
+<!-- Describe how the implementation will be confirmed. -->
 
 <a name="pros-cons"></a>
 
 ## Pros and Cons of the Options
 
+<a name="service-oriented-architecture"></a>
+
 ### Service Oriented Architecture
 
-{example | description | pointer to more information | …}
+- **Pros:**
+  - Easily scalable as system demands grow.
+  - Loosely coupled, allowing for independent updates and deployments.
+- **Cons:**
+  - Maintenance can be complex due to multiple services.
+  - Risk of a single point of failure, particularly with an Enterprise Service Bus (ESB).
+  - Development can be costly due to integration and management overhead.
 
-- Good, because {argument a}
-- Good, because {argument b}
-- Neutral, because {argument c}
-- Bad, because {argument d}
+<a name="three-layer-architecture"></a>
 
 ### Three-Layer Architecture
 
-{example | description | pointer to more information | …}
-
-- Good, because {argument a}
-- Good, because {argument b}
-- Neutral, because {argument c}
-- Bad, because {argument d}
+- **Pros:**
+  - Clear separation of concerns improves maintainability.
+  - Easier to implement and understand for smaller systems.
+- **Cons:**
+  - Less flexible for scaling compared to SOA.
+  - Can become monolithic as the application grows.
 
 ## More Information
 
-{You might want to provide additional evidence/confidence for the decision outcome here and/or document the team agreement on the decision and/or define when/how this decision the decision should be realized and if/when it should be re-visited. Links to other decisions and resources might appear here as well.}
+<!-- Additional evidence or team agreement on the decision, links to related resources. -->
