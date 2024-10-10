@@ -1,6 +1,7 @@
 ---
-date: { 10/10/2024 }
-decision-makers: { Ahmed Sulaimon, Ayman Sammo, Nayan Stanley }
+date: 2024-10-10
+writtenBy: { Ahmed Sulaimon, Ayman Sammo, Nayan Stanley }
+decisionMakers: { Ahmed Sulaimon, Ayman Sammo, Nayan Stanley }
 ---
 
 # Framework
@@ -11,25 +12,26 @@ decision-makers: { Ahmed Sulaimon, Ayman Sammo, Nayan Stanley }
 
 ## Considered Options
 
-- NextJS
-- Nuxt
-- Laravel
+- [NextJS](#nextjs)
+- [Nuxt](#nuxt)
+- [Laravel](#laravel)
 
 ## Decision Outcome
 
-Chosen option: "NextJS", because comes out the best [See below pros and cons](#pros-cons)
+**Chosen option:** NextJS  
+**Rationale:** This option comes out the best. [See below for pros and cons](#pros-cons).
 
 ### Consequences
 
-- Good, because it handles front and back end functionality.
-- Good, because the team is familiar with it.
-- Good, because is flexible to different architectures (including chosen).
-- Good, because SSR and SSG which improves initial load times and SEO.
-- Good, because front-end is easy using react.
-- Good, because strong communities for troubleshooting.
-- Bad, because understanding SSR can be difficult.
-- Bad, because can be difficult to integrate with other tools.
-- Bad, because complex configuration for advanced settings.
+- **Positive:** Handles both front and back end functionality.
+- **Positive:** The team is familiar with it.
+- **Positive:** Flexible for different architectures (including the chosen one).
+- **Positive:** Supports SSR and SSG, improving initial load times and SEO.
+- **Positive:** Front-end development is straightforward with React.
+- **Positive:** Strong communities for troubleshooting.
+- **Negative:** Understanding SSR can be difficult.
+- **Negative:** May be challenging to integrate with other tools.
+- **Negative:** Complex configuration for advanced settings.
 
 ### Confirmation
 
@@ -39,32 +41,44 @@ Chosen option: "NextJS", because comes out the best [See below pros and cons](#p
 
 ## Pros and Cons of the Options
 
+<a name="nextjs"></a>
+
 ### NextJS
 
-- Good, because it handles front and back end functionality.
-- Good, because the team is familiar with it.
-- Good, because is flexible to different architectures (including chosen).
-- Good, because SSR and SSG which improves initial load times and SEO.
-- Good, because front-end is easy using react.
-- Good, because strong communities for troubleshooting.
-- Bad, because understanding SSR can be difficult.
-- Bad, because can be difficult to integrate with other tools.
-- Bad, because complex configuration for advanced settings.
+- **Pros:**
+  - Handles both front and back end functionality.
+  - The team is familiar with it.
+  - Flexible for different architectures (including the chosen one).
+  - Supports SSR and SSG, improving initial load times and SEO.
+  - Front-end development is straightforward with React.
+  - Strong communities for troubleshooting.
+- **Cons:**
+  - Understanding SSR can be difficult.
+  - May be challenging to integrate with other tools.
+  - Complex configuration for advanced settings.
+
+<a name="nuxt"></a>
 
 ### Nuxt
 
-- Good, because works for chosen architecture
-- Good, because provides modules for integrating new technologies.
-- Bad, because enforces its opinions via conventions.
-- Bad, because team is unfamiliar with it.
+- **Pros:**
+  - Works well for the chosen architecture.
+  - Provides modules for integrating new technologies.
+- **Cons:**
+  - Enforces its opinions via conventions.
+  - The team is unfamiliar with it.
+
+<a name="laravel"></a>
 
 ### Laravel
 
-- Good, because it is great for backend-centric applications.
-- Good, because strong communities for troubleshooting.
-- Good, because easy documentation.
-- Bad, because team is unfamiliar with it.
+- **Pros:**
+  - Great for backend-centric applications.
+  - Strong communities for troubleshooting.
+  - Easy documentation.
+- **Cons:**
+  - The team is unfamiliar with it.
 
 ## More Information
 
-<!-- More information -->
+<!-- Additional evidence or team agreement on the decision, links to related resources. -->
