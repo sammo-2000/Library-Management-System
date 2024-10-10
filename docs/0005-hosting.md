@@ -1,6 +1,7 @@
 ---
-date: 2024-10-10
-decision-makers: [Ahmed Sulaimon, Ayman Sammo, Nayan Stanley]
+date: { 2024-10-10 }
+written-by: { Ayman Sammo }
+decision-makers: { Ahmed Sulaimon, Ayman Sammo, Nayan Stanley }
 ---
 
 # Hosting Platform
