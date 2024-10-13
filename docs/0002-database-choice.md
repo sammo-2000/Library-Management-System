@@ -5,7 +5,7 @@ decision-makers: { Ahmed Sulaimon, Ayman Sammo, Nayan Stanley }
 ---
 
 # Database choice
-
+S
 ## Context and Problem Statement
 
 - What type of database should be used for application development
@@ -30,13 +30,12 @@ decision-makers: { Ahmed Sulaimon, Ayman Sammo, Nayan Stanley }
 
 ### Consequences
 
-- **Positive:** Affordable starting costs.
-- **Positive:** Can be upgraded as needed.
-- **Positive:** Highly customizable.
-- **Positive:** Can host multiple websites on a single VPS.
-- **Positive:** Supports web apps built in any language.
-- **Negative:** Cannot be dynamically scaled as demand increases.
-- **Negative:** Requires manual setup for SSL, HTTPS, and domain forwarding.
+- **Positive:** Strict data consistency (Relational Database).
+- **Positive:** Ideal for handling Complex queries (Relational Database)
+- **Positive:** Flexibility: Supports storing a variety of media types (books, movies, journals) (No SQL Database).
+- **Positive:** Performance: High read/write speeds, especially useful for handling media search queries across branches (No SQL Database).
+
+- **Negative:** opposite case of the positives of the selected Databases
 
 ### Confirmation
 
@@ -44,58 +43,95 @@ decision-makers: { Ahmed Sulaimon, Ayman Sammo, Nayan Stanley }
 
 <a name="pros-cons"></a>
 
-## Pros and Cons of the Options
+Pros and Cons of the Database Options
+<a name="postgresql"></a>
 
-<a name="digital-ocean-vps"></a>
+### PostgreSQL (Relational Database)
+ **Pros:**
+- Supports advanced SQL features like complex queries, triggers, and procedures.
 
-### Digital Ocean (VPS)
+- ACID-compliant ensuring strong transactional consistency.
 
-- **Pros:**
-  - Very affordable starting cost (as low as $4).
-  - Easily upgradable.
-  - Highly customizable.
-  - Can host multiple websites on a single VPS.
-  - Supports various programming languages.
-- **Cons:**
-  - Cannot be dynamically scaled as demand increases.
-  - Requires manual setup for SSL, HTTPS, and domain forwarding.
+- Extensible with support for JSON, GIS, and custom data types.
 
-<a name="hostinger-web-hosting"></a>
+- Highly scalable and suitable for large-scale applications.
 
-### Hostinger (Web Hosting)
+- Strong community support and actively developed.
 
-- **Pros:**
-  - Easy to run PHP applications.
-- **Cons:**
-  - Short-term plans are expensive; only long-term plans (3-4 years) are cost-effective.
-  - Primarily suited for PHP projects.
+**Cons:**
 
-<a name="hostinger-vps"></a>
+- Can be slower compared to NoSQL databases for large datasets or heavy read/write operations.
 
-### Hostinger (VPS)
+- More complex to manage and optimize for large-scale deployments.
+- Requires tuning for high-performance scenarios, especially with large datasets.
 
-- **Pros:**
-  - Easily upgradable.
-  - Highly customizable.
-  - Can host multiple websites on a single VPS.
-  - Supports various programming languages.
-- **Cons:**
-  - Can be expensive for short-term use; long-term plans are more affordable.
-  - Cannot be dynamically scaled as demand increases.
-  - Requires manual setup for SSL, HTTPS, and domain forwarding.
+<a name="mysql"></a>
 
-<a name="vercel"></a>
 
-### Vercel (Next.js)
+<a name="mongodb"></a>
 
-- **Pros:**
-  - Optimized for Next.js applications.
-  - Allows database integration on a single platform.
-  - Runs on edge servers, scaling automatically with demand.
-  - Comes pre-configured with HTTPS and port forwarding.
-- **Cons:**
-  - Can become costly for high-traffic applications.
-  - Best suited for Next.js applications only.
+### MongoDB (NoSQL Document Database)
+**Pros:**
+
+- Schema-less, allowing flexibility to store various types of media data.
+
+- Horizontal scaling makes it suitable for handling large datasets.
+
+- Fast read and write operations, especially for high-traffic applications.
+
+- Excellent for managing unstructured or semi-structured data.
+
+**Cons:**
+
+- Eventual consistency by default can lead to stale data in some read operations.
+
+- No support for ACID transactions (prior to version 4.0, and even then, limited).
+
+- Less efficient for complex multi-table joins or heavily relational data.
+
+
+<a name="redis"></a>
+
+### Redis (In-Memory Key-Value Store)
+**Pros:**
+
+- Extremely fast read/write operations due to in-memory data storage.
+
+- Supports various data structures, like strings, hashes, lists, and sets.
+
+- Ideal for caching and session management, which improves system performance.
+
+- Can persist data to disk for durability.
+
+**Cons:**
+
+- Limited to key-value pairs and data structures, not ideal for complex queries.
+
+- Memory-intensive, which can lead to higher infrastructure costs as datasets grow.
+
+- Not suited for storing large volumes of data persistently.
+
+
+<a name="neo4j"></a>
+
+### Neo4j (Graph Database)
+**Pros:**
+
+- Optimized for relationship-based queries (e.g., recommendations, social graphs).
+
+- Efficient for navigating and querying complex relationships between entities.
+
+- Cypher query language is intuitive and well-suited for graph queries.
+
+- Excellent for building recommendation engines and handling complex user-media relationships.
+
+**Cons:**
+
+- Not designed for handling high-throughput transactional workloads.
+
+- Limited scalability compared to document or relational databases for other types of data.
+
+- More expensive to implement and maintain, especially for smaller datasets.
 
 ## More Information
 
