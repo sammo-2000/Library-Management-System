@@ -1,6 +1,5 @@
-
 ---
-date: { 2024-10-10 }
+date: { 2024-10-13 }
 written-by: { Ahmed Sulaimon }
 decision-makers: { Ahmed Sulaimon, Ayman Sammo, Nayan Stanley }
 ---
@@ -9,19 +8,25 @@ decision-makers: { Ahmed Sulaimon, Ayman Sammo, Nayan Stanley }
 
 ## Context and Problem Statement
 
-- Where should the website be hosted?
+- What type of database should be used for application development
 
 ## Considered Options
 
-- [Digital Ocean (VPS)](#digital-ocean-vps)
-- [Hostinger (Web Hosting)](#hostinger-web-hosting)
-- [Hostinger (VPS)](#hostinger-vps)
-- [Vercel (Next.js)](#vercel)
+- [Relational Database (RDBMS)](#Relational-Database(RDBMS))
+- [NoSQL Database (Document-Based)](#NoSQL-Database(Document-Based))
+- [Key-Value Store (In-Memory Database))](#Key-Value-Store)
+- [Graph Database](#Graph-Database)
 
 ## Decision Outcome
 
-**Chosen option:** Digital Ocean (VPS)  
-**Rationale:** This option offers the best balance of cost, scalability, and customization. [See below for pros and cons](#pros-cons).
+**Chosen option:**  Relational Database (RDBMS) and NoSQL Database (Document-Based)
+
+**Rationale:** 
+- A relational database is ideal for structured data that requires consistency and transactional integrity. This database can handle core functionalities like user management, inventory management, and transactional operations (borrowing/returning media, payments). 
+
+-  NoSQL Database offers flexibility and scalability, making it ideal for managing media-related data and rapid data retrieval.
+
+[See below for pros and cons](#pros-cons).
 
 ### Consequences
 
