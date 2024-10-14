@@ -13,6 +13,7 @@ decision-makers: { Ahmed Sulaimon, Ayman Sammo, Nayan Stanley }
 ## Considered Options
 
 - [Service Oriented Architecture](#service-oriented-architecture)
+- [Microservices](#microservices)
 - [Three-Layer Architecture](#three-layer-architecture)
 
 ## Decision Outcome
@@ -47,6 +48,19 @@ decision-makers: { Ahmed Sulaimon, Ayman Sammo, Nayan Stanley }
   - Maintenance can be complex due to multiple services.
   - Risk of a single point of failure, particularly with an Enterprise Service Bus (ESB).
   - Development can be costly due to integration and management overhead.
+  - Slower because they share a common architecture.
+
+<a name="microservices"></a>
+
+### Microservices
+
+- **Pros:**
+  - Faster because it minimises sharing.
+  - Simpler since they just use APIs to communicate.
+  - Easier fault isolation since services are smaller than SOA.
+- **Cons:**
+  - Conistent data governance is more difficult.
+  - More complex than Three-Layer Archicture.
 
 <a name="three-layer-architecture"></a>
 
