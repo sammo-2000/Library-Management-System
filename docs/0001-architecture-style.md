@@ -18,16 +18,18 @@ decision-makers: { Ahmed Sulaimon, Ayman Sammo, Nayan Stanley }
 
 ## Decision Outcome
 
-**Chosen option:** Service Oriented Architecture  
+**Chosen option:** Microservices
 **Rationale:** This option presents the best scalability and flexibility for the library system. [See below for pros and cons](#pros-cons).
 
 ### Consequences
 
-- **Positive:** Easily scalable.
-- **Positive:** Loosely coupled components.
-- **Negative:** Difficult to maintain.
-- **Negative:** Risk of a single point of failure (due to ESB).
-- **Negative:** Potentially high development costs.
+- **Positive:** It is minimal which makes it faster to share.
+- **Positive:** it's loosely coupled.
+- **Positive:** it's simplier because it uses just APIs.
+- **Positive:** Scalable.
+- **Negative:** Require more data governance.
+- **Negative:** it expensive to operate/host.
+- **Negative:** More complex than Three-Layer Archicture.
 
 ### Confirmation
 
@@ -61,6 +63,7 @@ decision-makers: { Ahmed Sulaimon, Ayman Sammo, Nayan Stanley }
 - **Cons:**
   - Conistent data governance is more difficult.
   - More complex than Three-Layer Archicture.
+  - Can be expensive to host.
 
 <a name="three-layer-architecture"></a>
 

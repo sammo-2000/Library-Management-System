@@ -5,26 +5,27 @@ decision-makers: { Ahmed Sulaimon, Ayman Sammo, Nayan Stanley }
 ---
 
 # Database choice
-S
+
 ## Context and Problem Statement
 
 - What type of database should be used for application development
 
 ## Considered Options
 
-- [Relational Database (RDBMS)](#Relational-Database(RDBMS))
-- [NoSQL Database (Document-Based)](#NoSQL-Database(Document-Based))
+- [Relational Database (RDBMS)](<#Relational-Database(RDBMS)>)
+- [NoSQL Database (Document-Based)](<#NoSQL-Database(Document-Based)>)
 - [Key-Value Store (In-Memory Database))](#Key-Value-Store)
 - [Graph Database](#Graph-Database)
 
 ## Decision Outcome
 
-**Chosen option:**  Relational Database (RDBMS) and NoSQL Database (Document-Based)
+**Chosen option:** Relational Database (RDBMS) and NoSQL Database (Document-Based)
 
-**Rationale:** 
-- A relational database is ideal for structured data that requires consistency and transactional integrity. This database can handle core functionalities like user management, inventory management, and transactional operations (borrowing/returning media, payments). 
+**Rationale:**
 
--  NoSQL Database offers flexibility and scalability, making it ideal for managing media-related data and rapid data retrieval.
+- A relational database is ideal for structured data that requires consistency and transactional integrity. This database can handle core functionalities like user management, inventory management, and transactional operations (borrowing/returning media, payments).
+
+- NoSQL Database offers flexibility and scalability, making it ideal for managing media-related data and rapid data retrieval.
 
 [See below for pros and cons](#pros-cons).
 
@@ -47,7 +48,9 @@ Pros and Cons of the Database Options
 <a name="postgresql"></a>
 
 ### PostgreSQL (Relational Database)
- **Pros:**
+
+**Pros:**
+
 - Supports advanced SQL features like complex queries, triggers, and procedures.
 
 - ACID-compliant ensuring strong transactional consistency.
@@ -67,10 +70,10 @@ Pros and Cons of the Database Options
 
 <a name="mysql"></a>
 
-
 <a name="mongodb"></a>
 
 ### MongoDB (NoSQL Document Database)
+
 **Pros:**
 
 - Schema-less, allowing flexibility to store various types of media data.
@@ -89,10 +92,10 @@ Pros and Cons of the Database Options
 
 - Less efficient for complex multi-table joins or heavily relational data.
 
-
 <a name="redis"></a>
 
 ### Redis (In-Memory Key-Value Store)
+
 **Pros:**
 
 - Extremely fast read/write operations due to in-memory data storage.
@@ -111,10 +114,10 @@ Pros and Cons of the Database Options
 
 - Not suited for storing large volumes of data persistently.
 
-
 <a name="neo4j"></a>
 
 ### Neo4j (Graph Database)
+
 **Pros:**
 
 - Optimized for relationship-based queries (e.g., recommendations, social graphs).

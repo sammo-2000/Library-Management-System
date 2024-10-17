@@ -15,7 +15,9 @@ decision-makers: { Ahmed Sulaimon, Ayman Sammo, Nayan Stanley }
 - [Digital Ocean (VPS)](#digital-ocean-vps)
 - [Hostinger (Web Hosting)](#hostinger-web-hosting)
 - [Hostinger (VPS)](#hostinger-vps)
-- [Vercel (Next.js)](#vercel)
+- [Vercel (NextJS)](#vercel)
+
+<!-- Look at cloud options AWS/Azure-->
 
 ## Decision Outcome
 
