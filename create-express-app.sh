@@ -1,5 +1,7 @@
 #!/bin/bash
 
+PORT=3002
+
 # Check if a project name was provided
 if [ -z "$1" ]; then
   echo "Please provide a project name."
@@ -36,7 +38,7 @@ cat <<EOT > tsconfig.json
     "noImplicitAny": true,
     "strictNullChecks": true,
     "strictFunctionTypes": true,
-    "noImplicitThis": true,
+    "noImplicitThis": true
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"]
@@ -49,7 +51,7 @@ touch src/index.ts
 touch .env
 
 # Populate .env file with a default PORT variable
-echo "PORT=3000" > .env
+echo "PORT=$PORT" > .env
 
 # Create .gitignore file
 echo "node_modules/
@@ -65,7 +67,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || $PORT;
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Hello, world!');
@@ -79,5 +81,40 @@ app.listen(PORT, () => {
 # Add start scripts to package.json
 jq '.scripts.build = "tsc" | .scripts.start = "node dist/index.js" | .scripts.dev = "ts-node src/index.ts"' package.json > temp.json && mv temp.json package.json
 
-echo "Express app with TypeScript, dotenv, .gitignore, and tsconfig setup complete."
-echo "Use 'npm run dev' to start the development server."
+# Create Dockerfile
+cat <<EOT > Dockerfile
+# Base Image
+FROM node:14-alpine
+
+WORKDIR /usr/app
+# install dependencies
+COPY ./package.json ./
+RUN npm install
+COPY ./ ./
+
+# Default command
+CMD ["npm", "start"]
+EOT
+
+# Create docker-compose.yml file
+cat <<EOT > docker-compose.yml
+version: "3.8"
+services:
+  app:
+    build: .
+    ports:
+      - "$PORT:$PORT"
+    volumes:
+      - .:/usr/src/app
+    environment:
+      - NODE_ENV=development
+      - PORT=$PORT
+EOT
+
+# Create .dockerignore file
+cat <<EOT > .dockerignore
+/src
+EOT
+
+echo "Express app with TypeScript, dotenv, Docker, and Docker Compose setup complete."
+echo "Use 'docker-compose up --build' to start the server in a Docker container, or 'npm run dev' for local development."
