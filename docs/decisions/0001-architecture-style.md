@@ -25,11 +25,11 @@ decision-makers: { Ahmed Sulaimon, Ayman Sammo, Nayan Stanley }
 
 - **Positive:** It is minimal which makes it faster to share.
 - **Positive:** it's loosely coupled.
-- **Positive:** it's simplier because it uses just APIs.
+- **Positive:** it's simpler because it uses just APIs.
 - **Positive:** Scalable.
 - **Negative:** Require more data governance.
 - **Negative:** it expensive to operate/host.
-- **Negative:** More complex than Three-Layer Archicture.
+- **Negative:** More complex than Three-Layer Architecture.
 
 ### Confirmation
 
@@ -61,8 +61,8 @@ decision-makers: { Ahmed Sulaimon, Ayman Sammo, Nayan Stanley }
   - Simpler since they just use APIs to communicate.
   - Easier fault isolation since services are smaller than SOA.
 - **Cons:**
-  - Conistent data governance is more difficult.
-  - More complex than Three-Layer Archicture.
+  - Consistent data governance is more difficult.
+  - More complex than Three-Layer Architecture.
   - Can be expensive to host.
 
 <a name="three-layer-architecture"></a>
