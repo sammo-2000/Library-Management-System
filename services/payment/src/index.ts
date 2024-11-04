@@ -6,7 +6,7 @@ import express, { Request, Response } from "express";
 import { env } from "./types/envTypes";
 
 const app = express();
-const PORT = env.Port;
+const PORT = env.PORT;
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Calling /");
@@ -15,5 +15,3 @@ app.get("/", (req: Request, res: Response) => {
 app.listen(PORT, () => {
   console.log();
 });
-
-
