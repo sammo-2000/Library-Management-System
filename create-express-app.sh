@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PORT=3002
+PORT=3001
 
 # Check if a project name was provided
 if [ -z "$1" ]; then
@@ -17,7 +17,7 @@ mkdir "$PROJECT_NAME" && cd "$PROJECT_NAME"
 npm init -y
 
 # Install Express, dotenv, and TypeScript dependencies
-npm install express dotenv
+npm install express dotenv zod
 npm install -D typescript ts-node @types/node @types/express
 
 # Initialize TypeScript configuration
@@ -57,26 +57,43 @@ echo "PORT=$PORT" > .env
 echo "node_modules/
 dist/
 .env
+.DS_Store
 " > .gitignore
 
 # Add dotenv config and a simple Express server to src/index.ts
-echo "import express, { Request, Response } from 'express';
-import dotenv from 'dotenv';
-
-// Load environment variables
+echo '// Load environment variables
+import dotenv from "dotenv";
 dotenv.config();
 
-const app = express();
-const PORT = process.env.PORT || $PORT;
+import express, { Request, Response } from "express";
+import { env } from "./types/envTypes";
 
-app.get('/', (req: Request, res: Response) => {
-  res.send('Hello, world!');
+const app = express();
+const PORT = env.Port;
+
+app.get("/", (req: Request, res: Response) => {
+  res.send("Calling /");
 });
 
 app.listen(PORT, () => {
-  console.log(\`Server is running on http://localhost:\${PORT}\`);
+  console.log();
 });
-" > src/index.ts
+
+' > src/index.ts
+
+# Create a types folder and add a file for environment variables
+mkdir src/types
+touch src/types/envTypes.ts
+
+echo 'import { z } from "zod";
+
+export const envSchema = z.object({
+  PORT: z.string().min(1),
+});
+
+export const env = envSchema.parse(process.env);
+
+' > src/types/envTypes.ts
 
 # Add start scripts to package.json
 jq '.scripts.build = "tsc" | .scripts.start = "node dist/index.js" | .scripts.dev = "ts-node src/index.ts"' package.json > temp.json && mv temp.json package.json

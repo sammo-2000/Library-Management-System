@@ -1,16 +1,19 @@
-import express, { Request, Response } from "express";
-import dotenv from "dotenv";
-
 // Load environment variables
+import dotenv from "dotenv";
 dotenv.config();
 
+import express, { Request, Response } from "express";
+import { env } from "./types/envTypes";
+
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = env.Port;
 
 app.get("/", (req: Request, res: Response) => {
-  res.send("Test");
+  res.send("Calling /");
 });
 
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+  console.log();
 });
+
+
