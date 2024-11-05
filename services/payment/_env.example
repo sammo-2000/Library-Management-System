@@ -1,0 +1,15 @@
+# Base URL which the website is hosted on
+BASE_URL=""
+
+# URL which user will be redirected to after successful payment
+SUCCESS_URL=""
+
+# URL which user will be redirected to after failed payment
+CANCEL_URL=""
+
+# Price for year and monthly subscription (In pence)
+YEAR_PRICE=""
+MONTH_PRICE=""
+
+# Stripe secret key
+SECRET_KEY=""
