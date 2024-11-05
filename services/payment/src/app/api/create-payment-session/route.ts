@@ -35,5 +35,8 @@ export async function POST(request: NextRequest) {
   }
 
   // Return payment session ID to user
-  return NextResponse.json({ message: session }, { status: 201 });
+  return NextResponse.json(
+    { type: "Success", message: session },
+    { status: 201 }
+  );
 }

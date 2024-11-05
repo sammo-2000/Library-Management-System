@@ -39,11 +39,7 @@ const items = [
 
 export function AppSidebar() {
   return (
-    <Sidebar variant="floating">
-      <SidebarHeader>
-        <span className="text-center font-bold">Library Managment System</span>
-      </SidebarHeader>
-
+    <Sidebar variant="floating" collapsible="icon">
       <SidebarContent className="p-2">
         {items.map((item) => (
           <SidebarMenuItem key={item.title}>
@@ -56,14 +52,6 @@ export function AppSidebar() {
           </SidebarMenuItem>
         ))}
       </SidebarContent>
-
-      <SidebarFooter className="flex-row items-center">
-        <Avatar>
-          <AvatarImage src="https://github.com/shadcn.png" />
-          <AvatarFallback>CN</AvatarFallback>
-        </Avatar>
-        <span className="font-bold">John</span>
-      </SidebarFooter>
     </Sidebar>
   );
 }

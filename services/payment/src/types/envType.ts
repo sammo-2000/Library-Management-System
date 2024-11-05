@@ -1,4 +1,4 @@
-import { number, z } from "zod";
+import { z } from "zod";
 
 export const envSchema = z.object({
   BASE_URL: z.string().min(1),
