@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PORT=3001
+PORT=3002
 
 # Check if a project name was provided
 if [ -z "$1" ]; then
