@@ -28,8 +28,8 @@ export default function PaymentFailPage() {
             Payment Failed!
           </CardTitle>
           <CardDescription>
-            We're sorry, but there was an issue processing your payment. Please
-            try again.
+            We&apos;re sorry, but there was an issue processing your payment.
+            Please try again.
           </CardDescription>
         </CardHeader>
         <CardFooter className="justify-center">

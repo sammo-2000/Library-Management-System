@@ -2,8 +2,8 @@ import { Calendar, Home, Inbox, Search, Settings } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
   SidebarHeader,
+  SidebarFooter,
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
@@ -52,6 +52,13 @@ export function AppSidebar() {
           </SidebarMenuItem>
         ))}
       </SidebarContent>
+
+      <SidebarFooter>
+        <Avatar>
+          <AvatarImage src="https://github.com/shadcn.png" />
+          <AvatarFallback>CN</AvatarFallback>
+        </Avatar>
+      </SidebarFooter>
     </Sidebar>
   );
 }
