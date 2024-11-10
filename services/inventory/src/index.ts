@@ -7,7 +7,7 @@ import { env } from './types/envTypes';
 
 
 // Parse the env variable as int to fix type error
-const PORT = parseInt(env.PORT);
+const PORT = env.PORT;
 
 // Start the server
 const app = new App(PORT);
