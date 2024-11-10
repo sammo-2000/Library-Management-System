@@ -1,0 +1,25 @@
+version: "3.8"
+
+services:
+  postgress:
+    image: postgres:15-alpine
+    # Can give any name to the container
+    container_name: postgres_inventory
+    restart: always
+    ports:
+      - "${DB_PORT}:5432"
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - mo_co_connection
+
+volumes:
+  postgres_data:
+
+networks:
+  mo_co_connection:
+    driver: bridge

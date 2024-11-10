@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PORT=3002
+PORT=3004
 
 # Check if a project name was provided
 if [ -z "$1" ]; then
@@ -88,7 +88,7 @@ touch src/types/envTypes.ts
 echo 'import { z } from "zod";
 
 export const envSchema = z.object({
-  PORT: z.string().min(1),
+  PORT: z.coerce.number().min(1),
 });
 
 export const env = envSchema.parse(process.env);
