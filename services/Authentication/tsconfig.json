@@ -1,7 +1,8 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "module": "commonjs",
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "node",
     "rootDir": "./src",
     "outDir": "./dist",
     "strict": true,
@@ -11,8 +12,9 @@
     "noImplicitAny": true,
     "strictNullChecks": true,
     "strictFunctionTypes": true,
-    "noImplicitThis": true
+    "noImplicitThis": true,
+    
   },
-  "include": ["src/**/*"],
+  "include": ["./src/**/*.ts", "src/app/api/server.ts"],
   "exclude": ["node_modules", "dist"]
 }

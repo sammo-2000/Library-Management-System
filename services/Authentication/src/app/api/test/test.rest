@@ -1,0 +1,25 @@
+###
+GET http://localhost:3002/accounts
+
+###
+POST http://localhost:3002/register
+Content-Type: application/json
+
+{
+    "username": "steve999",
+    "password": "stevessmith09",
+    "user_role": "Member",
+    "first_name": "steve",
+    "last_name": "Smith",  
+     "email": "jamessmith100"
+}
+
+###
+POST http://localhost:3002/signin
+Content-Type: application/json
+
+{
+   "email": "jamessmith100@outlook.com",
+   "password": "jamessmith09"
+   
+}
