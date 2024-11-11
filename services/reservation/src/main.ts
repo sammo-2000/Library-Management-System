@@ -6,6 +6,8 @@ import { env } from './types/env.type';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.enableCors();
+  app.setGlobalPrefix('api');
   await app.listen(env.PORT);
 }
 
