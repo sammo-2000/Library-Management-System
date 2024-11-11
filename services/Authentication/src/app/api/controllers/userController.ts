@@ -34,6 +34,7 @@ export const addUser = async(req: Request, res: Response) => {
     if (err instanceof z.ZodError) {
         // Return a 400 response with the validation errors
          res.status(400).json({ errors: err.errors });
+         return;
       }
        console.log(err)
        res.sendStatus(500)

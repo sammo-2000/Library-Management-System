@@ -8,6 +8,7 @@ export const envSchema = z.object({
   PASSWORD:z.string().min(1),
   DATABASE:z.string().min(1),
   JWT_SECRET : z.string().min(1),
+  STAGE:z.string().min(1)
 });
 
 export const env = envSchema.parse(process.env);
