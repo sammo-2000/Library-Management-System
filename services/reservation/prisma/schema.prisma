@@ -1,0 +1,20 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Reservation {
+  id              String    @id @default(uuid())
+  mediaId         String
+  accountId       String
+  branchId        String
+  notifcationSent DateTime?
+  reservedAt      DateTime
+  collectedAt     DateTime?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+}
