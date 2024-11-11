@@ -32,27 +32,12 @@ const secret_token = env.JWT_SECRET
 // Updated authorizeRoles middleware to allow only 'admin' access
 export function authorizeRoles(req: Request, res: Response, next: NextFunction) {
     const user = req.body.user;
-
-    if (!user || user.userole !== 'Admin') {
+    //console.log(`test --${user.role}`)
+    if (!user || user.role !== "Admin") {
         res.status(403).json({ error: 'Forbidden: Admin access only' });
         return;
     }
     next();
 }
-
-
-// export function authorizeRoles(...allowedRoles: string[]) {
-//     return (req: Request, res: Response, next: NextFunction) => {
-//         const user = req.body.user;
-
-//         if (!user || !allowedRoles.includes(user.user_role)) {
-//              res.status(403).json({ error: 'Forbidden: Insufficient permissions' });
-//              return
-//         }
-//         next();
-//     };
-// }
- 
-
 
 

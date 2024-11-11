@@ -1,4 +1,4 @@
-// src/controllers/userController.ts
+// // src/controllers/userController.ts
 
 import { Request, Response, NextFunction } from 'express';
 import pool from '../config/db.js';
@@ -57,7 +57,7 @@ export const signIn = async (req: Request, res: Response) => {
               secret_token,
               { expiresIn: '1h' }
           );
-
+         // console.log(user.user_role)
           res.status(200).json({ message: 'Sign-in successful', token });
       } else {
           res.status(401).json({ error: 'Invalid email or password' });
@@ -128,3 +128,4 @@ export const accounts = async (req: Request, res: Response) => {
       res.status(500).json({ error: 'Internal Server Error' });
   }
 }
+

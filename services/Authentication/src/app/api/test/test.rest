@@ -6,12 +6,12 @@ POST http://localhost:3002/register
 Content-Type: application/json
 
 {
-    "username": "john",
+    "username": "dave3456",
     "password": "test123",
-    "user_role": "Admin",
-    "first_name": "john",
-    "last_name": "lewis",  
-     "email": "johnlewis20@gmail.com"
+    "user_role": "Member",
+    "first_name": "dave",
+    "last_name": "chapelle",  
+     "email": "davechapelle20@gmail.com"
 }
 
 ###
@@ -23,3 +23,6 @@ Content-Type: application/json
    "password": "test123"
    
 }
+//member email - johnlewis20@gmail.com
+//admin email - davechapelle20@gmail.com
+//password - test123
