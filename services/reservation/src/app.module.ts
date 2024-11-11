@@ -1,12 +1,11 @@
 import { Module } from '@nestjs/common';
-import { ReservationModule } from './reservation/reservation.module';
 import { DatabaseModule } from './database/database.module';
 import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
+import { ReservationModule } from './reservation/reservation.module';
 
 @Module({
   imports: [
-    ReservationModule,
     DatabaseModule,
     ThrottlerModule.forRoot([
       {
@@ -20,6 +19,7 @@ import { APP_GUARD } from '@nestjs/core';
         limit: 100,
       },
     ]),
+    ReservationModule,
   ],
   controllers: [],
   providers: [

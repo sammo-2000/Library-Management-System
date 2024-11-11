@@ -9,27 +9,17 @@ import {
   Query,
 } from '@nestjs/common';
 import { ReservationService } from './reservation.service';
-import { Prisma } from '@prisma/client';
-import { PipeTransform, Injectable, BadRequestException } from '@nestjs/common';
+import { CreateReservationDto } from './dto/create-reservation.dto';
+import { UpdateReservationDto } from './dto/update-reservation.dto';
 import { QueryType } from 'src/types/query.type';
-
-@Injectable()
-export class OptionalParseBoolPipe implements PipeTransform {
-  transform(value: any) {
-    if (value === undefined) return undefined;
-    if (value === 'true' || value === 'false') return value === 'true';
-    throw new BadRequestException(
-      'Validation failed (boolean string is expected)',
-    );
-  }
-}
+import { OptionalParseBoolPipe } from 'src/optional-parse-bool-pipe/optional-parse-bool-pipe';
 
 @Controller('reservation')
 export class ReservationController {
   constructor(private readonly reservationService: ReservationService) {}
 
   @Post()
-  create(@Body() createReservationDto: Prisma.ReservationCreateInput) {
+  create(@Body() createReservationDto: CreateReservationDto) {
     return this.reservationService.create(createReservationDto);
   }
 
@@ -60,7 +50,7 @@ export class ReservationController {
   @Patch(':id')
   update(
     @Param('id') id: string,
-    @Body() updateReservationDto: Prisma.ReservationUpdateInput,
+    @Body() updateReservationDto: UpdateReservationDto,
   ) {
     return this.reservationService.update(id, updateReservationDto);
   }
