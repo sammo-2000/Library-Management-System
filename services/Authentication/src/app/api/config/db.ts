@@ -1,18 +1,25 @@
 // src/config/db.ts
-//const { Pool } = await import('pg');
 
 import dotenv from "dotenv";
- dotenv.config(); 
-// import { env } from "../../../types/envTypes.js"
-
+dotenv.config(); 
+//import { env } from "../../../types/envTypes.js"
 import pkg from 'pg';
 const { Pool } = pkg;
 
-// const pool = new Pool({
-//   connectionString: process.env.DATABASE_URL,
-// });
 
-//const host = env.HOST
+// const db_host = env.HOST
+// const db_port = env.DB_PORT
+// const db_user = env.USER
+// const db_password = env.PASSWORD
+// const db = env.DATABASE
+
+// const pool = new Pool({
+//   host: db_host,
+//   port: db_port,
+//   user: db_user,
+//   password: db_password,
+//   database: db,
+// });
 
 const pool = new Pool({
     host: process.env.DB_HOST || 'localhost',

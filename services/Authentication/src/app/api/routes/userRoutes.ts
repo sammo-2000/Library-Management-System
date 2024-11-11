@@ -11,7 +11,8 @@ const app = express();
 app.use(express.json())
 
 
-app.get('/accounts', authenticateToken, authorizeRoles('admin', 'manager'), accounts);
+//app.get('/accounts', authenticateToken, authorizeRoles('admin', 'manager'), accounts);
+app.get('/accounts', authenticateToken, authorizeRoles, accounts);
 
 //create users table
 app.get('/create-users-table', createTable)

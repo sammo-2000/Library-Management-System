@@ -3,13 +3,13 @@ import jwt from 'jsonwebtoken';
 import dotenv from "dotenv";
 dotenv.config(); 
 
-import { env } from "../../../types/envTypes"
+import { env } from "../../../types/envTypes.js"
 
 // import crypto from 'crypto';
 // console.log(crypto.randomBytes(64).toString('hex'));
 
 
-const secret_token = env.JWT_SECRET;
+const secret_token = env.JWT_SECRET
 
 // Middleware to create a protected route
  export function authenticateToken(req: Request, res: Response, next: NextFunction) {
@@ -29,17 +29,29 @@ const secret_token = env.JWT_SECRET;
     });
 }
 
-export function authorizeRoles(...allowedRoles: string[]) {
-    return (req: Request, res: Response, next: NextFunction) => {
-        const user = req.body.user;
+// Updated authorizeRoles middleware to allow only 'admin' access
+export function authorizeRoles(req: Request, res: Response, next: NextFunction) {
+    const user = req.body.user;
 
-        if (!user || !allowedRoles.includes(user.user_role)) {
-             res.status(403).json({ error: 'Forbidden: Insufficient permissions' });
-             return
-        }
-        next();
-    };
+    if (!user || user.userole !== 'Admin') {
+        res.status(403).json({ error: 'Forbidden: Admin access only' });
+        return;
+    }
+    next();
 }
+
+
+// export function authorizeRoles(...allowedRoles: string[]) {
+//     return (req: Request, res: Response, next: NextFunction) => {
+//         const user = req.body.user;
+
+//         if (!user || !allowedRoles.includes(user.user_role)) {
+//              res.status(403).json({ error: 'Forbidden: Insufficient permissions' });
+//              return
+//         }
+//         next();
+//     };
+// }
  
 
 

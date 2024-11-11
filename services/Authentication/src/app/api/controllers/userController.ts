@@ -2,7 +2,7 @@
 
 import { Request, Response, NextFunction } from 'express';
 import pool from '../config/db.js';
-import { UserSchema } from '../models/user';
+import { UserSchema } from '../models/user.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { z } from 'zod';
@@ -90,10 +90,17 @@ export const dropUsersTable =  async (req: Request, res: Response) => {
 
 export const accounts = async (req: Request, res: Response) => {
   const { accountId, firstName, lastName, email } = req.query;
+ // const { user_role, user_id } = req.body.user;
 
   // Start building the query
   let baseQuery = 'SELECT * FROM users WHERE 1=1';
   const queryParams: any[] = [];
+
+//   if (user_role === 'Admin') {
+//     // Restrict to accounts related to this Admin (adjust condition based on schema)
+//     baseQuery += ' AND admin_id = $' + (queryParams.length + 1);
+//     queryParams.push(user_id);
+// }
 
   // Check each parameter and add to query if it’s provided
   if (accountId) {
