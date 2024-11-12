@@ -2,7 +2,8 @@
 
 cd services
 
-cd Authentication
-npm run build
-docker compose -f docker-compose.yml up -d
+cd reservation
+echo "PORT=\"3004\"" >> .env
+echo "DATABASE_URL=file:./reservation.db" >> .env
+docker compose up -d
 cd ../
