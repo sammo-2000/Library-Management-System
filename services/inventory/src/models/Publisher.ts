@@ -1,10 +1,10 @@
 import { DataTypes, Model, Sequelize } from 'sequelize';
 
-export default class Author extends Model {
+export default class Publisher extends Model {
 
   // Define model fields and their types
   public static initModel(sequelize: Sequelize) {
-    Author.init({
+    Publisher.init({
       id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -16,8 +16,8 @@ export default class Author extends Model {
       }
     }, {
       sequelize,
-      modelName: 'Author',
-      tableName: 'Authors',
+      modelName: 'Publisher',
+      tableName: 'Publishers',
       timestamps: false,
     });
   }

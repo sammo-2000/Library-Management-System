@@ -12,7 +12,11 @@ export class MediaController {
   }
 
   public async getMedia(req: Request, res: Response) {
-    const media = await this.mediaService.getMedia();
-    res.json(media);
+    try {
+      const media = await this.mediaService.getMedia(req.query);
+      res.json(media);
+    } catch (error: any) {
+      res.status(500).json({ message: error.message });
+    }
   }
 }

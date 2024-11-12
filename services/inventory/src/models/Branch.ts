@@ -10,7 +10,7 @@ export default class Branch extends Model {
         autoIncrement: true,
         primaryKey: true,
       },
-      branch: {
+      name: {
         type: DataTypes.STRING,
         allowNull: false,
       }
