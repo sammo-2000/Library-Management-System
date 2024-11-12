@@ -1,6 +1,6 @@
 // src/routes/userRoutes.ts
 import express from 'express';
-import { addUser, signIn, accounts, createTable, dropUsersTable } from '../controllers/userController.js';
+import { addUser, signIn, accounts, createTable, dropUsersTable, getUserRole } from '../controllers/userController.js';
 import {authenticateToken, authorizeRoles} from '../middleware/tokenVerification.js'
 import dotenv from "dotenv";
 dotenv.config(); 
@@ -16,15 +16,19 @@ app.get('/accounts', authenticateToken, authorizeRoles, accounts);
 
 //create users table
 app.get('/create-users-table', createTable)
+
 // Endpoint to drop the users table
 if (stage === 'development') 
     {
        app.delete('/drop-users-table', dropUsersTable);
     }
 
+//get user role
+app.get('/user-role', authenticateToken, getUserRole);
 
 //user registration
 app.post('/register', addUser);
+
 //Sign in
 app.post('/signin', signIn);
 

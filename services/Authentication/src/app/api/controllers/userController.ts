@@ -68,6 +68,13 @@ export const signIn = async (req: Request, res: Response) => {
   }
 }
 
+export const getUserRole = async (req: Request, res: Response) => {
+   
+    // If authenticated, return user role
+    const userRole = req.body.user.role;
+    res.status(200).json({ role: userRole });
+};
+
 export const createTable = async (req: Request, res: Response) => {
   try {
      await pool.query('CREATE TABLE users (id SERIAL PRIMARY KEY,username VARCHAR(50) UNIQUE NOT NULL,password VARCHAR(100) NOT NULL,user_role VARCHAR(20) NOT NULL,first_name VARCHAR(50),last_name VARCHAR(50), email VARCHAR(100) UNIQUE NOT NULL,created_at TIMESTAMP DEFAULT NOW())')
@@ -95,12 +102,6 @@ export const accounts = async (req: Request, res: Response) => {
   // Start building the query
   let baseQuery = 'SELECT * FROM users WHERE 1=1';
   const queryParams: any[] = [];
-
-//   if (user_role === 'Admin') {
-//     // Restrict to accounts related to this Admin (adjust condition based on schema)
-//     baseQuery += ' AND admin_id = $' + (queryParams.length + 1);
-//     queryParams.push(user_id);
-// }
 
   // Check each parameter and add to query if it’s provided
   if (accountId) {
