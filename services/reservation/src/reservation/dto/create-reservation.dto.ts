@@ -1,13 +1,21 @@
-import { IsDateString, IsNotEmpty, IsOptional } from 'class-validator';
+import {
+  IsDateString,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 
 export class CreateReservationDto {
   @IsNotEmpty()
+  @IsString()
   mediaId: string;
 
   @IsNotEmpty()
+  @IsString()
   accountId: string;
 
   @IsNotEmpty()
+  @IsString()
   branchId: string;
 
   @IsOptional()
