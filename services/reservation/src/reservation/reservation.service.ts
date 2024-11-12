@@ -54,7 +54,7 @@ export class ReservationService {
     });
 
     if (media.length === 0) {
-      throw new NotFoundException('Media not found');
+      throw new NotFoundException('Reservation(s) not found');
     }
 
     return media;
@@ -110,6 +110,8 @@ export class ReservationService {
       throw new UnauthorizedException(
         'This reservation does not belong to you',
       );
+
+    await this.findOne(id); // Error handled by findOne
 
     return await this.databaseService.reservation.delete({
       where: {
