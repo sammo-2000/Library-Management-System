@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Injectable,
   NotFoundException,
   UnauthorizedException,
@@ -86,12 +87,15 @@ export class ReservationService {
       throw new UnauthorizedException('Unauthorized to update reservation');
 
     // Make sure reservation exist before updating
-    await this.findOne(id, userId, role); // Error handled by findOne
+    const reservation = await this.findOne(id, userId, role); // Error handled by findOne
 
     const { notificationSent, collected } = updateReservationDto;
 
     // Updating notification sent
     if (notificationSent) {
+      if (reservation.notificationSent)
+        throw new BadRequestException('Notification already sent');
+
       return this.databaseService.reservation.update({
         where: {
           id,
@@ -104,6 +108,9 @@ export class ReservationService {
 
     // Updating notification sent
     if (collected) {
+      if (reservation.collectedAt)
+        throw new BadRequestException('Item already collected');
+
       return this.databaseService.reservation.update({
         where: {
           id,
