@@ -31,7 +31,7 @@ export class ReservationService {
   }
 
   async findAll(query: QueryType, userId: string, role: Role) {
-    const media = await this.databaseService.reservation.findMany({
+    const reservation = await this.databaseService.reservation.findMany({
       where: {
         mediaId: query.mediaId,
         // If is user only return item belong to them
@@ -52,11 +52,11 @@ export class ReservationService {
       },
     });
 
-    if (media.length === 0) {
+    if (reservation.length === 0) {
       throw new NotFoundException('Reservation(s) not found');
     }
 
-    return media;
+    return reservation;
   }
 
   async findOne(id: string, userId: string, role: Role) {
@@ -71,7 +71,7 @@ export class ReservationService {
     if (!reservation) throw new NotFoundException('Reservation not found');
 
     if (role === 'USER' && reservation.accountId !== userId)
-      throw new UnauthorizedException('Reservation(s) not found');
+      throw new UnauthorizedException('Reservation not found');
 
     return reservation;
   }
@@ -125,12 +125,10 @@ export class ReservationService {
         'This reservation does not belong to you, cannot delete',
       );
 
-    // Make sure reservation exist before deleting
-    await this.findOne(id, userId, role); // Error handled by findOne
-
     return this.databaseService.reservation.delete({
       where: {
         id,
+        accountId: role === 'USER' ? userId : undefined,
       },
     });
   }
