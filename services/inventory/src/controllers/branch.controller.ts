@@ -16,7 +16,7 @@ export class BranchController {
       const branches = await this.branchService.getBranches();
       res.json(branches);
     } catch (error: any) {
-      res.status(500).json({ message: error.message });
+      res.status(error.statusCode || 500).json({ message: error.message });
     }
   }
 }

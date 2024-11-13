@@ -17,7 +17,7 @@ export class PublisherController {
         res.json(publishers);
     }
     catch(error: any){
-        res.status(500).json({ message: error.message });
+        res.status(error.statusCode || 500).json({ message: error.message });
     }
   }
 }

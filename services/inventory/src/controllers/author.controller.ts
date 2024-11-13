@@ -16,7 +16,7 @@ export class AuthorController {
       const authors = await this.authorService.getAuthors();
       res.json(authors);
     } catch (error: any) {
-      res.status(500).json({ message: error.message });
+      res.status(error.statusCode || 500).json({ message: error.message });
     }
   }
 }
