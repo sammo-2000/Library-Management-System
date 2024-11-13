@@ -39,6 +39,10 @@ class App {
 
     const cityRoutes = new CityRoutes();
     this.app.use('/api/cities', cityRoutes.router);
+
+    this.app.use((req, res) => {
+      res.status(404).send('Not found');
+    });
   }
 
   public start() {
