@@ -22,10 +22,6 @@ export class CreateReservationDto {
   @IsDateString()
   notificationSent: Date | null;
 
-  @IsNotEmpty()
-  @IsDateString()
-  reservedAt: Date;
-
   @IsOptional()
   @IsDateString()
   collectedAt: Date | null;

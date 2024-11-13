@@ -13,7 +13,7 @@ model Reservation {
   accountId        String
   branchId         String
   notificationSent DateTime?
-  reservedAt       DateTime
+  reservedAt       DateTime  @default(now())
   collectedAt      DateTime?
   createdAt        DateTime  @default(now())
   updatedAt        DateTime  @updatedAt
