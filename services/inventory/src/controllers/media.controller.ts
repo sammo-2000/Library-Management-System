@@ -16,7 +16,7 @@ export class MediaController {
       const media = await this.mediaService.getMedia(req.query);
       res.json(media);
     } catch (error: any) {
-      res.status(500).json({ message: error.message });
+      res.status(error.statusCode || 500).json({ message: error.message });
     }
   }
 }

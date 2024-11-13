@@ -3,6 +3,7 @@ import Media from '../models/Media';
 import Author from '../models/Author';
 import Genre from '../models/Genre';
 import Publisher from '../models/Publisher';
+import { BadRequestError } from '../errors';
 
 //Business Logic Layer
 
@@ -21,10 +22,10 @@ export class MediaService {
     // Handle page query parameter for pagination
     const page = query.page ? parseInt(query.page as string, 10) : 1;
     if (isNaN(page)) {
-      throw new Error('Query parameter "page" should be a number');
+      throw new BadRequestError('Query parameter "page" should be a number');
     }
     if (page < 1) {
-      throw new Error('Query parameter "page" should be a positive number');
+      throw new BadRequestError('Query parameter "page" should be a positive number');
     }
 
     //20 items per page
