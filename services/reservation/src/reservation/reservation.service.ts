@@ -7,36 +7,35 @@ import { CreateReservationDto } from './dto/create-reservation.dto';
 import { UpdateReservationDto } from './dto/update-reservation.dto';
 import { DatabaseService } from 'src/database/database.service';
 import { QueryType } from 'src/types/query.type';
+import { Role } from '../types/role.type';
 
 @Injectable()
 export class ReservationService {
   constructor(private readonly databaseService: DatabaseService) {}
 
-  async create(createReservationDto: CreateReservationDto) {
-    // TODO: Implement this
-    // Check if is admin or user
-    // Check user only allow to make reservation for themselves
-    // If admin allow to make reservation for others
-    if (false)
+  async create(
+    createReservationDto: CreateReservationDto,
+    userId: string,
+    role: Role,
+  ) {
+    // User only allowed to make reservation for them self
+    // Admin allowed to make reservation for anyone
+    if (role === 'USER' && createReservationDto.accountId !== userId)
       throw new UnauthorizedException(
         'You are not allowed to make reservation on behalf of others',
       );
 
-    return await this.databaseService.reservation.create({
+    return this.databaseService.reservation.create({
       data: createReservationDto,
     });
   }
 
-  async findAll(query: QueryType) {
-    // TODO: Implement this
-    // Check if is admin or user
-    // Check user only return the one belong to them
-    // If admin return all
-
+  async findAll(query: QueryType, userId: string, role: Role) {
     const media = await this.databaseService.reservation.findMany({
       where: {
         mediaId: query.mediaId,
-        accountId: query.accountId,
+        // If is user only return item belong to them
+        accountId: role === 'USER' ? userId : query.accountId,
         branchId: query.branchId,
         notificationSent:
           query.notified === undefined
@@ -60,19 +59,12 @@ export class ReservationService {
     return media;
   }
 
-  async findOne(id: string) {
-    // TODO: Implement this
-    // Check if is admin or user
-    // Check user only return the one belong to them
-    // If admin return any
-    if (false)
-      throw new UnauthorizedException(
-        'This reservation does not belong to you',
-      );
-
-    const reservation = await this.databaseService.reservation.findUnique({
+  async findOne(id: string, userId: string, role: Role) {
+    const reservation = this.databaseService.reservation.findUnique({
       where: {
         id,
+        // If it is user, only return one belong to them
+        accountId: role === 'USER' ? userId : undefined,
       },
     });
 
@@ -81,39 +73,59 @@ export class ReservationService {
     return reservation;
   }
 
-  async update(id: string, updateReservationDto: UpdateReservationDto) {
-    // TODO: Implement this
-    // Check if is admin or user
-    // Check user, do not allow (Must go to reception to collect)
-    // If admin allow
-    if (false)
+  async update(
+    id: string,
+    updateReservationDto: UpdateReservationDto,
+    userId: string,
+    role: Role,
+  ) {
+    if (role === 'USER')
       throw new UnauthorizedException('Unauthorized to update reservation');
 
-    await this.findOne(id); // Error handled by findOne
+    // Make sure reservation exist before updating
+    await this.findOne(id, userId, role); // Error handled by findOne
 
-    const updatedReservation = await this.databaseService.reservation.update({
-      where: {
-        id,
-      },
-      data: updateReservationDto,
-    });
+    const { notificationSent, collected } = updateReservationDto;
 
-    return updatedReservation;
+    // Updating notification sent
+    if (notificationSent) {
+      return this.databaseService.reservation.update({
+        where: {
+          id,
+        },
+        data: {
+          notificationSent: new Date().toISOString(),
+        },
+      });
+    }
+
+    // Updating notification sent
+    if (collected) {
+      return this.databaseService.reservation.update({
+        where: {
+          id,
+        },
+        data: {
+          collectedAt: new Date().toISOString(),
+        },
+      });
+    }
   }
 
-  async remove(id: string) {
-    // TODO: Implement this
-    // Check if is admin or user
-    // Check user only allow to delete their own
-    // If admin allow to delete any
-    if (false)
+  async remove(id: string, userId: string, role: Role) {
+    const reservation = await this.findOne(id, userId, role); // Error handled by findOne
+
+    // User only delete their reservation
+    // Admin can delete all reservation
+    if (reservation.accountId !== userId && role === 'USER')
       throw new UnauthorizedException(
-        'This reservation does not belong to you',
+        'This reservation does not belong to you, cannot delete',
       );
 
-    await this.findOne(id); // Error handled by findOne
+    // Make sure reservation exist before deleting
+    await this.findOne(id, userId, role); // Error handled by findOne
 
-    return await this.databaseService.reservation.delete({
+    return this.databaseService.reservation.delete({
       where: {
         id,
       },
