@@ -22,10 +22,10 @@ export class MediaService {
     // Handle page query parameter for pagination
     const page = query.page ? parseInt(query.page as string, 10) : 1;
     if (isNaN(page)) {
-      throw new BadRequestError('Query parameter "page" should be a number');
+      throw new BadRequestError('Query parameter page should be a number');
     }
     if (page < 1) {
-      throw new BadRequestError('Query parameter "page" should be a positive number');
+      throw new BadRequestError('Query parameter page should be a positive number');
     }
 
     //20 items per page
