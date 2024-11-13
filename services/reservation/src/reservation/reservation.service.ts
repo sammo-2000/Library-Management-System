@@ -60,7 +60,7 @@ export class ReservationService {
   }
 
   async findOne(id: string, userId: string, role: Role) {
-    const reservation = this.databaseService.reservation.findUnique({
+    const reservation = await this.databaseService.reservation.findUnique({
       where: {
         id,
         // If it is user, only return one belong to them
@@ -69,6 +69,9 @@ export class ReservationService {
     });
 
     if (!reservation) throw new NotFoundException('Reservation not found');
+
+    if (role === 'USER' && reservation.accountId !== userId)
+      throw new UnauthorizedException('Reservation(s) not found');
 
     return reservation;
   }
