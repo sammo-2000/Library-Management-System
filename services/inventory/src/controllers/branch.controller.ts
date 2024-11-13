@@ -19,4 +19,13 @@ export class BranchController {
       res.status(error.statusCode || 500).json({ message: error.message });
     }
   }
+
+  public async getBranchesInCity(req: Request, res: Response) {
+    try {
+      const branches = await this.branchService.getBranchesInCity(req.params.id);
+      res.json(branches);
+    } catch (error: any) {
+      res.status(error.statusCode || 500).json({ message: error.message });
+    }
+  }
 }
