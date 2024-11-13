@@ -18,9 +18,19 @@ export class MediaService {
       }
     });
 
+    // Handle page query parameter for pagination
+    const page = query.page ? parseInt(query.page as string, 10) : 1;
+
+    //20 items per page
+    const limit = 20;
+    const offset = (page - 1) * limit;
+
     return await Media.findAll({
       where: filters,
       include: [Author, Genre, Publisher],
+      attributes: { exclude: ['authorId', 'genreId', 'publisherId', 'createdAt', 'updatedAt'] },
+      limit,
+      offset
     });
   }
 }
