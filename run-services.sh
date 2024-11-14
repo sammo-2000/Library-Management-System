@@ -13,6 +13,8 @@ echo "JWT_SECRET=d62f8bfa4c62a2dcc860d7a424dbc9859dba0bf204f3f0dbfab900361474c36
 echo "STAGE=development" >> .env
 npm run build
 docker compose -f docker-compose.yml up -d
+cd ../
+
 cd reservation
 if [ -f .env ]; then
     rm .env
@@ -22,7 +24,7 @@ echo "DATABASE_URL=file:./reservation.db" >> .env
 docker compose up -d
 cd ../
 
-cd borrowing
+cd borrow
 if [ -f .env ]; then
     rm .env
 fi
