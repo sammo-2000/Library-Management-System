@@ -21,6 +21,10 @@ export default class Media extends Model {
       description: {
         type: DataTypes.TEXT,
         allowNull: false,
+      },
+      publishedDate:{
+        type: DataTypes.DATEONLY,
+        allowNull: false,
       }
     }, {
       sequelize,

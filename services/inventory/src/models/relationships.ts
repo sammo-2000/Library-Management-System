@@ -3,34 +3,34 @@ import Branch from "./Branch";
 import City from "./City";
 import Genre from "./Genre";
 import Media from "./Media";
+import Publisher from "./Publisher";
 
 // Define model relationships
 export default function defineModelRelationships() {
-    Media.hasOne(Author, {
-    foreignKey: 'authorId',
-    });
-    Author.hasMany(Media, {
-    foreignKey: 'authorId',
+    Author.hasMany(Media);
+    Media.belongsTo(Author, {
+        foreignKey: 'authorId',
     });
 
-    Media.hasOne(Genre, {
-    foreignKey: 'genreId',
-    });
-    Genre.hasMany(Media, {
-    foreignKey: 'genreId',
+    Publisher.hasMany(Media);
+    Media.belongsTo(Publisher, {
+        foreignKey: 'publisherId',
     });
 
-    Branch.hasOne(City, {
-    foreignKey: 'cityId',
+    Genre.hasMany(Media);
+    Media.belongsTo(Genre, {
+        foreignKey: 'genreId',
     });
-    City.hasMany(Branch, {
+
+    City.hasMany(Branch);
+    Branch.belongsTo(City, {
         foreignKey: 'cityId',
     });
 
     Media.belongsToMany(Branch, {
-    through: 'MediaBranch',
+        through: 'MediaBranch',
     });
     Branch.belongsToMany(Media, {
-    through: 'MediaBranch',
+        through: 'MediaBranch',
     });
 };

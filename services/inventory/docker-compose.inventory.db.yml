@@ -1,7 +1,7 @@
 version: "3.8"
 
 services:
-  postgress:
+  postgres:
     image: postgres:15-alpine
     # Can give any name to the container
     container_name: postgres_inventory

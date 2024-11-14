@@ -1,5 +1,10 @@
 import express, { Application } from 'express';
 import { MediaRoutes } from './routes/media.routes';
+import { AuthorRoutes } from './routes/author.routes';
+import { GenreRoutes } from './routes/genre.routes';
+import { BranchRoutes } from './routes/branch.routes';
+import { CityRoutes } from './routes/city.routes';
+import { PublisherRoutes } from './routes/publisher.routes';
 
 class App {
   public app: Application;
@@ -17,9 +22,27 @@ class App {
   }
 
   private initializeRoutes() {
-    //TODO: Initialize routes here
     const mediaRoutes = new MediaRoutes();
     this.app.use('/api/media', mediaRoutes.router);
+
+    const authorRoutes = new AuthorRoutes();
+    this.app.use('/api/authors', authorRoutes.router);
+
+    const publisherRoutes = new PublisherRoutes();
+    this.app.use('/api/publishers', publisherRoutes.router);
+
+    const genreRoutes = new GenreRoutes();
+    this.app.use('/api/genres', genreRoutes.router);
+
+    const branchRoutes = new BranchRoutes();
+    this.app.use('/api/branches', branchRoutes.router);
+
+    const cityRoutes = new CityRoutes();
+    this.app.use('/api/cities', cityRoutes.router);
+
+    this.app.use((req, res) => {
+      res.status(404).send('Not found');
+    });
   }
 
   public start() {

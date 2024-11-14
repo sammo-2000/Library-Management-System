@@ -10,7 +10,7 @@ export default class Author extends Model {
         autoIncrement: true,
         primaryKey: true,
       },
-      author: {
+      name: {
         type: DataTypes.STRING,
         allowNull: false,
       }
