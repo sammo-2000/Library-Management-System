@@ -9,6 +9,6 @@ const app = express();
 app.use(express.json());
 
 // Use routes
-app.use('/', userRoutes);
+app.use('/api', userRoutes);
 
 export default app;
