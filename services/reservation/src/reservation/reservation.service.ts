@@ -125,14 +125,7 @@ export class ReservationService {
   }
 
   async remove(id: string, userId: string, role: Role) {
-    const reservation = await this.findOne(id, userId, role); // Error handled by findOne
-
-    // User only delete their reservation
-    // Admin can delete all reservation
-    if (reservation.accountId !== userId && role === 'USER')
-      throw new UnauthorizedException(
-        'This reservation does not belong to you, cannot delete',
-      );
+    await this.findOne(id, userId, role); // Check if belong to current user
 
     return this.databaseService.reservation.delete({
       where: {
