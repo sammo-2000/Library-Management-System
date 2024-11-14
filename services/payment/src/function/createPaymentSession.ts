@@ -9,7 +9,7 @@ export const createPaymentSession = async (
 ): Promise<{ sessionId: string }> => {
   // Set name of the item based on the plan type
   const itemName =
-    data.planType === "month" ? "Monthly subscription" : "Yearly subscription";
+    data.planType === "month" ? "Monthly payment" : "Yearly payment";
 
   // Set price based on the plan type
   const price = data.planType === "month" ? env.MONTH_PRICE : env.YEAR_PRICE;
@@ -32,7 +32,7 @@ export const createPaymentSession = async (
         quantity: 1,
       },
     ],
-    mode: "subscription",
+    mode: "payment",
     success_url: env.SUCCESS_URL,
     cancel_url: env.CANCEL_URL,
   });
