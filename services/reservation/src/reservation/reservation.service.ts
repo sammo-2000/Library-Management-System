@@ -120,6 +120,8 @@ export class ReservationService {
         },
       });
     }
+
+    return reservation;
   }
 
   async remove(id: string, userId: string, role: Role) {
