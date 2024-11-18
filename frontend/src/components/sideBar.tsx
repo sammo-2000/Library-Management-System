@@ -1,4 +1,6 @@
-import { Calendar, Home, Inbox, Search, Settings } from "lucide-react";
+"use client";
+
+import { Calendar, Home, Inbox, Search, Settings, LogIn, LogOut } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -8,8 +10,9 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useAuth } from "@/components/Auth/AuthContext";
 
-const items = [
+const baseItems = [
   {
     title: "Home",
     url: "/",
@@ -38,10 +41,26 @@ const items = [
 ];
 
 export function AppSidebar() {
+  const { authenticated, logout } = useAuth();
+
+  const authItem = authenticated
+    ? {
+        title: "Logout",
+        url: "#",
+        icon: LogOut,
+        onClick: logout,
+      }
+    : {
+        title: "Login",
+        url: "/login",
+        icon: LogIn,
+        onClick: null, // No action for login
+      };
+
   return (
     <Sidebar variant="floating" collapsible="icon">
       <SidebarContent className="p-2">
-        {items.map((item) => (
+        {baseItems.map((item) => (
           <SidebarMenuItem key={item.title}>
             <SidebarMenuButton asChild variant={"outline"}>
               <a href={item.url}>
@@ -51,6 +70,19 @@ export function AppSidebar() {
             </SidebarMenuButton>
           </SidebarMenuItem>
         ))}
+        {/* Add Login/Logout button dynamically */}
+        <SidebarMenuItem>
+          <SidebarMenuButton
+            asChild
+            variant={"outline"}
+            onClick={authItem.onClick || undefined} // Call onClick if present
+          >
+            <a href={authItem.url}>
+              <authItem.icon />
+              <span>{authItem.title}</span>
+            </a>
+          </SidebarMenuButton>
+        </SidebarMenuItem>
       </SidebarContent>
 
       <SidebarFooter>

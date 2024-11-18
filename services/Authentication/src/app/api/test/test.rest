@@ -23,6 +23,6 @@ Content-Type: application/json
    "password": "test123"
    
 }
-//member email - johnlewis20@gmail.com
-//admin email - davechapelle20@gmail.com
+//admin email - johnlewis20@gmail.com
+//member email - davechapelle20@gmail.com
 //password - test123

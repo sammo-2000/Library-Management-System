@@ -1,4 +1,4 @@
-import "server-only";
+"server-only"; // Ensure this is a client-side component
 import { Metadata } from "next";
 import {
   Card,
@@ -27,7 +27,7 @@ const planType = [
   },
 ];
 
-export default async function PlanPage() {
+function PlanContent() {
   return (
     <div>
       <h1 className="text-3xl font-bold">Choose Your Plan</h1>
@@ -48,5 +48,13 @@ export default async function PlanPage() {
         ))}
       </div>
     </div>
+  );
+}
+
+export default function PlanPage() {
+  return (
+   
+      <PlanContent />
+    
   );
 }

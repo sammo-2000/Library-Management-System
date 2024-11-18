@@ -7,11 +7,13 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { z } from 'zod';
 import dotenv from "dotenv";
+import { serialize } from 'cookie';
 dotenv.config();  
 
 
 import { env } from "../../../types/envTypes.js"
 const secret_token = env.JWT_SECRET;
+const stage = env.STAGE
 
 export const addUser = async(req: Request, res: Response) => {
  
@@ -57,6 +59,17 @@ export const signIn = async (req: Request, res: Response) => {
               secret_token,
               { expiresIn: '1h' }
           );
+           // Set the cookie
+           res.setHeader(
+            'Set-Cookie',
+            serialize('authToken', token, {
+              httpOnly: true,
+              secure: stage === 'production',
+              sameSite: 'strict',
+              path: '/',
+              maxAge: 60 * 60, 
+            })
+      );
          // console.log(user.user_role)
           res.status(200).json({ message: 'Sign-in successful', token });
       } else {
@@ -75,15 +88,15 @@ export const getUserRole = async (req: Request, res: Response) => {
     res.status(200).json({ role: userRole });
 };
 
-export const createTable = async (req: Request, res: Response) => {
-  try {
-     await pool.query('CREATE TABLE users (id SERIAL PRIMARY KEY,username VARCHAR(50) UNIQUE NOT NULL,password VARCHAR(100) NOT NULL,user_role VARCHAR(20) NOT NULL,first_name VARCHAR(50),last_name VARCHAR(50), email VARCHAR(100) UNIQUE NOT NULL,created_at TIMESTAMP DEFAULT NOW())')
-     res.status(200).send({message: "successfull created table"})
-  }catch (err) {
-      console.log(err)
-      res.sendStatus(500)
-  }
-}
+// export const createTable = async (req: Request, res: Response) => {
+//   try {
+//      await pool.query('CREATE TABLE users (id SERIAL PRIMARY KEY,username VARCHAR(50) UNIQUE NOT NULL,password VARCHAR(100) NOT NULL,user_role VARCHAR(20) NOT NULL,first_name VARCHAR(50),last_name VARCHAR(50), email VARCHAR(100) UNIQUE NOT NULL,created_at TIMESTAMP DEFAULT NOW())')
+//      res.status(200).send({message: "successfull created table"})
+//   }catch (err) {
+//       console.log(err)
+//       res.sendStatus(500)
+//   }
+// }
 
 export const dropUsersTable =  async (req: Request, res: Response) => {
   try {

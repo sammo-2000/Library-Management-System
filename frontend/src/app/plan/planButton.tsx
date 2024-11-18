@@ -5,7 +5,8 @@ import { PAYMENT_API } from "@/lib/apiEndPoint";
 import { useState } from "react";
 import { toast } from "sonner";
 import { redirectToCheckout } from "./loadStripe";
-
+import {useAuth} from '../../components/Auth/AuthContext';
+import { useRouter } from "next/navigation";
 export default function PlanButton({
   name,
   type,
@@ -13,11 +14,19 @@ export default function PlanButton({
   name: string;
   type: string;
 }) {
-  const [loading, setLoading] = useState(false);
-
+  const [loading, setLoading] = useState(false)
+  const { authenticated} = useAuth();;
+  const router = useRouter();
   const handleClick = async () => {
     try {
       setLoading(true);
+
+      if (!authenticated) {
+        toast.error("Please sign in to proceed.");
+        router.push("/login");
+        setLoading(false);
+        return;
+      }
 
       const response = await fetch(`${PAYMENT_API}create-payment-session`, {
         method: "POST",
@@ -50,8 +59,8 @@ export default function PlanButton({
   };
 
   return (
-    <Button disabled={loading} onClick={handleClick}>
-      {loading ? "Processing..." : `Get ${name} plan`}
+    <Button disabled={loading} onClick={handleClick}>    
+      {loading ? "Processing..." : `Get ${name} plan`}  
     </Button>
   );
 }
