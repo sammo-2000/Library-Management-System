@@ -111,14 +111,7 @@ export class BorrowService {
   }
 
   async remove(id: string, userId: string, role: Role) {
-    const borrow = await this.findOne(id, userId, role); // Error handled by findOne
-
-    // User only delete their borrow
-    // Admin can delete all borrow
-    if (borrow.accountId !== userId && role === 'USER')
-      throw new UnauthorizedException(
-        'This borrow does not belong to you, cannot delete',
-      );
+    await this.findOne(id, userId, role); // Check if belong to current user
 
     return this.databaseService.borrow.delete({
       where: {
