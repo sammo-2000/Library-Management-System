@@ -5,10 +5,10 @@ import {
   Body,
   Patch,
   Param,
-  Delete,
   Query,
   UseGuards,
   Request,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { BorrowService } from './borrow.service';
 import { CreateBorrowDto } from './dto/create-borrow.dto';
@@ -16,7 +16,7 @@ import { UpdateBorrowDto } from './dto/update-borrow.dto';
 import { QueryType } from 'src/types/query.type';
 import { OptionalParseBoolPipe } from 'src/optional-parse-bool-pipe/optional-parse-bool-pipe';
 import { AuthGuard } from '../auth/auth.guard';
-import { Role } from '../types/role.type';
+import { Permissions } from '../types/permissions';
 
 @Controller('borrowing')
 @UseGuards(AuthGuard)
@@ -25,10 +25,14 @@ export class BorrowController {
 
   @Post()
   create(@Body() createBorrowDto: CreateBorrowDto, @Request() request: any) {
-    const userId: string = request.userId;
-    const role: Role = request.role;
+    const permissions: Permissions = request.permissions;
 
-    return this.borrowService.create(createBorrowDto, userId, role);
+    if (permissions.borrow.forOthers.create)
+      return this.borrowService.create(createBorrowDto);
+    else
+      throw new UnauthorizedException(
+        'Does not have permissions to create borrow.',
+      );
   }
 
   @Get()
@@ -49,17 +53,17 @@ export class BorrowController {
     };
 
     const userId: string = request.userId;
-    const role: Role = request.role;
+    const permissions: Permissions = request.permissions;
 
-    return this.borrowService.findAll(query, userId, role);
+    return this.borrowService.findAll(query, userId, permissions);
   }
 
   @Get(':id')
   findOne(@Param('id') id: string, @Request() request: any) {
     const userId: string = request.userId;
-    const role: Role = request.role;
+    const permissions: Permissions = request.permissions;
 
-    return this.borrowService.findOne(id, userId, role);
+    return this.borrowService.findOne(id, userId, permissions);
   }
 
   @Patch(':id')
@@ -69,16 +73,8 @@ export class BorrowController {
     @Request() request: any,
   ) {
     const userId: string = request.userId;
-    const role: Role = request.role;
+    const permissions: Permissions = request.permissions;
 
-    return this.borrowService.update(id, updateBorrowDto, userId, role);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string, @Request() request: any) {
-    const userId: string = request.userId;
-    const role: Role = request.role;
-
-    return this.borrowService.remove(id, userId, role);
+    return this.borrowService.update(id, userId, permissions);
   }
 }

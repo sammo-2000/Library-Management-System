@@ -4,22 +4,34 @@ import {
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
-import { Observable } from 'rxjs';
+import { env } from '../types/env.type';
+import { Permissions } from '../types/permissions';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  canActivate(
-    context: ExecutionContext,
-  ): boolean | Promise<boolean> | Observable<boolean> {
+  async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
-    // const token = request.headers['authorization']?.split(' ')[1];
-    // if (!token) throw new UnauthorizedException('No token provided');
+    const token = request.headers['authorization']?.split(' ')[1];
+    if (!token) throw new UnauthorizedException('No token provided');
 
-    // Check if user active using AUTH service
-    // Fetch()
-    // Attach to request
-    request.userId = '1';
-    request.role = 'ADMIN';
+    const response = await fetch(`${env.AUTH_SERVICE_BASE_URL}verifyToken`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        service: 'borrow',
+        token,
+      }),
+    });
+
+    const data: {
+      userId: string;
+      permission: Permissions;
+    } = await response.json();
+
+    request.userId = data.userId;
+    request.permissions = data.permission;
     return true;
   }
 }

@@ -5,23 +5,15 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { CreateBorrowDto } from './dto/create-borrow.dto';
-import { UpdateBorrowDto } from './dto/update-borrow.dto';
 import { DatabaseService } from 'src/database/database.service';
 import { QueryType } from 'src/types/query.type';
-import { Role } from '../types/role.type';
+import { Permissions } from '../types/permissions';
 
 @Injectable()
 export class BorrowService {
   constructor(private readonly databaseService: DatabaseService) {}
 
-  async create(createBorrowDto: CreateBorrowDto, userId: string, role: Role) {
-    // User only allowed to make borrow for them self
-    // Admin allowed to make borrow for anyone
-    if (role === 'USER' && createBorrowDto.accountId !== userId)
-      throw new UnauthorizedException(
-        'You are not allowed to make borrow on behalf of others',
-      );
-
+  async create(createBorrowDto: CreateBorrowDto) {
     return this.databaseService.borrow.create({
       data: {
         ...createBorrowDto,
@@ -32,14 +24,14 @@ export class BorrowService {
     });
   }
 
-  async findAll(query: QueryType, userId: string, role: Role) {
+  async findAll(query: QueryType, userId: string, permissions: Permissions) {
     const now = new Date();
 
     const borrows = await this.databaseService.borrow.findMany({
       where: {
         mediaId: query.mediaId,
         // If the user role is 'USER', return only items belonging to them
-        accountId: role === 'USER' ? userId : query.accountId,
+        accountId: permissions.borrow.forOthers.read ? query.accountId : userId,
         branchId: query.branchId,
         expectedReturn:
           query.overdue === undefined
@@ -63,60 +55,36 @@ export class BorrowService {
     return borrows;
   }
 
-  async findOne(id: string, userId: string, role: Role) {
+  async findOne(id: string, userId: string, permissions: Permissions) {
     const borrow = await this.databaseService.borrow.findUnique({
       where: {
         id,
         // If it is user, only return one belong to them
-        accountId: role === 'USER' ? userId : undefined,
+        accountId: permissions.borrow.forOthers.read ? undefined : userId,
       },
     });
 
     if (!borrow) throw new NotFoundException('Borrow not found');
 
-    if (role === 'USER' && borrow.accountId !== userId)
+    if (!permissions.borrow.forOthers.read && borrow.accountId !== userId)
       throw new UnauthorizedException('Borrow not found');
 
     return borrow;
   }
 
-  async update(
-    id: string,
-    updateBorrowDto: UpdateBorrowDto,
-    userId: string,
-    role: Role,
-  ) {
-    if (role === 'USER')
-      throw new UnauthorizedException('Unauthorized to update borrow');
-
+  async update(id: string, userId: string, permissions: Permissions) {
     // Make sure borrow exist before updating
-    const borrow = await this.findOne(id, userId, role); // Error handled by findOne
+    const borrow = await this.findOne(id, userId, permissions); // Error handled by findOne
 
     if (borrow.actualReturn)
       throw new BadRequestException('Item has already been returned');
 
-    const { returnedAt } = updateBorrowDto;
-
-    // Updating notification sent
-    if (returnedAt) {
-      return this.databaseService.borrow.update({
-        where: {
-          id,
-        },
-        data: {
-          actualReturn: new Date().toISOString(),
-        },
-      });
-    }
-  }
-
-  async remove(id: string, userId: string, role: Role) {
-    await this.findOne(id, userId, role); // Check if belong to current user
-
-    return this.databaseService.borrow.delete({
+    return this.databaseService.borrow.update({
       where: {
         id,
-        accountId: role === 'USER' ? userId : undefined,
+      },
+      data: {
+        actualReturn: new Date().toISOString(),
       },
     });
   }
