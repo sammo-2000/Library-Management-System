@@ -2,7 +2,25 @@
 
 cd services
 
+cd payment
+if [ -f .env ]; then
+    rm .env
+fi
+echo BASE_URL=\""http://localhost:3001/api/"\">> .env
+echo SUCCESS_URL=\""http://localhost:3001/success"\">> .env
+echo CANCEL_URL=\""http://localhost:3001/cancel"\">> .env
+echo YEAR_PRICE=\""5000"\">> .env
+echo MONTH_PRICE=\""500"\">> .env
+echo SECRET_KEY=\""sk_test_51QNYr3Amxc9dTyf5gulVLTq9zTBDPAiUgz3EgrgpRRvpNLRXw6APaEbE09MRavcug4vHYfpo5HIcgp7Tt4R0A29H00EYSys4KB"\">> .env
+echo WEBHOOK_KEY=\""whsec_WClTvTHsvHP0fyYgI1Tn9ss7sIBDP4P3"\">> .env
+echo DATABASE_URL=\""postgres://neondb_owner:4EcwB6vWLbfe@ep-orange-star-a2dfwhpn-pooler.eu-central-1.aws.neon.tech/neondb?sslmode=require"\">> .env
+echo NODE_ENV=\""production"\">> .env
+cd ../
+
 cd Authentication
+if [ -f .env ]; then
+    rm .env
+fi
 echo "PORT=3002">> .env
 echo "DB_PORT=5432">> .env
 echo "HOST=localhost" >> .env
