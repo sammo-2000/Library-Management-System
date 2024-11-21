@@ -2,6 +2,7 @@ import { catchError } from "@/function/catchError";
 import { createPaymentSession } from "@/function/createPaymentSession";
 import { validateBody } from "@/function/validateBody";
 import { NextRequest, NextResponse } from "next/server";
+import {getUserById} from "@/function/getUser";
 
 export async function POST(request: NextRequest) {
   // Get body from request
@@ -17,17 +18,24 @@ export async function POST(request: NextRequest) {
   }
 
   // Get user current status
-  // TODO
+  const user = await getUserById(data.userId);
+  if (!user) return NextResponse.json(
+      { type: "Fail", message: { error: 'No user found with given ID' } },
+      { status: 400 }
+  );
 
-  // If currently active, add new plan to the user profile otherwise continue with the payment
-  // TODO
+
+  if (user.status === 'ACTIVE') return NextResponse.json(
+      { type: "Fail", message: { error: 'User already have an active subscription' } },
+      { status: 400 }
+  );
 
   // Create payment session
   const [error, session] = await catchError(
-    createPaymentSession({ planType: data.planType })
+    createPaymentSession(data)
   );
+
   if (error) {
-    console.error(error);
     return NextResponse.json(
       { type: "Fail", message: { error: "Internal server error" } },
       { status: 500 }

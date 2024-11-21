@@ -32,7 +32,10 @@ export const createPaymentSession = async (
         quantity: 1,
       },
     ],
-    mode: "payment",
+    metadata: {
+      userId: data.userId,
+    },
+    mode: "subscription",
     success_url: env.SUCCESS_URL,
     cancel_url: env.CANCEL_URL,
   });
