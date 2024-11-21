@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 import { env } from "@/types/envType";
 import prisma from "../../../../prisma/prisma";
+import {getUserById} from "@/function/getUser";
 
 const stripe = new Stripe(env.SECRET_KEY, {
     apiVersion: "2024-11-20.acacia",
@@ -33,7 +34,8 @@ export async function POST(req: NextRequest) {
 
     // Handle the event
     switch (event.type) {
-        case "checkout.session.completed": {
+        case "checkout.session.completed":
+        case "invoice.paid": {
             // Handle the checkout.session.completed event
             const session = event.data.object as Stripe.Checkout.Session;
 
@@ -44,12 +46,26 @@ export async function POST(req: NextRequest) {
                     { status: 400 },
                 );
 
-            await prisma.user.update({
-                where: { userId: session.metadata.userId },
-                data: {
-                    status: "ACTIVE",
-                },
-            });
+            const userId = session.metadata.userId
+            const user = await getUserById(userId);
+
+            if (!user) {
+                await prisma.user.create({
+                    data: {
+                        userId,
+                        status: "ACTIVE",
+                    }
+                })
+            }
+            else {
+                await prisma.user.update({
+                    where: { userId: session.metadata.userId },
+                    data: {
+                        status: "ACTIVE",
+                    },
+                });
+            }
+
 
             break;
         }

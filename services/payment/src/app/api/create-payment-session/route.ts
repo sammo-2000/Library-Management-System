@@ -19,14 +19,8 @@ export async function POST(request: NextRequest) {
 
   // Get user current status
   const user = await getUserById(data.userId);
-  if (!user) return NextResponse.json(
-      { type: "Fail", message: { error: 'No user found with given ID' } },
-      { status: 400 }
-  );
-
-
-  if (user.status === 'ACTIVE') return NextResponse.json(
-      { type: "Fail", message: { error: 'User already have an active subscription' } },
+  if (user && user.status === "ACTIVE") return NextResponse.json(
+      { type: "Fail", message: { error: 'User already have an active account' } },
       { status: 400 }
   );
 
