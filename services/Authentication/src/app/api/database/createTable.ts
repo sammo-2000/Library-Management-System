@@ -28,6 +28,7 @@ export const ensureUsersTableExists = async () => {
           )
         `);
         console.log('Users table created successfully.');
+        
       } else {
         console.log('Users table already exists.');
       }

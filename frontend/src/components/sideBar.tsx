@@ -1,16 +1,16 @@
-"use client";
 
 import { Calendar, Home, Inbox, Search, Settings, LogIn, LogOut } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
-  SidebarHeader,
   SidebarFooter,
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { useAuth } from "@/components/Auth/AuthContext";
+
+import {deleteToken, getServerAuth } from "@/components/Auth/ServerProtectedRoute"
+
 
 const baseItems = [
   {
@@ -40,15 +40,15 @@ const baseItems = [
   },
 ];
 
-export function AppSidebar() {
-  const { authenticated, logout } = useAuth();
+export async function AppSidebar() {
+ // const { authenticated, logout } = useAuth();
 
-  const authItem = authenticated
+  const authItem = await getServerAuth()
     ? {
         title: "Logout",
         url: "#",
         icon: LogOut,
-        onClick: logout,
+        onClick: deleteToken,
       }
     : {
         title: "Login",
