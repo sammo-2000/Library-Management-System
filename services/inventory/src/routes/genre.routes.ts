@@ -1,17 +1,16 @@
-import { Router } from 'express';
 import { GenreController } from '../controllers/genre.controller';
+import { Routes } from './routes';
 
-export class GenreRoutes {
-  public router: Router;
+export class GenreRoutes extends Routes {
   private genreController: GenreController;
 
   constructor() {
-    this.router = Router();
+    super();
     this.genreController = new GenreController();
-    this.initializeRoutes();
+    this.init();
   }
 
-  private initializeRoutes() {
+  protected initializeRoutes() {
     this.router.get('/', this.genreController.getGenres.bind(this.genreController));
   }
 }

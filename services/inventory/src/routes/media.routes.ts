@@ -1,17 +1,16 @@
-import { Router } from 'express';
 import { MediaController } from '../controllers/media.controller';
+import { Routes } from './routes';
 
-export class MediaRoutes {
-  public router: Router;
+export class MediaRoutes extends Routes {
   private mediaController: MediaController;
 
   constructor() {
-    this.router = Router();
+    super();
     this.mediaController = new MediaController();
-    this.initializeRoutes();
+    this.init();
   }
 
-  private initializeRoutes() {
+  protected initializeRoutes() {
     this.router.get('/', this.mediaController.getMedia.bind(this.mediaController));
   }
 }

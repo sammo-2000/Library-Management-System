@@ -1,17 +1,16 @@
-import { Router } from 'express';
 import { CityController } from '../controllers/city.controller';
+import { Routes } from './routes';
 
-export class CityRoutes {
-  public router: Router;
+export class CityRoutes extends Routes{
   private cityController: CityController;
 
   constructor() {
-    this.router = Router();
+    super();
     this.cityController = new CityController();
-    this.initializeRoutes();
+    this.init();
   }
 
-  private initializeRoutes() {
+  protected initializeRoutes() {
     this.router.get('/', this.cityController.getCities.bind(this.cityController));
   }
 }

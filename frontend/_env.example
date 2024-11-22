@@ -1,5 +1,0 @@
-# Base URL of where the application is hosted
-BASE_URL=""
-
-# Stripe public key
-STRIPE_PUBLIC_KEY=""

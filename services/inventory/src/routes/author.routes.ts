@@ -1,17 +1,16 @@
-import { Router } from 'express';
 import { AuthorController } from '../controllers/author.controller';
+import { Routes } from './routes';
 
-export class AuthorRoutes {
-  public router: Router;
+export class AuthorRoutes extends Routes {
   private authorController: AuthorController;
 
   constructor() {
-    this.router = Router();
+    super();
     this.authorController = new AuthorController();
-    this.initializeRoutes();
+    this.init();
   }
 
-  private initializeRoutes() {
+  protected initializeRoutes() {
     this.router.get('/', this.authorController.getAuthors.bind(this.authorController));
   }
 }

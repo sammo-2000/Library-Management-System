@@ -1,17 +1,16 @@
-import { Router } from 'express';
 import { BranchController } from '../controllers/branch.controller';
+import { Routes } from './routes';
 
-export class BranchRoutes {
-  public router: Router;
+export class BranchRoutes extends Routes {
   private branchController: BranchController;
 
   constructor() {
-    this.router = Router();
+    super();
     this.branchController = new BranchController();
-    this.initializeRoutes();
+    this.init();
   }
 
-  private initializeRoutes() {
+  protected initializeRoutes() {
     this.router.get('/', this.branchController.getBranches.bind(this.branchController));
     this.router.get('/city/:id', this.branchController.getBranchesInCity.bind(this.branchController));
   }
