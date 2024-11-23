@@ -1,6 +1,11 @@
 // src/routes/userRoutes.ts
 import express from 'express';
-import { addUser, signIn, accounts, dropUsersTable, getUserRole } from '../controllers/userController.js';
+import { addUser } from '../controllers/userController.js';
+import { signIn } from '../controllers/authController.js';
+import { accounts } from '../controllers/adminController.js';
+import { dropUsersTable } from '../controllers/adminController.js';
+import { getUserRole } from '../controllers/authController.js';
+import { permission } from '../controllers/permissionController.js';
 import {authenticateToken, authorizeRoles} from '../middleware/tokenVerification.js'
 import dotenv from "dotenv";
 dotenv.config(); 
@@ -31,5 +36,7 @@ app.post('/register', addUser);
 
 //Sign in
 app.post('/signin', signIn);
+
+app.post('/users-permission',permission)
 
 export default app;

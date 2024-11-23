@@ -30,16 +30,7 @@ interface AuthenticatedRequest extends Request {
       }
 }
 
-// Updated authorizeRoles middleware to allow only 'admin' access
-// export function authorizeRoles(req: Request, res: Response, next: NextFunction) {
-//     const user = req.body.user;
-//     //console.log(`test --${user.role}`)
-//     if (!user || user.role !== "Admin") {
-//         res.status(403).json({ error: 'Forbidden: Admin access only' });
-//         return;
-//     }
-//     next();
-// }
+
 export function authorizeRoles(...allowedRoles: string[]) {
     return (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
       const user = req.user;
@@ -54,4 +45,14 @@ export function authorizeRoles(...allowedRoles: string[]) {
   }
   
 
-
+  
+  
+  export function verifyToken(token: string) {
+    try {
+      const decoded = jwt.verify(token, secret_token); 
+      return decoded;
+    } catch (err) {
+      throw new Error('Invalid or expired token');
+    }
+  };
+  
