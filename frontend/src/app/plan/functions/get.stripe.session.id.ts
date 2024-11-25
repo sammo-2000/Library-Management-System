@@ -1,17 +1,6 @@
-import { loadStripe } from "@stripe/stripe-js";
 import { toast } from "sonner";
 import { PAYMENT_API } from "@/lib/apiEndPoint";
-import { planType } from "@/app/plan/plan.data";
-
-const stripePromise = loadStripe(
-  process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY || "",
-);
-
-export const loadStripePage = async (sessionId: string) => {
-  const stripe = await stripePromise;
-  if (!stripe) return toast("Failed to load payment gateway");
-  await stripe.redirectToCheckout({ sessionId });
-};
+import { planType } from "@/app/plan/data/plan.data";
 
 export const getStripeSessionId = async (
   plan: planType,
