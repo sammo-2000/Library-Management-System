@@ -32,7 +32,7 @@ const SignIn = () => {
       setAuthToken(data.token); // Save token in cookies
       login(); // Update auth state
       setSuccess("Sign-in successful! Redirecting...");
-      router.push("/plan"); // Redirect to a protected page
+      router.push("/"); // Redirect to a protected page
     } catch (err: any) {
       setError(err.message || "Something went wrong.");
     }

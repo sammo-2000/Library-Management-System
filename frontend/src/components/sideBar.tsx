@@ -46,7 +46,7 @@ export async function AppSidebar() {
   const authItem = await getServerAuth()
     ? {
         title: "Logout",
-        url: "#",
+        url: "/",
         icon: LogOut,
         onClick: deleteToken,
       }
