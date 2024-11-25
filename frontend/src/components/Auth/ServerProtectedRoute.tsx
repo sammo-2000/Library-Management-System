@@ -1,7 +1,8 @@
-'use server'
- 
-import { cookies } from 'next/headers'
- 
+"use server";
+
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
+
 // import jwt from 'jsonwebtoken';
 // import { parseCookies } from 'nookies';
 // import dotenv from "dotenv";
@@ -29,24 +30,24 @@ import { cookies } from 'next/headers'
 //     return {
 //       redirect: {
 //         destination: '/login',
-//         permanent: false, 
+//         permanent: false,
 //       },
 //     };
 //   }
 //   return {
-//     props: {}, 
+//     props: {},
 //   };
 // };
 export const getServerAuth = async () => {
-  const cookieStore = await cookies()
-  return cookieStore.get('authToken')
-}
+  const cookieStore = await cookies();
+  return cookieStore.get("authToken");
+};
 
 export const deleteToken = async () => {
   const cookieStore = await cookies();
-  cookieStore.set('authToken', '', {
+  cookieStore.set("authToken", "", {
     maxAge: -1, // Expire immediately
-    path: '/',  // Ensure it's the same path as where the cookie was set
+    path: "/", // Ensure it's the same path as where the cookie was set
   });
+  redirect("/");
 };
-
