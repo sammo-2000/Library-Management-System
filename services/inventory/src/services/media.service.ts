@@ -9,7 +9,7 @@ import { BadRequestError } from '../errors';
 
 export class MediaService {
   public async getMedia(query: ParsedQs) {
-    const allowedQueryParams = ['type', 'title', 'author', 'genre', 'mediaId', 'cityId', 'branchId'];
+    const allowedQueryParams = ['type', 'title', 'authorId', 'genreId', 'mediaId', 'cityId', 'branchId'];
     const filters: { [key: string]: string } = {};
 
     // Loop through allowed parameters and get only those present in req.query
