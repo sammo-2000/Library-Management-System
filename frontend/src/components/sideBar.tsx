@@ -1,5 +1,12 @@
-
-import { Calendar, Home, Inbox, Search, Settings, LogIn, LogOut } from "lucide-react";
+import {
+  Calendar,
+  Home,
+  Inbox,
+  LogIn,
+  LogOut,
+  Search,
+  Settings,
+} from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -9,8 +16,10 @@ import {
 } from "@/components/ui/sidebar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-import {deleteToken, getServerAuth } from "@/components/Auth/ServerProtectedRoute"
-
+import {
+  deleteToken,
+  getServerAuth,
+} from "@/components/Auth/ServerProtectedRoute";
 
 const baseItems = [
   {
@@ -41,9 +50,9 @@ const baseItems = [
 ];
 
 export async function AppSidebar() {
- // const { authenticated, logout } = useAuth();
+  // const { authenticated, logout } = useAuth();
 
-  const authItem = await getServerAuth()
+  const authItem = (await getServerAuth())
     ? {
         title: "Logout",
         url: "/",
