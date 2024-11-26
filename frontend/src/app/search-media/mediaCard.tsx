@@ -12,7 +12,7 @@ interface MediaCardProps {
 
 export default function MediaCard({ media }: MediaCardProps) {
   return (
-    <Card>
+    <Card className="m-2">
       <CardHeader>
         <CardTitle>{media.title}</CardTitle>
         <CardDescription>{media.description}</CardDescription>

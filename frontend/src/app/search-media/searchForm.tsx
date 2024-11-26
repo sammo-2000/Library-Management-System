@@ -285,7 +285,7 @@ export default function SearchForm({
         />
         <Button onClick={onSearchClick}>Search</Button>
       </div>
-      <div className="space-x-2 space-y-2">
+      <div className="p-2">
         {media.map((pieceOfMedia) => (
           <MediaCard key={pieceOfMedia.id} media={pieceOfMedia} />
         ))}
