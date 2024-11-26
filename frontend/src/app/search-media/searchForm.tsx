@@ -1,5 +1,5 @@
 "use client";
-import React, { ReactElement, use, useCallback, useEffect } from "react";
+import React, { useEffect } from "react";
 import { ComboBox } from "./comboBox";
 import type { ComboBoxValue } from "./comboBox";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
@@ -16,8 +16,6 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import { set } from "zod";
-import { on } from "events";
 
 interface SearchFormProps {
   genres: ComboBoxValue[];
@@ -36,7 +34,6 @@ export default function SearchForm({
 }: SearchFormProps) {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const pathname = usePathname();
   const [title, setTitle] = React.useState(searchParams.get("title") || "");
   const [genre, setGenre] = React.useState(searchParams.get("genreId") || "");
   const [author, setAuthor] = React.useState(
