@@ -1,10 +1,10 @@
 import { ComboBox, type ComboBoxValue } from "./comboBox";
 import type {
-  GenreResponse,
-  AuthorResponse,
-  PublisherResponse,
-  CityResponse,
-  BranchResponse,
+  Genre,
+  Author,
+  Publisher,
+  City,
+  Branch,
 } from "@/types/inventoryServiceTypes";
 import SearchForm from "./searchForm";
 
@@ -30,11 +30,11 @@ async function getDropdownValues() {
   }
 
   const [genres, authors, publishers, cities, branches]: [
-    GenreResponse[],
-    AuthorResponse[],
-    PublisherResponse[],
-    CityResponse[],
-    BranchResponse[],
+    Genre[],
+    Author[],
+    Publisher[],
+    City[],
+    Branch[],
   ] = await Promise.all([
     genresRes.json(),
     authorsRes.json(),
@@ -49,16 +49,14 @@ async function getDropdownValues() {
 export default async function MediaSearchPage() {
   const { genres, authors, publishers, cities, branches } =
     await getDropdownValues();
-  const genreComboBoxValues: ComboBoxValue[] = genres.map(
-    (genre: GenreResponse) => ({
-      value: String(genre.id),
-      label: genre.genre,
-    }),
-  );
+  const genreComboBoxValues: ComboBoxValue[] = genres.map((genre: Genre) => ({
+    value: String(genre.id),
+    label: genre.genre,
+  }));
   genreComboBoxValues.unshift({ value: "", label: "All genres" });
 
   const authorsComboBoxValues: ComboBoxValue[] = authors.map(
-    (author: AuthorResponse) => ({
+    (author: Author) => ({
       value: String(author.id),
       label: author.name,
     }),
@@ -66,7 +64,7 @@ export default async function MediaSearchPage() {
   authorsComboBoxValues.unshift({ value: "", label: "All authors" });
 
   const publishersComboBoxValues: ComboBoxValue[] = publishers.map(
-    (publisher: PublisherResponse) => ({
+    (publisher: Publisher) => ({
       value: String(publisher.id),
       label: publisher.name,
     }),
@@ -74,19 +72,17 @@ export default async function MediaSearchPage() {
   publishersComboBoxValues.unshift({ value: "", label: "All publishers" });
   console.log(genreComboBoxValues);
 
-  const citiesComboBoxValues: ComboBoxValue[] = cities.map(
-    (city: CityResponse) => ({
-      value: String(city.id),
-      label: city.city,
-    }),
-  );
+  const citiesComboBoxValues: ComboBoxValue[] = cities.map((city: City) => ({
+    value: String(city.id),
+    label: city.city,
+  }));
   citiesComboBoxValues.unshift({ value: "", label: "All cities" });
 
   const branchesSearchFormValues: {
     id: number;
     name: string;
     cityId: number;
-  }[] = branches.map((branch: BranchResponse) => ({
+  }[] = branches.map((branch: Branch) => ({
     id: branch.id,
     name: branch.name,
     cityId: branch.City.id,

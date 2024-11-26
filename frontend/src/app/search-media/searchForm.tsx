@@ -1,10 +1,23 @@
 "use client";
-import React, { use, useCallback, useEffect } from "react";
+import React, { ReactElement, use, useCallback, useEffect } from "react";
 import { ComboBox } from "./comboBox";
 import type { ComboBoxValue } from "./comboBox";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Media, MediaResponse } from "@/types/inventoryServiceTypes";
+import MediaCard from "./mediaCard";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
+import { set } from "zod";
+import { on } from "events";
 
 interface SearchFormProps {
   genres: ComboBoxValue[];
@@ -22,6 +35,8 @@ export default function SearchForm({
   branches,
 }: SearchFormProps) {
   const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
   const [title, setTitle] = React.useState(searchParams.get("title") || "");
   const [genre, setGenre] = React.useState(searchParams.get("genreId") || "");
   const [author, setAuthor] = React.useState(
@@ -34,6 +49,9 @@ export default function SearchForm({
   const [branch, setBranch] = React.useState(
     searchParams.get("branchId") || "",
   );
+  const [page, setPage] = React.useState(searchParams.get("page") || "1");
+
+  const [pageCount, setPageCount] = React.useState(1);
 
   const [branchesComboBoxValues, setBranchesComboBoxValues] = React.useState<
     ComboBoxValue[]
@@ -43,6 +61,19 @@ export default function SearchForm({
       label: branch.name,
     })),
   );
+
+  const [media, setMedia] = React.useState<Media[]>([]);
+
+  useEffect(() => {
+    // Search media based on initial query params
+    async function initialSearch() {
+      const media = await searchMedia();
+      setMedia(media);
+    }
+    initialSearch();
+  }, []);
+
+  const [queryParams, setQueryParams] = React.useState("");
 
   useEffect(() => {
     // Filter branches based on selected city
@@ -71,6 +102,10 @@ export default function SearchForm({
     }
   }, [branch]);
 
+  useEffect(() => {
+    onSearchClick();
+  }, [page]);
+
   async function searchMedia() {
     // Get media based on search criteria
 
@@ -94,8 +129,114 @@ export default function SearchForm({
     if (branch) {
       queryParams.set("branchId", branch);
     }
-    const mediaRes = await fetch(`/api/media?${queryParams.toString()}`);
-    const media = await mediaRes.json();
+
+    setQueryParams(queryParams.toString());
+    if (page) {
+      queryParams.set("page", page);
+    }
+    //Set URL to include query string
+    router.push(`?${queryParams.toString()}`);
+    const mediaRes = await fetch(
+      `http://localhost:3003/api/media?${queryParams.toString()}`,
+    );
+    const media: MediaResponse = await mediaRes.json();
+    setPageCount(calculatePageCount(media.total));
+    return media.media;
+  }
+
+  async function onSearchClick() {
+    const media = await searchMedia();
+    setMedia(media);
+  }
+
+  function calculatePageCount(total: number) {
+    const pageCount = Math.ceil(total / 20);
+    if (pageCount === 0) {
+      return 1;
+    }
+    return pageCount;
+  }
+
+  function PaginationComponent({
+    pageCount,
+    currentPage,
+    queryParams,
+  }): React.JSX.Element {
+    if (pageCount === 1) {
+      return <></>;
+    }
+    let pages: number[] = [];
+    let startEllipse = false;
+    let endEllipse = false;
+    if (pageCount <= 3) {
+      pages = Array.from({ length: pageCount }, (_, i) => i + 1);
+    } else if (pageCount > 3) {
+      if (currentPage === 1) {
+        pages = [1, 2, 3];
+        endEllipse = true;
+      } else if (currentPage === pageCount) {
+        pages = [currentPage - 2, currentPage - 1, currentPage];
+        startEllipse = true;
+      } else if (currentPage === 2) {
+        pages = [currentPage - 1, currentPage, currentPage + 1];
+        endEllipse = true;
+      } else if (currentPage === pageCount - 1) {
+        pages = [currentPage - 1, currentPage, currentPage + 1];
+        startEllipse = true;
+      } else {
+        pages = [currentPage - 1, currentPage, currentPage + 1];
+        startEllipse = true;
+        endEllipse = true;
+      }
+    }
+
+    function onPaginationLinkClick(page: number) {
+      setPage(String(page));
+    }
+
+    return (
+      <Pagination>
+        <PaginationContent>
+          {currentPage > 1 && (
+            <PaginationItem>
+              <PaginationPrevious
+                href={`?${queryParams}&page=${currentPage - 1}`}
+                onClick={() => onPaginationLinkClick(currentPage - 1)}
+              />
+            </PaginationItem>
+          )}
+          {startEllipse && (
+            <PaginationItem>
+              <PaginationEllipsis />
+            </PaginationItem>
+          )}
+          {pages.map((page) => (
+            <PaginationItem key={page}>
+              <PaginationLink
+                href={`?${queryParams}&page=${page}`}
+                isActive={page === currentPage}
+                onClick={() => onPaginationLinkClick(page)}
+              >
+                {page}
+              </PaginationLink>
+            </PaginationItem>
+          ))}
+          {endEllipse && (
+            <PaginationItem>
+              <PaginationEllipsis />
+            </PaginationItem>
+          )}
+          {currentPage < pageCount && (
+            <PaginationItem>
+              <PaginationNext
+                href={`?${queryParams}&page=${currentPage + 1}`}
+                onClick={() => onPaginationLinkClick(currentPage + 1)}
+              />
+            </PaginationItem>
+          )}
+        </PaginationContent>
+      </Pagination>
+    );
   }
 
   return (
@@ -142,9 +283,26 @@ export default function SearchForm({
           value={branch}
           setValue={setBranch}
         />
-        <Button onClick={searchMedia}>Search</Button>
+        <Button onClick={onSearchClick}>Search</Button>
       </div>
-      <div>{/* Display media */}</div>
+      <div className="space-x-2 space-y-2">
+        {media.map((pieceOfMedia) => (
+          <MediaCard key={pieceOfMedia.id} media={pieceOfMedia} />
+        ))}
+      </div>
+      <div className="flex justify-center">
+        <PaginationComponent
+          pageCount={pageCount}
+          currentPage={parseInt(page)}
+          queryParams={queryParams}
+        />
+      </div>
     </div>
   );
+}
+
+interface PaginationComponentProps {
+  pageCount: number;
+  currentPage: number;
+  queryParams: string;
 }

@@ -5,7 +5,7 @@ import { GenreRoutes } from './routes/genre.routes';
 import { BranchRoutes } from './routes/branch.routes';
 import { CityRoutes } from './routes/city.routes';
 import { PublisherRoutes } from './routes/publisher.routes';
-
+import cors from 'cors';
 class App {
   public app: Application;
   private port: number;
@@ -18,6 +18,7 @@ class App {
   }
 
   private initializeMiddlewares() {
+    this.app.use(cors());
     this.app.use(express.json());
   }
 

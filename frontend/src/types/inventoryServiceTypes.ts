@@ -1,36 +1,41 @@
-export interface GenreResponse {
+export interface Genre {
   id: number;
   genre: string;
 }
 
-export interface AuthorResponse {
+export interface Author {
   id: number;
   name: string;
 }
 
-export interface PublisherResponse {
+export interface Publisher {
   id: number;
   name: string;
 }
 
-export interface CityResponse {
+export interface City {
   id: number;
   city: string;
 }
 
-export interface BranchResponse {
+export interface Branch {
   id: number;
   name: string;
-  City: CityResponse;
+  City: City;
 }
 
-export interface MediaResponse {
+export interface Media {
   id: number;
   type: string;
   title: string;
   description: string;
   publishedDate: string,
-  Author: AuthorResponse;
-  Genre: GenreResponse;
-  Publisher: PublisherResponse;
+  Author: Author;
+  Genre: Genre;
+  Publisher: Publisher;
+}
+
+export interface MediaResponse {
+  media: Media[];
+  total: number;
 }

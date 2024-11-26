@@ -13,8 +13,8 @@ export class MediaController {
 
   public async getMedia(req: Request, res: Response) {
     try {
-      const media = await this.mediaService.getMedia(req.query);
-      res.json(media);
+      const {media, total} = await this.mediaService.getMedia(req.query);
+      res.json({media, total});
     } catch (error: any) {
       res.status(error.statusCode || 500).json({ message: error.message });
     }
