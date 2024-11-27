@@ -83,10 +83,7 @@ const freeMember: userPermissions = {
         delete: false,
       },
       transferMedia: {
-        create: false,
-        read: false,
-        update: false,
-        delete: false,
+        transfer: false
       },
     },
   };

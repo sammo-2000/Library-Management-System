@@ -83,10 +83,7 @@ const manager: userPermissions = {
         delete: true,
       },
       transferMedia: {
-        create: true,
-        read: true,
-        update: true,
-        delete: true,
+        transfer: true
       },
     },
   };
