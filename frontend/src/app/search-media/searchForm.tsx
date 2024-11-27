@@ -68,7 +68,7 @@ export default function SearchForm({
       setMedia(media);
     }
     initialSearch();
-  }, [searchMedia]);
+  }, []);
 
   const [queryParams, setQueryParams] = React.useState("");
 
@@ -87,7 +87,7 @@ export default function SearchForm({
         setBranch("");
       }
     }
-  }, [branches, city]);
+  }, [city]);
 
   useEffect(() => {
     // Set city to the city of the selected branch
@@ -97,11 +97,11 @@ export default function SearchForm({
         setCity(String(selectedBranch.cityId));
       }
     }
-  }, [branch, branches]);
+  }, [branch]);
 
   useEffect(() => {
     onSearchClick();
-  }, [onSearchClick, page]);
+  }, [page]);
 
   async function searchMedia() {
     // Get media based on search criteria
