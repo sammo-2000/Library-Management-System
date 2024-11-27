@@ -2,10 +2,10 @@ import "server-only";
 import { Metadata } from "next";
 import {
   Card,
-  CardHeader,
-  CardTitle,
   CardDescription,
   CardFooter,
+  CardHeader,
+  CardTitle,
 } from "@/components/ui/card";
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
@@ -33,7 +33,7 @@ export default function PaymentFailPage() {
           </CardDescription>
         </CardHeader>
         <CardFooter className="justify-center">
-          <Link href="/" className={buttonVariants()}>
+          <Link href="/frontend/public" className={buttonVariants()}>
             Go to Dashboard
           </Link>
         </CardFooter>

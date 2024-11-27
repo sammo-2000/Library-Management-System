@@ -39,7 +39,7 @@ const baseItems = [
   },
   {
     title: "Search",
-    url: "#",
+    url: "/search-media",
     icon: Search,
   },
   {
@@ -103,3 +103,4 @@ export async function AppSidebar() {
     </Sidebar>
   );
 }
+

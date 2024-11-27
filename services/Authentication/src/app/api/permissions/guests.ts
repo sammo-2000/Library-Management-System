@@ -84,10 +84,7 @@ import {userPermissions} from "../../../types/permissionTypes.js";
         delete: false,
       },
       transferMedia: {
-        create: false,
-        read: true,
-        update: false,
-        delete: false,
+        transfer: false
       },
     },
   };

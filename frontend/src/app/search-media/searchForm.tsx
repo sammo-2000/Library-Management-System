@@ -1,8 +1,8 @@
 "use client";
 import React, { useEffect } from "react";
-import { ComboBox } from "./comboBox";
 import type { ComboBoxValue } from "./comboBox";
-import { useSearchParams, useRouter, usePathname } from "next/navigation";
+import { ComboBox } from "./comboBox";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Media, MediaResponse } from "@/types/inventoryServiceTypes";
@@ -68,7 +68,7 @@ export default function SearchForm({
       setMedia(media);
     }
     initialSearch();
-  }, []);
+  }, [searchMedia]);
 
   const [queryParams, setQueryParams] = React.useState("");
 
@@ -87,7 +87,7 @@ export default function SearchForm({
         setBranch("");
       }
     }
-  }, [city]);
+  }, [branches, city]);
 
   useEffect(() => {
     // Set city to the city of the selected branch
@@ -97,11 +97,11 @@ export default function SearchForm({
         setCity(String(selectedBranch.cityId));
       }
     }
-  }, [branch]);
+  }, [branch, branches]);
 
   useEffect(() => {
     onSearchClick();
-  }, [page]);
+  }, [onSearchClick, page]);
 
   async function searchMedia() {
     // Get media based on search criteria
@@ -298,8 +298,8 @@ export default function SearchForm({
   );
 }
 
-interface PaginationComponentProps {
-  pageCount: number;
-  currentPage: number;
-  queryParams: string;
-}
+// interface PaginationComponentProps {
+//   pageCount: number;
+//   currentPage: number;
+//   queryParams: string;
+// }

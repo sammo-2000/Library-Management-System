@@ -82,10 +82,7 @@ export type userPermissions = {
         delete: boolean;
       };
       transferMedia: {
-        create: boolean;
-        read: boolean;
-        update: boolean;
-        delete: boolean;
+       transfer: boolean
       };
     };
   };
