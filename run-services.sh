@@ -63,6 +63,6 @@ echo "DB_HOST=\"localhost\"" >> .env
 echo "DB_USER=\"myUser\"" >> .env
 echo "DB_PASSWORD=\"myPassword\"" >> .env
 echo "DB_NAME=\"inventoryDB\"" >> .env
-docker compose docker-compose.inventory.db.yml up -d
+docker compose -f docker-compose.inventory.db.yml up -d
 docker compose up -d
 cd ../
