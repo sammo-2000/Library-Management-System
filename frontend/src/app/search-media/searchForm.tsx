@@ -158,7 +158,7 @@ export default function SearchForm({
     pageCount,
     currentPage,
     queryParams,
-  }): React.JSX.Element {
+  }: PaginationComponentProps): React.JSX.Element {
     if (pageCount === 1) {
       return <></>;
     }
@@ -298,8 +298,8 @@ export default function SearchForm({
   );
 }
 
-// interface PaginationComponentProps {
-//   pageCount: number;
-//   currentPage: number;
-//   queryParams: string;
-// }
+interface PaginationComponentProps {
+  pageCount: number;
+  currentPage: number;
+  queryParams: string;
+}
