@@ -2,7 +2,7 @@
 
 import { planType } from "@/app/plan/data/plan.data";
 import { Button } from "@/components/ui/button";
-import  useClientAuth  from "@/components/Auth/ClientProtectedRoute";
+import useClientAuth from "@/components/Auth/ClientProtectedRoute";
 import { toast } from "sonner";
 import { catchError } from "@/helpers/catchError";
 import { createPaymentSession } from "@/api/subscription/create.payment.session";
@@ -16,9 +16,9 @@ export const PlanButton = ({ plan }: { plan: planType }) => {
       toast("Must be logged on | Redirecting...");
       window.location.replace("/login");
     } else {
-      const userId = ??? // TODO: get user ID
+      // TODO: MAKE USER ID DYNAMIC
       const [error, sessionId] = await catchError(
-        createPaymentSession(plan, userId),
+        createPaymentSession(plan, "1"),
       );
       if (error || !sessionId) return;
       else await loadStripePage(sessionId);
