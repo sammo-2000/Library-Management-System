@@ -31,7 +31,7 @@ const base: sideBarType[] = [
   },
   {
     title: "Search",
-    url: "#",
+    url: "/search-media",
     icon: <Search />,
   },
 ];
