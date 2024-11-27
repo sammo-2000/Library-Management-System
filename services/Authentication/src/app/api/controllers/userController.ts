@@ -1,3 +1,4 @@
+
 import { Request, Response } from 'express';
 import pool from '../config/db.js';
 import { UserSchema } from '../models/user.js';
