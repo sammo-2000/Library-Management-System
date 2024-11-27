@@ -1,6 +1,6 @@
 import "server-only";
-import { plans } from "@/app/plan/plan.data";
-import { PlanCard } from "@/app/plan/plan.card";
+import { plans } from "@/app/plan/data/plan.data";
+import { PlanCard } from "@/app/plan/components/plan.card";
 
 export const PlanList = () => {
   return (

@@ -1,5 +1,5 @@
 import "server-only";
-import { planType } from "@/app/plan/plan.data";
+import { planType } from "@/app/plan/data/plan.data";
 import {
   Card,
   CardDescription,
@@ -7,7 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { PlanButton } from "@/app/plan/plan.button";
+import { PlanButton } from "@/app/plan/components/plan.button";
 
 export const PlanCard = ({ plan }: { plan: planType }) => {
   return (

@@ -1,14 +1,14 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Patch,
-  Param,
+  Controller,
   Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
   Query,
-  UseGuards,
   Request,
+  UseGuards,
 } from '@nestjs/common';
 import { ReservationService } from './reservation.service';
 import { CreateReservationDto } from './dto/create-reservation.dto';
@@ -16,7 +16,7 @@ import { UpdateReservationDto } from './dto/update-reservation.dto';
 import { QueryType } from 'src/types/query.type';
 import { OptionalParseBoolPipe } from 'src/optional-parse-bool-pipe/optional-parse-bool-pipe';
 import { AuthGuard } from '../auth/auth.guard';
-import { Role } from '../types/role.type';
+import { Permissions } from '../types/permissions';
 
 @Controller('reservation')
 @UseGuards(AuthGuard)
@@ -29,9 +29,21 @@ export class ReservationController {
     @Request() request: any,
   ) {
     const userId: string = request.userId;
-    const role: Role = request.role;
+    const permissions: Permissions = request.permissions;
 
-    return this.reservationService.create(createReservationDto, userId, role);
+    if (
+      userId !== createReservationDto.accountId &&
+      permissions.reservation.forOthers.create
+    ) {
+      // Making reservation behalf of someone & has permission to do so
+      return this.reservationService.create(
+        createReservationDto,
+        createReservationDto.accountId,
+      );
+    } else {
+      // Otherwise make reservation for self
+      return this.reservationService.create(createReservationDto, userId);
+    }
   }
 
   @Get()
@@ -52,17 +64,17 @@ export class ReservationController {
     };
 
     const userId: string = request.userId;
-    const role: Role = request.role;
+    const permissions: Permissions = request.permissions;
 
-    return this.reservationService.findAll(query, userId, role);
+    return this.reservationService.findAll(query, userId, permissions);
   }
 
   @Get(':id')
   findOne(@Param('id') id: string, @Request() request: any) {
     const userId: string = request.userId;
-    const role: Role = request.role;
+    const permissions: Permissions = request.permissions;
 
-    return this.reservationService.findOne(id, userId, role);
+    return this.reservationService.findOne(id, userId, permissions);
   }
 
   @Patch(':id')
@@ -72,21 +84,21 @@ export class ReservationController {
     @Request() request: any,
   ) {
     const userId: string = request.userId;
-    const role: Role = request.role;
+    const permissions: Permissions = request.permissions;
 
     return this.reservationService.update(
       id,
       updateReservationDto,
       userId,
-      role,
+      permissions,
     );
   }
 
   @Delete(':id')
   remove(@Param('id') id: string, @Request() request: any) {
     const userId: string = request.userId;
-    const role: Role = request.role;
+    const permissions: Permissions = request.permissions;
 
-    return this.reservationService.remove(id, userId, role);
+    return this.reservationService.remove(id, userId, permissions);
   }
 }

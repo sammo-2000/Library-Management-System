@@ -1,6 +1,6 @@
 import "server-only";
 import { Metadata } from "next";
-import { PlanList } from "@/app/plan/plan.list";
+import { PlanList } from "@/app/plan/components/plan.list";
 
 export const metadata: Metadata = {
   title: "Choose Your Plan",
