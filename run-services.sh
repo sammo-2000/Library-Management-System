@@ -7,8 +7,8 @@ if [ -f .env ]; then
     rm .env
 fi
 echo BASE_URL=\""http://localhost:3001/api/"\">> .env
-echo SUCCESS_URL=\""http://localhost:3001/success"\">> .env
-echo CANCEL_URL=\""http://localhost:3001/cancel"\">> .env
+echo SUCCESS_URL=\""http://localhost:3000/success"\">> .env
+echo CANCEL_URL=\""http://localhost:3000/cancel"\">> .env
 echo YEAR_PRICE=\""5000"\">> .env
 echo MONTH_PRICE=\""500"\">> .env
 echo SECRET_KEY=\""sk_test_51QNYr3Amxc9dTyf5gulVLTq9zTBDPAiUgz3EgrgpRRvpNLRXw6APaEbE09MRavcug4vHYfpo5HIcgp7Tt4R0A29H00EYSys4KB"\">> .env
@@ -38,8 +38,8 @@ if [ -f .env ]; then
     rm .env
 fi
 echo "PORT=\"3004\"" >> .env
-echo "DATABASE_URL=file:./reservation.db" >> .env
-echo "AUTH_SERVICE_BASE_URL=http://localhost:3002" >> .env
+echo "DATABASE_URL=\"file:./reservation.db\"" >> .env
+echo "AUTH_SERVICE_BASE_URL=\"http://localhost:3002/api/\"" >> .env
 docker compose up -d
 cd ../
 
@@ -48,8 +48,8 @@ if [ -f .env ]; then
     rm .env
 fi
 echo "PORT=\"3005\"" >> .env
-echo "DATABASE_URL=file:./borrowing.db" >> .env
-echo "AUTH_SERVICE_BASE_URL=http://localhost:3002" >> .env
+echo "DATABASE_URL=\"file:./borrowing.db\"" >> .env
+echo "AUTH_SERVICE_BASE_URL=\"http://localhost:3002/api/\"" >> .env
 docker compose up -d
 cd ../
 
@@ -63,6 +63,6 @@ echo "DB_HOST=\"localhost\"" >> .env
 echo "DB_USER=\"myUser\"" >> .env
 echo "DB_PASSWORD=\"myPassword\"" >> .env
 echo "DB_NAME=\"inventoryDB\"" >> .env
-docker compose docker-compose.inventory.db.yml up -d
+docker compose -f docker-compose.inventory.db.yml up -d
 docker compose up -d
 cd ../

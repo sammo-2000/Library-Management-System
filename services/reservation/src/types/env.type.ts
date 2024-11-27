@@ -1,4 +1,7 @@
 import { z } from 'zod';
+import { ConfigModule } from '@nestjs/config';
+
+ConfigModule.forRoot();
 
 export const envSchema = z.object({
   PORT: z.coerce.number().min(1),

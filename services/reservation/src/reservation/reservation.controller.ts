@@ -33,7 +33,7 @@ export class ReservationController {
 
     if (
       userId !== createReservationDto.accountId &&
-      permissions.reservation.forOthers.create
+      permissions.forOthers.create
     ) {
       // Making reservation behalf of someone & has permission to do so
       return this.reservationService.create(

@@ -28,9 +28,7 @@ export class ReservationService {
       where: {
         mediaId: query.mediaId,
         // If is user only return item belong to them
-        accountId: permissions.reservation.forOthers.read
-          ? query.accountId
-          : userId,
+        accountId: permissions.forOthers.read ? query.accountId : userId,
         branchId: query.branchId,
         notificationSent:
           query.notified === undefined
@@ -59,16 +57,13 @@ export class ReservationService {
       where: {
         id,
         // If it is user, only return one belong to them
-        accountId: permissions.reservation.forOthers.read ? undefined : userId,
+        accountId: permissions.forOthers.read ? undefined : userId,
       },
     });
 
     if (!reservation) throw new NotFoundException('Reservation not found');
 
-    if (
-      !permissions.reservation.forOthers.read &&
-      reservation.accountId !== userId
-    )
+    if (!permissions.forOthers.read && reservation.accountId !== userId)
       throw new UnauthorizedException('Reservation not found');
 
     return reservation;
@@ -80,7 +75,7 @@ export class ReservationService {
     userId: string,
     permissions: Permissions,
   ) {
-    if (!permissions.reservation.forOthers.update)
+    if (!permissions.forOthers.update)
       throw new UnauthorizedException('Unauthorized to update reservation');
 
     // Make sure reservation exist before updating
@@ -127,9 +122,7 @@ export class ReservationService {
     return this.databaseService.reservation.delete({
       where: {
         id,
-        accountId: permissions.reservation.forOthers.delete
-          ? undefined
-          : userId,
+        accountId: permissions.forOthers.delete ? undefined : userId,
       },
     });
   }

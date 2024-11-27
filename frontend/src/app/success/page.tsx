@@ -3,10 +3,10 @@ import { CircleCheckBig } from "lucide-react";
 import { Metadata } from "next";
 import {
   Card,
-  CardHeader,
-  CardTitle,
   CardDescription,
   CardFooter,
+  CardHeader,
+  CardTitle,
 } from "@/components/ui/card";
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
@@ -24,7 +24,7 @@ export default function PaymentSuccessPage() {
           <span className="flex items-center justify-center py-4">
             <CircleCheckBig className="text-success" size={50} />
           </span>
-          <CardTitle className="text-success text-center">
+          <CardTitle className="text-center text-success">
             Payment Successful!
           </CardTitle>
           <CardDescription>
@@ -32,7 +32,7 @@ export default function PaymentSuccessPage() {
           </CardDescription>
         </CardHeader>
         <CardFooter className="justify-center">
-          <Link href="/" className={buttonVariants()}>
+          <Link href="/frontend/public" className={buttonVariants()}>
             Go to Dashboard
           </Link>
         </CardFooter>

@@ -1,14 +1,14 @@
 import {
+  Body,
   Controller,
   Get,
-  Post,
-  Body,
-  Patch,
   Param,
+  Patch,
+  Post,
   Query,
-  UseGuards,
   Request,
   UnauthorizedException,
+  UseGuards,
 } from '@nestjs/common';
 import { BorrowService } from './borrow.service';
 import { CreateBorrowDto } from './dto/create-borrow.dto';
@@ -27,7 +27,7 @@ export class BorrowController {
   create(@Body() createBorrowDto: CreateBorrowDto, @Request() request: any) {
     const permissions: Permissions = request.permissions;
 
-    if (permissions.borrow.forOthers.create)
+    if (permissions.forOthers.create)
       return this.borrowService.create(createBorrowDto);
     else
       throw new UnauthorizedException(
