@@ -39,7 +39,7 @@ const baseItems = [
   },
   {
     title: "Search",
-    url: "#",
+    url: "/search-media",
     icon: Search,
   },
   {

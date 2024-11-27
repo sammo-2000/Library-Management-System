@@ -49,5 +49,5 @@ export const deleteToken = async () => {
     maxAge: -1, // Expire immediately
     path: "/", // Ensure it's the same path as where the cookie was set
   });
-  redirect("/");
+ // redirect("/");
 };

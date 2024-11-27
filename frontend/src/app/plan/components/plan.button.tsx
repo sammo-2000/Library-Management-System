@@ -2,14 +2,14 @@
 
 import { planType } from "@/app/plan/data/plan.data";
 import { Button } from "@/components/ui/button";
-import { getClientAuth } from "@/components/Auth/ClientProtectedRoute";
+import  useClientAuth  from "@/components/Auth/ClientProtectedRoute";
 import { toast } from "sonner";
 import { catchError } from "@/helpers/catchError";
 import { getStripeSessionId } from "@/app/plan/functions/get.stripe.session.id";
 import { loadStripePage } from "@/app/plan/functions/load.stripe.page";
 
 export const PlanButton = ({ plan }: { plan: planType }) => {
-  const token = getClientAuth();
+  const token = useClientAuth();
 
   const onClick = async () => {
     if (!token) {
