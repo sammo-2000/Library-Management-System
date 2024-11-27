@@ -1,10 +1,10 @@
-import { ComboBox, type ComboBoxValue } from "./comboBox";
+import { type ComboBoxValue } from "./comboBox";
 import type {
-  Genre,
   Author,
-  Publisher,
-  City,
   Branch,
+  City,
+  Genre,
+  Publisher,
 } from "@/types/inventoryServiceTypes";
 import SearchForm from "./searchForm";
 

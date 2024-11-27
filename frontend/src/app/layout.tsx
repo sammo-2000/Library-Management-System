@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { AppSidebar } from "@/components/sideBar";
+import { AppSidebar } from "@/components/sidebar/sideBar";
 import { Toaster } from "@/components/ui/sonner";
 import { AuthProvider } from "@/components/Auth/AuthContext";
 
@@ -30,19 +30,19 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} text-foreground bg-muted antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} bg-muted text-foreground antialiased`}
       >
         <AuthProvider>
-        <SidebarProvider>
-          <AppSidebar />
-          <main className="w-full px-2 md:pl-0">
-            <div className="py-2">
-              <SidebarTrigger variant={"outline"} size={"lg"} />
-            </div>
-            {children}
-          </main>
-          <Toaster />
-        </SidebarProvider>
+          <SidebarProvider>
+            <AppSidebar />
+            <main className="w-full px-2 md:pl-0">
+              <div className="py-2">
+                <SidebarTrigger variant={"outline"} size={"lg"} />
+              </div>
+              {children}
+            </main>
+            <Toaster />
+          </SidebarProvider>
         </AuthProvider>
       </body>
     </html>
