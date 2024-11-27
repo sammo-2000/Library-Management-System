@@ -31,7 +31,7 @@ export class BorrowService {
       where: {
         mediaId: query.mediaId,
         // If the user role is 'USER', return only items belonging to them
-        accountId: permissions.borrow.forOthers.read ? query.accountId : userId,
+        accountId: permissions.forOthers.read ? query.accountId : userId,
         branchId: query.branchId,
         expectedReturn:
           query.overdue === undefined
@@ -60,13 +60,13 @@ export class BorrowService {
       where: {
         id,
         // If it is user, only return one belong to them
-        accountId: permissions.borrow.forOthers.read ? undefined : userId,
+        accountId: permissions.forOthers.read ? undefined : userId,
       },
     });
 
     if (!borrow) throw new NotFoundException('Borrow not found');
 
-    if (!permissions.borrow.forOthers.read && borrow.accountId !== userId)
+    if (!permissions.forOthers.read && borrow.accountId !== userId)
       throw new UnauthorizedException('Borrow not found');
 
     return borrow;

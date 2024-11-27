@@ -38,8 +38,8 @@ if [ -f .env ]; then
     rm .env
 fi
 echo "PORT=\"3004\"" >> .env
-echo "DATABASE_URL=file:./reservation.db" >> .env
-echo "AUTH_SERVICE_BASE_URL=http://localhost:3002" >> .env
+echo "DATABASE_URL=\"file:./reservation.db\"" >> .env
+echo "AUTH_SERVICE_BASE_URL=\"http://localhost:3002/api/\"" >> .env
 docker compose up -d
 cd ../
 
@@ -48,8 +48,8 @@ if [ -f .env ]; then
     rm .env
 fi
 echo "PORT=\"3005\"" >> .env
-echo "DATABASE_URL=file:./borrowing.db" >> .env
-echo "AUTH_SERVICE_BASE_URL=http://localhost:3002" >> .env
+echo "DATABASE_URL=\"file:./borrowing.db\"" >> .env
+echo "AUTH_SERVICE_BASE_URL=\"http://localhost:3002/api/\"" >> .env
 docker compose up -d
 cd ../
 

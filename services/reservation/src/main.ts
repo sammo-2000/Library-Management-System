@@ -1,7 +1,5 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { ConfigModule } from '@nestjs/config';
-ConfigModule.forRoot();
 import { env } from './types/env.type';
 import { ValidationPipe } from '@nestjs/common';
 
