@@ -16,7 +16,10 @@ export const PlanButton = ({ plan }: { plan: planType }) => {
       toast("Must be logged on | Redirecting...");
       window.location.replace("/login");
     } else {
-      const [error, sessionId] = await catchError(createPaymentSession(plan));
+      const userId = ??? // TODO: get user ID
+      const [error, sessionId] = await catchError(
+        createPaymentSession(plan, userId),
+      );
       if (error || !sessionId) return;
       else await loadStripePage(sessionId);
     }
