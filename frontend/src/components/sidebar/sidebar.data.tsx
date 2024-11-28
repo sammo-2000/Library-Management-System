@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  ArrowLeftRight,
   Calendar,
   Home,
   Inbox,
@@ -28,10 +29,9 @@ const base: sideBarType[] = [
     url: "/plan",
     icon: <Calendar />,
   },
-
   {
     title: "Search",
-    url: "#",
+    url: "/search-media",
     icon: <Search />,
   },
 ];
@@ -42,6 +42,11 @@ export const loggedOnLinks: sideBarType[] = [
     title: "Inbox",
     url: "#",
     icon: <Inbox />,
+  },
+  {
+    title: "Transfer",
+    url: "/transfer-media",
+    icon: <ArrowLeftRight />,
   },
   {
     title: "Settings",

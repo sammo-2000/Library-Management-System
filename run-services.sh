@@ -58,11 +58,10 @@ if [ -f .env ]; then
     rm .env
 fi
 echo "PORT=\"3003\"" >> .env
-echo "DB_PORT=\"5001\"" >> .env
-echo "DB_HOST=\"localhost\"" >> .env
+echo "DB_PORT=\"5432\"" >> .env
+echo "DB_HOST=\"db\"" >> .env
 echo "DB_USER=\"myUser\"" >> .env
 echo "DB_PASSWORD=\"myPassword\"" >> .env
 echo "DB_NAME=\"inventoryDB\"" >> .env
-docker compose -f docker-compose.inventory.db.yml up -d
 docker compose up -d
 cd ../
