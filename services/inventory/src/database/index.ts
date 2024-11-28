@@ -1,4 +1,4 @@
-import { Sequelize } from 'sequelize';
+import {Sequelize} from 'sequelize';
 import DatabaseConfig from '../config/database.config';
 import Author from '../models/Author';
 import Branch from '../models/Branch';
@@ -19,6 +19,20 @@ class Database {
       DatabaseConfig.options
     );
     this.initializeModels();
+  }
+
+  public async connect() {
+    try {
+      await this.sequelize.authenticate();
+
+      // Synchronize models with database, force:true drops the table(s) first (full reset)
+      await this.sequelize.sync({force: true});
+      await this.populateDatabase();
+      console.log('Connected to PostgreSQL, synchronized models and populated database!');
+      } catch (error) {
+        console.error('Database connection error:', error);
+        throw error;
+      }
   }
 
   private initializeModels() {
@@ -68,20 +82,6 @@ class Database {
     Branch.belongsToMany(Media, {
         through: 'MediaBranch',
     });
-  }
-
-  public async connect() {
-    try {
-      await this.sequelize.authenticate();
-
-      // Synchronize models with database, force:true drops the table(s) first (full reset)
-      await this.sequelize.sync({force: true});
-      await this.populateDatabase();
-      console.log('Connected to PostgreSQL, synchronized models and populated database!');
-      } catch (error) {
-        console.error('Database connection error:', error);
-        throw error;
-      }
   }
 
   private populateDatabase = async () => {

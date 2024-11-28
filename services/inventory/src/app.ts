@@ -1,11 +1,13 @@
-import express, { Application } from 'express';
-import { MediaRoutes } from './routes/media.routes';
-import { AuthorRoutes } from './routes/author.routes';
-import { GenreRoutes } from './routes/genre.routes';
-import { BranchRoutes } from './routes/branch.routes';
-import { CityRoutes } from './routes/city.routes';
-import { PublisherRoutes } from './routes/publisher.routes';
+import express, {Application} from 'express';
+import {MediaRoutes} from './routes/media.routes';
+import {AuthorRoutes} from './routes/author.routes';
+import {GenreRoutes} from './routes/genre.routes';
+import {BranchRoutes} from './routes/branch.routes';
+import {CityRoutes} from './routes/city.routes';
+import {PublisherRoutes} from './routes/publisher.routes';
 import cors from 'cors';
+import {BranchMediaRoutes} from "./routes/branch.media.routes";
+
 class App {
   public app: Application;
   private port: number;
@@ -15,6 +17,12 @@ class App {
     this.port = port;
     this.initializeMiddlewares();
     this.initializeRoutes();
+  }
+
+  public start() {
+    this.app.listen(this.port, () => {
+      console.log(`Server running on port ${this.port}`);
+    });
   }
 
   private initializeMiddlewares() {
@@ -41,14 +49,11 @@ class App {
     const cityRoutes = new CityRoutes();
     this.app.use('/api/cities', cityRoutes.router);
 
+    const stockRoutes = new BranchMediaRoutes();
+    this.app.use('/api/stocks', stockRoutes.router);
+
     this.app.use((req, res) => {
       res.status(404).send('Not found');
-    });
-  }
-
-  public start() {
-    this.app.listen(this.port, () => {
-      console.log(`Server running on port ${this.port}`);
     });
   }
 }
