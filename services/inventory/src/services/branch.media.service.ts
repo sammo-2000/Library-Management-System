@@ -5,9 +5,7 @@ import BranchMedia from "../models/BranchMedia";
 export class BranchMediaService {
     public async getBranchMediaByBranchId(branchId: number) {
         return await BranchMedia.findAll({
-            where: {
-                BranchId: branchId
-            }
+
         });
     }
 }

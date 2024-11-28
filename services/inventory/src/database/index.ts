@@ -77,10 +77,10 @@ class Database {
     });
 
     Media.belongsToMany(Branch, {
-        through: 'MediaBranch',
+      through: 'BranchMedia',
     });
     Branch.belongsToMany(Media, {
-        through: 'MediaBranch',
+      through: 'BranchMedia',
     });
   }
 
