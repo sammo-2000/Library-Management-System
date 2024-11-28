@@ -1,15 +1,20 @@
 import "server-only";
 import dynamic from "next/dynamic";
 import { notFound } from "next/navigation";
-import { ListBranches } from "@/app/transfer-media/component/list.branches";
+import { BranchList } from "@/app/transfer-media/component/branch.list";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Select Branch To Start Transfer",
+};
 
 const SearchBranches = dynamic(() =>
-  import("./component/search.branches").then(
-    (component) => component.SearchBranches,
+  import("./component/branch.search").then(
+    (component) => component.BranchSearch,
   ),
 );
 
-export default async function Home({
+export default async function SelectBranch({
   searchParams,
 }: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -20,7 +25,7 @@ export default async function Home({
   return (
     <div>
       <SearchBranches branchName={branchName} />
-      <ListBranches branchName={branchName} />
+      <BranchList branchName={branchName} />
     </div>
   );
 }

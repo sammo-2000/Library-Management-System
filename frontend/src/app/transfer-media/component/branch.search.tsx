@@ -6,7 +6,7 @@ import { Search } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export const SearchBranches = ({ branchName }: { branchName?: string }) => {
+export const BranchSearch = ({ branchName }: { branchName?: string }) => {
   const router = useRouter();
 
   const [search, setSearch] = useState(branchName || "");

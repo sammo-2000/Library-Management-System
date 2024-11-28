@@ -1,7 +1,7 @@
 import { Branch } from "@/api/inventory/branch";
 import Link from "next/link";
 
-export const CardBranch = ({ branch }: { branch: Branch }) => {
+export const BranchCard = ({ branch }: { branch: Branch }) => {
   return (
     <Link
       href={`/transfer-media/${branch.id}`}
