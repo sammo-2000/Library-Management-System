@@ -23,6 +23,7 @@ Content-Type: application/json
    "password": "test123"
    
 }
+//manager email - manager@gmail.com  pass-test@123
 //admin email - johnlewis20@gmail.com
 //member email - davechapelle20@gmail.com
 //password - test123
