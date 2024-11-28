@@ -78,9 +78,13 @@ class Database {
 
     Media.belongsToMany(Branch, {
       through: 'BranchMedia',
+      foreignKey: 'MediaId',
+      otherKey: 'BranchId',
     });
     Branch.belongsToMany(Media, {
       through: 'BranchMedia',
+      foreignKey: 'BranchId',
+      otherKey: 'MediaId',
     });
   }
 
