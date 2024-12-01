@@ -77,15 +77,21 @@ class Database {
     });
 
     Media.belongsToMany(Branch, {
-      through: 'BranchMedia',
-      foreignKey: 'MediaId',
-      otherKey: 'BranchId',
+    through: BranchMedia,
+    foreignKey: 'MediaId',
+    otherKey: 'BranchId',
     });
     Branch.belongsToMany(Media, {
-      through: 'BranchMedia',
-      foreignKey: 'BranchId',
-      otherKey: 'MediaId',
+        through: BranchMedia,
+        foreignKey: 'BranchId',
+        otherKey: 'MediaId',
     });
+
+    // Explicit associations for BranchMedia
+    BranchMedia.belongsTo(Media, { foreignKey: 'MediaId' });
+    BranchMedia.belongsTo(Branch, { foreignKey: 'BranchId' });
+    Media.hasMany(BranchMedia, { foreignKey: 'MediaId' });
+    Branch.hasMany(BranchMedia, { foreignKey: 'BranchId' });
   }
 
   private populateDatabase = async () => {
