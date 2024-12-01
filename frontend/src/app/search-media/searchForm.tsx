@@ -79,6 +79,7 @@ export default function SearchForm({
       const branchesValues = branches
         .filter((branch) => branch.cityId === parseInt(city))
         .map((branch) => ({ value: String(branch.id), label: branch.name }));
+      branchesValues.unshift({ value: "", label: "All branches" });
       setBranchesComboBoxValues(branchesValues);
 
       //Set branch to the first branch of the selected city
