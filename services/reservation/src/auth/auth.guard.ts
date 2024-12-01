@@ -31,7 +31,10 @@ export class AuthGuard implements CanActivate {
     const data: {
       userId: string;
       permission: Permissions;
+      error;
     } = await response.json();
+
+    if (data.error) throw new UnauthorizedException(data.error);
 
     request.userId = data.userId;
     request.permissions = data.permission;
