@@ -16,6 +16,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { INVENTORY_API } from "@/lib/apiEndPoint";
 
 interface SearchFormProps {
   genres: ComboBoxValue[];
@@ -134,7 +135,7 @@ export default function SearchForm({
     //Set URL to include query string
     router.push(`?${queryParams.toString()}`);
     const mediaRes = await fetch(
-      `http://localhost:3003/api/media?${queryParams.toString()}`,
+      `${INVENTORY_API}media?${queryParams.toString()}`,
     );
     const media: MediaResponse = await mediaRes.json();
     setPageCount(calculatePageCount(media.total));

@@ -7,16 +7,17 @@ import type {
   Publisher,
 } from "@/types/inventoryServiceTypes";
 import SearchForm from "./searchForm";
+import { INVENTORY_API } from "@/lib/apiEndPoint";
 
 async function getDropdownValues() {
   // Fetch data from an external API
   const [genresRes, authorsRes, publishersRes, citiesRes, branchesRes] =
     await Promise.all([
-      fetch("http://localhost:3003/api/genres"),
-      fetch("http://localhost:3003/api/authors"),
-      fetch("http://localhost:3003/api/publishers"),
-      fetch("http://localhost:3003/api/cities"),
-      fetch("http://localhost:3003/api/branches"),
+      fetch(INVENTORY_API + "genres"),
+      fetch(INVENTORY_API + "authors"),
+      fetch(INVENTORY_API + "publishers"),
+      fetch(INVENTORY_API + "cities"),
+      fetch(INVENTORY_API + "branches"),
     ]);
 
   if (
