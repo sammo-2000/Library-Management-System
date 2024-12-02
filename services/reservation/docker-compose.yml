@@ -9,3 +9,9 @@ services:
       - '3004:3004'
     env_file:
       - .env
+    networks:
+      - shared-network
+
+networks:
+  shared-network:
+    external: true

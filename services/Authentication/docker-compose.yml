@@ -9,6 +9,8 @@ services:
       POSTGRES_HOST_AUTH_METHOD: trust
     ports:
       - "5432:5432"
+    networks:
+      - shared-network
   
   app:
     build:
@@ -27,3 +29,9 @@ services:
       DB_USER: user123
       DB_PASSWORD: password123
       DB_NAME: db123
+    networks:
+      - shared-network
+
+networks:
+  shared-network:
+    external: true
