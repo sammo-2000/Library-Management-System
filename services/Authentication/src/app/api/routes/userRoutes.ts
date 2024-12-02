@@ -4,8 +4,9 @@ import { addUser } from '../controllers/userController.js';
 import { signIn } from '../controllers/authController.js';
 import { accounts } from '../controllers/adminController.js';
 import { dropUsersTable } from '../controllers/adminController.js';
-import { getUserRole } from '../controllers/authController.js';
+import { getUserInfo } from '../controllers/authController.js';
 import { permission } from '../controllers/permissionController.js';
+import { getId } from '../controllers/getUserIdController.js';
 import {authenticateToken, authorizeRoles} from '../middleware/tokenVerification.js'
 import dotenv from "dotenv";
 dotenv.config(); 
@@ -29,7 +30,9 @@ if (stage === 'development')
     }
 
 //get user role
-app.get('/user-role', authenticateToken, getUserRole);
+//app.get('/userId', getId);
+
+app.get('/userId', authenticateToken,getUserInfo);
 
 //user registration
 app.post('/register', addUser);
