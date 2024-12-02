@@ -1,8 +1,6 @@
 "use server";
 
 import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
-import { env } from "@/types/envType";
 
 
 export const getServerAuth = async () => {
@@ -16,5 +14,5 @@ export const deleteToken = async () => {
     maxAge: -1, // Expire immediately
     path: "/", // Ensure it's the same path as where the cookie was set
   });
-  //redirect(env.BASE_URL);
+  
 };

@@ -4,7 +4,7 @@ import "./globals.css";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/sidebar/sideBar";
 import { Toaster } from "@/components/ui/sonner";
-import { AuthProvider } from "@/components/Auth/AuthContext";
+
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -31,8 +31,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} bg-muted text-foreground antialiased`}
-      >
-        <AuthProvider>
+      > 
           <SidebarProvider>
             <AppSidebar />
             <main className="w-full px-2 md:pl-0">
@@ -43,7 +42,6 @@ export default function RootLayout({
             </main>
             <Toaster />
           </SidebarProvider>
-        </AuthProvider>
       </body>
     </html>
   );

@@ -3,21 +3,21 @@
 import { useState } from "react"; 
 import { useRouter } from "next/navigation";
 import { setAuthToken } from "@/lib/utils";
-import { useAuth } from "@/components/Auth/AuthContext";
+import { SIGN_API } from "@/lib/apiEndPoint";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const { login } = useAuth();
+
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
     try {
-      const response = await fetch("http://localhost:3002/api/signin", {
+      const response = await fetch(`${SIGN_API}signin`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
@@ -30,7 +30,7 @@ const SignIn = () => {
 
       const data = await response.json();
       setAuthToken(data.token); // Save token in cookies
-      login(); // Update auth state
+    
       setSuccess("Sign-in successful! Redirecting...");
       router.push("/"); // Redirect to a protected page
     } catch (err: any) {
