@@ -8,7 +8,6 @@ import {
 
 export const SidebarContentFooter = async () => {
   const user = await getUser();
-
   return (
     <div className={"flex items-center gap-2"}>
       <Avatar>
