@@ -47,7 +47,8 @@ export const signIn = async (req: Request, res: Response) => {
 };
 
 // Get user role
-export const getUserRole = (req: Request, res: Response) => {
+export const getUserInfo = (req: Request, res: Response) => {
   const userRole = req.body.user.role;
-  res.status(200).json({ role: userRole });
+  const userId =  req.body.user.userId
+  res.status(200).json({ id: userId, role: userRole});
 };
