@@ -9,9 +9,7 @@ type Permissions = {
 };
 
 export const getTransferPermissions = async (): Promise<Permissions> => {
-  const token: { name: string; value: string } | undefined = await getToken();
-
-  if (!token) return notFound();
+  const token = await getToken();
 
   const response = await fetch(`${env.AUTH_SERVICE_BASE_URL}users-permission`, {
     method: "POST",
@@ -20,7 +18,7 @@ export const getTransferPermissions = async (): Promise<Permissions> => {
     },
     body: JSON.stringify({
       service: "inventory",
-      token: token.value,
+      token,
     }),
   });
 
