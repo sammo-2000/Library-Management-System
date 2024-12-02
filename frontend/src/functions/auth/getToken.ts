@@ -1,13 +1,12 @@
 "use server";
 
 import { cookies } from "next/headers";
-import { notFound } from "next/navigation";
 
-export const getToken = async (): Promise<string> => {
+export const getToken = async (): Promise<string | null> => {
   const cookieStore = await cookies();
   const authToken = cookieStore.get("authToken");
 
-  if (!authToken) return notFound();
+  if (!authToken) return null;
 
   return authToken.value;
 };

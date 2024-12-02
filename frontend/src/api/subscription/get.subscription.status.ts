@@ -1,7 +1,7 @@
 import { PAYMENT_API } from "@/lib/apiEndPoint";
 
 export const isSubscriptionActive = async (
-  userId: string,
+  userId: number,
 ): Promise<boolean> => {
   const response = await fetch(
     `${PAYMENT_API}get-subscription-status/${userId}`,

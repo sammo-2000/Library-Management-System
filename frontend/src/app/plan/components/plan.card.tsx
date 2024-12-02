@@ -8,8 +8,11 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { PlanButton } from "@/app/plan/components/plan.button";
+import { getUser } from "@/functions/auth/getUser";
 
-export const PlanCard = ({ plan }: { plan: planType }) => {
+export const PlanCard = async ({ plan }: { plan: planType }) => {
+  const user = await getUser();
+
   return (
     <Card>
       <CardHeader>
@@ -17,7 +20,7 @@ export const PlanCard = ({ plan }: { plan: planType }) => {
         <CardDescription>{plan.info}</CardDescription>
       </CardHeader>
       <CardFooter>
-        <PlanButton plan={plan} />
+        <PlanButton plan={plan} user={user} />
       </CardFooter>
     </Card>
   );
