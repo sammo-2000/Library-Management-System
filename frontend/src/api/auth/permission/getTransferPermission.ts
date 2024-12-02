@@ -1,0 +1,32 @@
+import "server-only";
+
+import { env } from "@/types/envType";
+import { getToken } from "@/functions/auth/getToken";
+import { notFound } from "next/navigation";
+
+type Permissions = {
+  transfer: boolean;
+};
+
+export const getTransferPermissions = async (): Promise<Permissions> => {
+  const token: { name: string; value: string } | undefined = await getToken();
+
+  if (!token) return notFound();
+
+  const response = await fetch(`${env.AUTH_SERVICE_BASE_URL}users-permission`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      service: "inventory",
+      token: token.value,
+    }),
+  });
+
+  const data: { error; permission } = await response.json();
+
+  if (data.error) return notFound();
+
+  return data.permission.transferMedia;
+};

@@ -17,6 +17,7 @@ echo SECRET_KEY=\""sk_test_51QNYr3Amxc9dTyf5gulVLTq9zTBDPAiUgz3EgrgpRRvpNLRXw6AP
 echo WEBHOOK_KEY=\""whsec_WClTvTHsvHP0fyYgI1Tn9ss7sIBDP4P3"\">> .env
 echo DATABASE_URL=\""postgres://neondb_owner:4EcwB6vWLbfe@ep-orange-star-a2dfwhpn-pooler.eu-central-1.aws.neon.tech/neondb?sslmode=require"\">> .env
 echo NODE_ENV=\""production"\">> .env
+echo "AUTH_SERVICE_BASE_URL=\"http://app:3002/api/\"" >> .env
 cd ../
 
 cd Authentication
