@@ -11,6 +11,16 @@ export class BranchMediaController {
         this.branchMediaService = new BranchMediaService();
     }
 
+    public async getBranchMedia(req: Request, res: Response) {
+        try{
+            const stocks = await this.branchMediaService.getBranchMedia();
+            res.json(stocks);
+        }
+        catch(error: any){
+            res.status(error.statusCode || 500).json({ message: error.message });
+        }
+    }
+
 
     public async getBranchMediaByBranchId(req: Request, res: Response) {
         try{

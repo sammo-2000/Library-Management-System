@@ -11,6 +11,7 @@ export class BranchMediaRoutes extends Routes {
     }
 
     protected initializeRoutes() {
+        this.router.get('/', this.stockController.getBranchMedia.bind(this.stockController))
         this.router.get('/:branchId', this.stockController.getBranchMediaByBranchId.bind(this.stockController));
     }
 }
