@@ -5,27 +5,17 @@ import Genre from '../models/Genre';
 import Publisher from '../models/Publisher';
 import { BadRequestError } from '../errors';
 import { Op } from 'sequelize';
+import Branch from '../models/Branch';
+import BranchMedia from '../models/BranchMedia';
+import City from '../models/City';
 
 //Business Logic Layer
 
 export class MediaService {
   public async getMedia(query: ParsedQs) {
-    const allowedQueryParams = ['type', 'title', 'authorId', 'genreId', 'mediaId', 'cityId', 'branchId'];
-    const filters: { [key: string]: any } = {};
 
-    // Loop through allowed parameters and get only those present in req.query
-    allowedQueryParams.forEach((param) => {
-      if (query[param]) {
-        if (param === 'title'){
-          filters[param] = { [Op.iLike]: `%${query.title}%` };
-        }
-        else{
-          filters[param] = query[param];
-        }
-      }
-    });
 
-    // Handle page query parameter for pagination
+  //   // Handle page query parameter for pagination
     const page = query.page ? parseInt(query.page as string, 10) : 1;
     if (isNaN(page)) {
       throw new BadRequestError('Query parameter page should be a number');
@@ -38,10 +28,78 @@ export class MediaService {
     const limit = 20;
     const offset = (page - 1) * limit;
 
-    const {count : total, rows: media} = await Media.findAndCountAll({
-      where: filters,
-      include: [Author, Genre, Publisher],
-      attributes: { exclude: ['authorId', 'genreId', 'publisherId', 'createdAt', 'updatedAt'] },
+  const {
+        type,
+        title,
+        authorId,
+        genreId,
+        mediaId,
+        cityId,
+        branchId,
+    } = query;
+
+    // Base where clause for the Media model
+    const mediaWhere: any = {};
+    if (type) mediaWhere.type = type;
+    if (title) mediaWhere.title = { [Op.iLike]: `%${title}%` };
+    if (authorId) mediaWhere.authorId = authorId;
+    if (genreId) mediaWhere.genreId = genreId;
+    if (mediaId) mediaWhere.id = mediaId;
+
+    // Include array to dynamically add associations
+    const include = [];
+
+    // Add condition for branchId or cityId
+    if (branchId) {
+        include.push({
+            model: BranchMedia,
+            attributes: [], // Exclude BranchMedia data
+            where: {
+                BranchId: branchId,
+                quantity: { [Op.gt]: 0 },
+            },
+            required: true, // Ensure only matching Media are returned
+        });
+    } else if (cityId) {
+         // Filter by cityId (find media in any branch in the city with quantity > 0)
+        include.push({
+            model: BranchMedia,
+            attributes: [], // Exclude join table data
+            required: true, // Enforce filtering on BranchMedia
+            duplicating: false, // Prevent duplicate rows
+            where: {
+                quantity: { [Op.gt]: 0 },
+            },
+            include: [
+                {
+                    model: Branch,
+                    attributes: [], // Exclude branch data
+                    required: true, // Enforce filtering on Branch
+                    duplicating: false, // Prevent duplicate rows
+                    include: [
+                        {
+                            model: City,
+                            where: { id: cityId },
+                            attributes: [], // Exclude city data
+                            required: true, // Enforce filtering on City
+                            duplicating: false, // Prevent duplicate rows
+                        },
+                    ],
+                },
+            ],
+        });
+    }
+
+    // Include related models if needed (e.g., Author, Publisher, Genre)
+    include.push(
+        { model: Author },
+        { model: Publisher },
+        { model: Genre }
+    );
+    const {rows: media, count: total} = await Media.findAndCountAll({
+      where: mediaWhere,
+      include: include,
+      attributes: ['id', 'type', 'title', 'description', 'publishedDate'],
       limit,
       offset,
       distinct: true,

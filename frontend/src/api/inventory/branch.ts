@@ -27,3 +27,18 @@ export const getAllBranches = async (
     return [];
   }
 };
+
+export const getBranchById = async (
+  branchId: number,
+): Promise<Branch | null> => {
+  try {
+    const response = await fetch(`${INVENTORY_API}branches`);
+    const data: Branch[] = await response.json();
+
+    const branch = data.find((branch) => branch.id === branchId);
+    return branch || null;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};

@@ -1,7 +1,7 @@
 import { getAllBranches } from "@/api/inventory/branch";
-import { CardBranch } from "@/app/transfer-media/component/card.branch";
+import { BranchCard } from "@/app/transfer-media/component/branch.card";
 
-export const ListBranches = async ({ branchName }: { branchName?: string }) => {
+export const BranchList = async ({ branchName }: { branchName?: string }) => {
   const branches = await getAllBranches(branchName);
 
   return (
@@ -9,7 +9,7 @@ export const ListBranches = async ({ branchName }: { branchName?: string }) => {
       className={"my-4 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4"}
     >
       {branches.map((branch) => {
-        return <CardBranch key={branch.id} branch={branch} />;
+        return <BranchCard key={branch.id} branch={branch} />;
       })}
     </div>
   );

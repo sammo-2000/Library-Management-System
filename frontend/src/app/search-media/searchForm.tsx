@@ -16,6 +16,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { INVENTORY_API } from "@/lib/apiEndPoint";
 
 interface SearchFormProps {
   genres: ComboBoxValue[];
@@ -78,6 +79,7 @@ export default function SearchForm({
       const branchesValues = branches
         .filter((branch) => branch.cityId === parseInt(city))
         .map((branch) => ({ value: String(branch.id), label: branch.name }));
+      branchesValues.unshift({ value: "", label: "All branches" });
       setBranchesComboBoxValues(branchesValues);
 
       //Set branch to the first branch of the selected city
@@ -134,7 +136,7 @@ export default function SearchForm({
     //Set URL to include query string
     router.push(`?${queryParams.toString()}`);
     const mediaRes = await fetch(
-      `http://localhost:3003/api/media?${queryParams.toString()}`,
+      `${INVENTORY_API}media?${queryParams.toString()}`,
     );
     const media: MediaResponse = await mediaRes.json();
     setPageCount(calculatePageCount(media.total));

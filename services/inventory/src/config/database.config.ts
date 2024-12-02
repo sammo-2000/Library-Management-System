@@ -8,7 +8,7 @@ class DatabaseConfig {
     host: process.env.DB_HOST,
     port: Number(process.env.DB_PORT),
     dialect: 'postgres' as Dialect,
-    logging: false,
+    logging: true,
   };
 }
 

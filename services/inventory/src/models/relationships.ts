@@ -5,6 +5,7 @@ import Genre from "./Genre";
 import Media from "./Media";
 import Publisher from "./Publisher";
 
+
 // Define model relationships
 export default function defineModelRelationships() {
     Author.hasMany(Media);
