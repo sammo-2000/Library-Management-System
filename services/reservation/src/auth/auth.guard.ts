@@ -29,14 +29,14 @@ export class AuthGuard implements CanActivate {
     );
 
     const data: {
-      userId: string;
+      userId: number | string;
       permission: Permissions;
       error;
     } = await response.json();
 
     if (data.error) throw new UnauthorizedException(data.error);
 
-    request.userId = data.userId;
+    request.userId = String(data.userId);
     request.permissions = data.permission;
     return true;
   }
