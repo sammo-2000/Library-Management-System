@@ -1,6 +1,6 @@
+import { RESERVATION_API } from "@/lib/apiEndPoint";
+import { getToken } from "@/functions/auth/getToken";
 
-import {RESERVATION_API } from "@/lib/apiEndPoint";
-import { getServerAuth } from "@/components/Auth/ServerProtectedRoute";
 export const createReservation = async (
     accountId: string,
     mediaId: string,

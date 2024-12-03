@@ -9,7 +9,7 @@ import {
   Search,
   Settings,
 } from "lucide-react";
-import { deleteToken } from "@/components/Auth/ServerProtectedRoute";
+import { deleteToken } from "@/functions/auth/deleteToken";
 
 export type sideBarType = {
   title: string;

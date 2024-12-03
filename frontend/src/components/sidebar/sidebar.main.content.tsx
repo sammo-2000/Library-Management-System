@@ -1,14 +1,14 @@
 import { SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
 import Link from "next/link";
-import { getServerAuth } from "@/components/Auth/ServerProtectedRoute";
 import {
   guestLinks,
   loggedOnLinks,
   sideBarType,
 } from "@/components/sidebar/sidebar.data";
+import { getToken } from "@/functions/auth/getToken";
 
 export const SidebarMainContent = async () => {
-  const session = await getServerAuth();
+  const session = await getToken();
 
   const links: sideBarType[] = session ? loggedOnLinks : guestLinks;
 
