@@ -2,13 +2,12 @@
 import {RESERVATION_API } from "@/lib/apiEndPoint";
 import { getServerAuth } from "@/components/Auth/ServerProtectedRoute";
 export const createReservation = async (
-    accountId: number,
-    mediaId: number,
-    branchId: number
+    accountId: string,
+    mediaId: string,
+    branchId: string
   ): Promise<{ success: boolean; message: string }> => {
     try {
         const token = await getServerAuth();
-        // console.log(token)
      
          if (!token) {
            console.error("Authentication token not found.");
