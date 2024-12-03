@@ -7,7 +7,8 @@ export const createReservation = async (
     branchId: string
   ): Promise<{ success: boolean; message: string }> => {
     try {
-        const token = await getServerAuth();
+        const token = await getToken();
+       console.log( `test:${token}`)
      
          if (!token) {
            console.error("Authentication token not found.");
@@ -17,7 +18,7 @@ export const createReservation = async (
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token.value}`,
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({ accountId, mediaId, branchId }),
       });
