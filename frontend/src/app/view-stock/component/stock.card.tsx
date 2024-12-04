@@ -1,11 +1,11 @@
-import { StockQuantity } from "@/api/inventory/trasnfer";
-import { CardStyle } from "@/app/transfer-media/component/component.css";
+import { StockQuantity } from "@/api/inventory/stock.by.branch.id";
+import { CardStyle } from "@/app/view-stock/component/component.css";
 import Link from "next/link";
 
 export const StockCard = async ({ stock }: { stock: StockQuantity }) => {
   return (
     <Link
-      href={`/transfer-media/${stock.BranchId}/${stock.Medium.id}`}
+      href={`/view-stock/${stock.BranchId}/${stock.Medium.id}`}
       className={CardStyle}
     >
       <span className={"text-lg"}>

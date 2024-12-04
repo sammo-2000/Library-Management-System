@@ -1,7 +1,7 @@
 import "server-only";
-import { getStockQuantityForBranchById } from "@/api/inventory/trasnfer";
-import { StockCard } from "@/app/transfer-media/component/stock.card";
-import { GridStyle } from "@/app/transfer-media/component/component.css";
+import { getStockQuantityForBranchById } from "@/api/inventory/stock.by.branch.id";
+import { StockCard } from "@/app/view-stock/component/stock.card";
+import { GridStyle } from "@/app/view-stock/component/component.css";
 
 export const ListStocks = async ({ branchId }: { branchId: string }) => {
   const stocks = await getStockQuantityForBranchById(branchId);
