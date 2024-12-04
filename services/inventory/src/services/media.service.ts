@@ -12,7 +12,15 @@ import City from '../models/City';
 //Business Logic Layer
 
 export class MediaService {
-  public async getMedia(query: ParsedQs) {
+
+public async getMediaById(mediaId: number) {
+    const media = await Media.findByPk(mediaId, {
+      include: [Author, Genre, Publisher],
+    });
+    return media;
+}
+
+  public async getAllMedia(query: ParsedQs) {
 
 
   //   // Handle page query parameter for pagination

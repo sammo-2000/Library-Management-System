@@ -11,6 +11,7 @@ export class MediaRoutes extends Routes {
   }
 
   protected initializeRoutes() {
-    this.router.get('/', this.mediaController.getMedia.bind(this.mediaController));
+    this.router.get('/:id', this.mediaController.getMediaById.bind(this.mediaController));  
+    this.router.get('/', this.mediaController.getAllMedia.bind(this.mediaController));
   }
 }
