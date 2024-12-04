@@ -4,6 +4,14 @@ import Branch from '../models/Branch';
 //Business Logic Layer
 
 export class BranchService {
+  public async getBranchById(branchId: number) {
+    const branch = await Branch.findByPk(branchId, {
+      include: ['City'],
+      attributes: { exclude: ['cityId'] }
+    });
+    return branch;
+  }
+
   public async getBranches() {
     return await Branch.findAll({
       include: ['City'],

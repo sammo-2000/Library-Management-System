@@ -12,6 +12,7 @@ export class BranchRoutes extends Routes {
 
   protected initializeRoutes() {
     this.router.get('/', this.branchController.getBranches.bind(this.branchController));
+    this.router.get('/:id', this.branchController.getBranchById.bind(this.branchController));
     this.router.get('/city/:id', this.branchController.getBranchesInCity.bind(this.branchController));
   }
 }

@@ -16,6 +16,7 @@ export class MediaService {
 public async getMediaById(mediaId: number) {
     const media = await Media.findByPk(mediaId, {
       include: [Author, Genre, Publisher],
+      attributes: ['id', 'type', 'title', 'description', 'publishedDate'],
     });
     return media;
 }
