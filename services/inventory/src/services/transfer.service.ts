@@ -60,7 +60,7 @@ export class TransferService {
         };
 
         if (fromBranch.stock < quantity) {
-            throw new Error(`Not enough in stock to transfer, there are ${fromBranch.stock} in stock`);
+            throw new Error(`Not enough in stock to transfer, there are ${fromBranch.stock} in stock.`);
         }
 
         let rest = {};

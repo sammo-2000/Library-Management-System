@@ -2,6 +2,9 @@ import { StockQuantity } from "@/api/inventory/stock.by.branch.id";
 import { CardStyle } from "@/app/view-stock/component/component.css";
 
 export const StockCard = async ({ stock }: { stock: StockQuantity }) => {
+  if (stock.quantity === 0 && stock.borrowed === 0 && stock.reserved === 0)
+    return null;
+
   return (
     <div className={CardStyle}>
       <span className={"text-lg"}>
