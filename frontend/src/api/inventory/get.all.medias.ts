@@ -20,7 +20,12 @@ export type Media = {
   };
 };
 
-export const getAllMedias = async (): Promise<Media[] | string> => {
+export type Medias = {
+  media: Media[];
+  total: number;
+};
+
+export const getAllMedias = async (): Promise<Medias | string> => {
   const response = await fetch(`${INVENTORY_API}media`);
 
   if (!response.ok) return response.statusText;
