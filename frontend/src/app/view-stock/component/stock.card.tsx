@@ -1,13 +1,9 @@
 import { StockQuantity } from "@/api/inventory/stock.by.branch.id";
 import { CardStyle } from "@/app/view-stock/component/component.css";
-import Link from "next/link";
 
 export const StockCard = async ({ stock }: { stock: StockQuantity }) => {
   return (
-    <Link
-      href={`/view-stock/${stock.BranchId}/${stock.Medium.id}`}
-      className={CardStyle}
-    >
+    <div className={CardStyle}>
       <span className={"text-lg"}>
         <strong>{stock.Medium.title}</strong>
       </span>
@@ -22,6 +18,6 @@ export const StockCard = async ({ stock }: { stock: StockQuantity }) => {
           <strong>Borrowed:</strong> {stock.borrowed}
         </span>
       </div>
-    </Link>
+    </div>
   );
 };
