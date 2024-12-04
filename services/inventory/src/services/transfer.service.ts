@@ -17,7 +17,22 @@ export class TransferService {
         return stock.quantity;
     }
 
-    public updateStockCount = async (branchId: number, mediaId: number, quantity: number) => {}
+    public updateStockCount = async (branchId: number, mediaId: number, quantity: number) => {
+        const stock = await BranchMedia.findOne({
+            where: {
+                BranchId: branchId,
+                MediaId: mediaId,
+            },
+        });
+
+        if (!stock) {
+            throw new Error(`Stock entry not found for BranchId ${branchId} and MediaId ${mediaId}`);
+        }
+
+        stock.quantity = quantity;
+
+        return await stock.save();
+    };
 
     public addStockCount = async (branchId: number, mediaId: number, quantity: number) => {
         return await BranchMedia.create({
@@ -28,38 +43,58 @@ export class TransferService {
     }
 
     public async transfer(branchOne: number, branchTwo: number, mediaId: number, quantity: number, transfer: string) {
-
         type Branch = {
             branchId: number,
             stock: number,
-        }
+        };
 
-        // from and to branch
+        // Determine from and to branch
         const fromBranch: Branch = {
             branchId: transfer === "OneToTwo" ? branchOne : branchTwo,
-            stock: await this.getStockCount(transfer === "OneToTwo" ? branchOne : branchTwo, mediaId)
+            stock: await this.getStockCount(transfer === "OneToTwo" ? branchOne : branchTwo, mediaId),
         };
+
         const toBranch: Branch = {
             branchId: transfer === "OneToTwo" ? branchTwo : branchOne,
-            stock:  await this.getStockCount(transfer === "OneToTwo" ? branchTwo : branchOne, mediaId)
+            stock: await this.getStockCount(transfer === "OneToTwo" ? branchTwo : branchOne, mediaId),
         };
 
-        if (fromBranch.stock < quantity) { throw new Error('Not enough in stock to transfer'); }
-
-        // does it already this item (to branch)
-        if (toBranch.stock === 0) {
-            // create one
-            await this.addStockCount(toBranch.branchId, mediaId, quantity);
-
-            // take from other
-            await this.updateStockCount(fromBranch.branchId, mediaId, fromBranch.stock - quantity)
+        if (fromBranch.stock < quantity) {
+            throw new Error(`Not enough in stock to transfer, there are ${fromBranch.stock} in stock`);
         }
-        else {
-            // update count
-            await this.updateStockCount(toBranch.branchId, mediaId, fromBranch.stock + quantity)
 
-            // take from other
-            await this.updateStockCount(fromBranch.branchId, mediaId, fromBranch.stock - quantity)
+        let rest = {};
+
+        // If the destination branch has no stock
+        if (toBranch.stock < 1) {
+            // Add stock to the destination branch
+            const addToBranch = await this.addStockCount(toBranch.branchId, mediaId, quantity);
+
+            // Deduct stock from the source branch
+            const updateFromBranch = await this.updateStockCount(fromBranch.branchId, mediaId, fromBranch.stock - quantity);
+
+            rest = {
+                addedToBranch: addToBranch,
+                deductedFromBranch: updateFromBranch,
+            };
+        } else {
+            // Update stock for both branches
+            const updateToBranch = await this.updateStockCount(toBranch.branchId, mediaId, toBranch.stock + quantity);
+            const updateFromBranch = await this.updateStockCount(fromBranch.branchId, mediaId, fromBranch.stock - quantity);
+
+
+            rest = {
+                updatedToBranch: updateToBranch,
+                deductedFromBranch: updateFromBranch,
+            };
         }
+
+        // return {
+        //     fromBranch,
+        //     toBranch,
+        //     rest,
+        // };
+
+        return "Stock update successfully";
     }
 }

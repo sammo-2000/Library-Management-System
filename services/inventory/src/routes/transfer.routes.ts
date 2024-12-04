@@ -11,6 +11,6 @@ export class TransferRoutes extends Routes{
     }
 
     protected initializeRoutes() {
-        this.router.get('/', this.transferController.transfer.bind(this.transferController));
+        this.router.post('/', this.transferController.transfer.bind(this.transferController));
     }
 }

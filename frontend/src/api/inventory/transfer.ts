@@ -12,5 +12,5 @@ export const sendTransferRequest = async (transferData: TransferForm) => {
 
   const data = await response.json();
 
-  console.log(data);
+  return data.message as string;
 };

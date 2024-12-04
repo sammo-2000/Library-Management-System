@@ -54,7 +54,7 @@ class App {
     this.app.use('/api/stocks', stockRoutes.router);
 
     const transferRoutes = new TransferRoutes();
-    this.app.use('/api/transfers', transferRoutes.router);
+    this.app.use('/api/transfer', transferRoutes.router);
 
     this.app.use((req, res) => {
       res.status(404).send('Not found');

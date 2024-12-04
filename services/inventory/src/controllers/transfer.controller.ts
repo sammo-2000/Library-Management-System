@@ -16,7 +16,20 @@ export class TransferController {
             const { branchOne, branchTwo, mediaId, quantity, transfer } = req.body;
 
             if (!branchOne || !branchTwo  || !mediaId || !quantity || !transfer) {
-                return res.status(400).json({ message: 'Invalid transfer body' });
+                res.status(400).json({ message: 'Invalid transfer body' });
+                return
+            }
+
+            if (typeof branchOne !== 'number' || typeof branchTwo !== 'number' || typeof mediaId !== 'number' || typeof quantity !== 'number')
+            {
+                res.status(400).json({ message: 'Invalid numbers in body' });
+                return;
+            }
+
+            if (transfer !== "OneToTwo" && transfer !== "TwoToOne")
+            {
+                res.status(400).json({ message: 'Transfer direction invalid' });
+                return;
             }
 
             const data = await this.transferService.transfer(branchOne, branchTwo, mediaId, quantity, transfer);
