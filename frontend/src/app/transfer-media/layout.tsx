@@ -13,7 +13,5 @@ export default async function RootLayout({
   // const transfer = await getTransferPermissions();
   const transfer = await getUser();
 
-  console.log(transfer);
-
   return <>{children}</>;
 }
