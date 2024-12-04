@@ -2,15 +2,38 @@ import { SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
 import Link from "next/link";
 import {
   guestLinks,
-  loggedOnLinks,
+  managerLinks,
+  memberLinks,
   sideBarType,
+  staffLinks,
 } from "@/components/sidebar/sidebar.data";
 import { getToken } from "@/functions/auth/getToken";
+import { decodeJWT } from "@/functions/auth/decodeJWT";
 
 export const SidebarMainContent = async () => {
-  const session = await getToken();
+  const token = await getToken();
+  let role = "";
+  if (token) {
+    const user = decodeJWT(token);
+    role = user.role;
+  }
 
-  const links: sideBarType[] = session ? loggedOnLinks : guestLinks;
+  let links: sideBarType[] = [];
+  switch (role) {
+    case "freeMember":
+    case "paidMember":
+      links = memberLinks;
+      break;
+    case "receptionist":
+    case "callCenterOperator":
+      links = staffLinks;
+      break;
+    case "manager":
+      links = managerLinks;
+      break;
+    default:
+      links = guestLinks;
+  }
 
   return (
     <>
