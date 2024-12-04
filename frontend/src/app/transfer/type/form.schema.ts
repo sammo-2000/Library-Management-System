@@ -7,3 +7,5 @@ export const TransferFormSchema = z.object({
   quantity: z.coerce.number(),
   transfer: z.enum(["OneToTwo", "TwoToOne"]),
 });
+
+export type TransferForm = z.infer<typeof TransferFormSchema>;

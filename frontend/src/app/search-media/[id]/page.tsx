@@ -1,9 +1,9 @@
 import {
   Card,
+  CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-  CardContent,
 } from "@/components/ui/card";
 import { formatDate } from "@/helpers/dates";
 import { INVENTORY_API } from "@/lib/apiEndPoint";
@@ -18,6 +18,7 @@ async function getMediaDetails(id: string) {
     const media: Media = await res.json();
     return media;
   } catch (error) {
+    console.log(error);
     console.error("Failed to fetch data");
     return null;
   }
