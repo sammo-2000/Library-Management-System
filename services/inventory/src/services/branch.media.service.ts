@@ -1,4 +1,5 @@
 import BranchMedia from "../models/BranchMedia";
+import Media from "../models/Media";
 
 //Business Logic Layer
 
@@ -11,7 +12,13 @@ export class BranchMediaService {
         return await BranchMedia.findAll({
            where: {
                BranchId: branchId
-           }
+           },
+           include: [
+               {
+                   model: Media,
+                   as: 'Medium'
+               }
+           ]
         });
     }
 

@@ -11,7 +11,7 @@ export const setToken = async (token: string) => {
     value: token,
     secure: true,
     httpOnly: true,
-    expires: new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000),
+    expires: new Date(now.getTime() + 60 * 60 * 1000),
     path: "/",
     sameSite: "strict",
   });
