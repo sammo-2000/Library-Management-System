@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { TransferFormSchema } from "@/app/transfer/type/form.schema";
 import { Button } from "@/components/ui/button";
-import { Check, ChevronsUpDown } from "lucide-react";
+import { Check, ChevronsUpDown, MoveLeft, MoveRight } from "lucide-react";
 import {
   Form,
   FormControl,
@@ -31,10 +31,21 @@ import {
 } from "@/components/ui/popover";
 import { Branch } from "@/api/inventory/branch";
 import { TransferProps } from "@/app/transfer/type/props";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export const TransferMedia = ({ branches, medias }: TransferProps) => {
   const form = useForm<z.infer<typeof TransferFormSchema>>({
     resolver: zodResolver(TransferFormSchema),
+    defaultValues: {
+      quantity: 0,
+    },
   });
 
   return (
@@ -43,7 +54,7 @@ export const TransferMedia = ({ branches, medias }: TransferProps) => {
         {/* Start of 1st branch select */}
         <FormField
           control={form.control}
-          name="currentBranchId"
+          name="branchOne"
           render={({ field }) => (
             <FormItem className="flex flex-col">
               <FormLabel>Select branch</FormLabel>
@@ -55,7 +66,7 @@ export const TransferMedia = ({ branches, medias }: TransferProps) => {
                       variant="outline"
                       role="combobox"
                       className={cn(
-                        "w-[200px] justify-between",
+                        "justify-between",
                         !field.value && "text-muted-foreground",
                       )}
                     >
@@ -68,7 +79,7 @@ export const TransferMedia = ({ branches, medias }: TransferProps) => {
                   </FormControl>
                 </PopoverTrigger>
 
-                <PopoverContent className="w-[200px] p-0">
+                <PopoverContent className="p-0">
                   <Command>
                     <CommandInput placeholder="Search branch..." />
                     <CommandList>
@@ -79,7 +90,7 @@ export const TransferMedia = ({ branches, medias }: TransferProps) => {
                             value={branch.name}
                             key={branch.id}
                             onSelect={() => {
-                              form.setValue("currentBranchId", branch.id);
+                              form.setValue("branchOne", branch.id);
                             }}
                           >
                             {branch.name}
@@ -104,6 +115,50 @@ export const TransferMedia = ({ branches, medias }: TransferProps) => {
         />
         {/* End of 1st branch select */}
 
+        {/* Start of quantity select */}
+        <FormField
+          control={form.control}
+          name="quantity"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Quantity</FormLabel>
+              <FormControl>
+                <Input placeholder="quantity" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        {/* End of quantity select */}
+
+        {/* Start of transfer select */}
+        <FormField
+          control={form.control}
+          name="transfer"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Transfer direction</FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select transfer direction" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  <SelectItem value="OneToTwo">
+                    <MoveRight />
+                  </SelectItem>
+                  <SelectItem value="TwoToOne">
+                    <MoveLeft />
+                  </SelectItem>
+                </SelectContent>
+              </Select>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        {/* End of transfer select */}
+
         {/* Start of media select */}
         <FormField
           control={form.control}
@@ -119,7 +174,7 @@ export const TransferMedia = ({ branches, medias }: TransferProps) => {
                       variant="outline"
                       role="combobox"
                       className={cn(
-                        "w-[200px] justify-between",
+                        "justify-between",
                         !field.value && "text-muted-foreground",
                       )}
                     >
@@ -132,7 +187,7 @@ export const TransferMedia = ({ branches, medias }: TransferProps) => {
                   </FormControl>
                 </PopoverTrigger>
 
-                <PopoverContent className="w-[200px] p-0">
+                <PopoverContent className="p-0">
                   <Command>
                     <CommandInput placeholder="Search media..." />
                     <CommandList>
@@ -171,7 +226,7 @@ export const TransferMedia = ({ branches, medias }: TransferProps) => {
         {/* Start of 2nd branch select */}
         <FormField
           control={form.control}
-          name="selectedBranchId"
+          name="branchTwo"
           render={({ field }) => (
             <FormItem className="flex flex-col">
               <FormLabel>Select branch</FormLabel>
@@ -183,7 +238,7 @@ export const TransferMedia = ({ branches, medias }: TransferProps) => {
                       variant="outline"
                       role="combobox"
                       className={cn(
-                        "w-[200px] justify-between",
+                        "justify-between",
                         !field.value && "text-muted-foreground",
                       )}
                     >
@@ -196,7 +251,7 @@ export const TransferMedia = ({ branches, medias }: TransferProps) => {
                   </FormControl>
                 </PopoverTrigger>
 
-                <PopoverContent className="w-[200px] p-0">
+                <PopoverContent className="p-0">
                   <Command>
                     <CommandInput placeholder="Search branch..." />
                     <CommandList>
@@ -207,7 +262,7 @@ export const TransferMedia = ({ branches, medias }: TransferProps) => {
                             value={branch.name}
                             key={branch.id}
                             onSelect={() => {
-                              form.setValue("selectedBranchId", branch.id);
+                              form.setValue("branchTwo", branch.id);
                             }}
                           >
                             {branch.name}
