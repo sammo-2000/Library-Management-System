@@ -18,7 +18,7 @@ export type sideBarType = {
   onClick?: () => void;
 };
 
-const base: sideBarType[] = [
+export const guestLinks: sideBarType[] = [
   {
     title: "Home",
     url: "/",
@@ -34,10 +34,29 @@ const base: sideBarType[] = [
     url: "/search-media",
     icon: <Search />,
   },
+  {
+    title: "Login",
+    url: "/login",
+    icon: <LogIn />,
+  },
 ];
 
-export const loggedOnLinks: sideBarType[] = [
-  ...base,
+export const memberLinks: sideBarType[] = [
+  {
+    title: "Home",
+    url: "/",
+    icon: <Home />,
+  },
+  {
+    title: "Plan",
+    url: "/plan",
+    icon: <Calendar />,
+  },
+  {
+    title: "Search",
+    url: "/search-media",
+    icon: <Search />,
+  },
   {
     title: "Inbox",
     url: "#",
@@ -47,6 +66,64 @@ export const loggedOnLinks: sideBarType[] = [
     title: "My Reservations",
     url: "/my-reservations",
     icon: <Calendar />,
+  },
+  {
+    title: "Settings",
+    url: "#",
+    icon: <Settings />,
+  },
+  {
+    title: "Logout",
+    url: "/",
+    icon: <LogOut />,
+    onClick: deleteToken,
+  },
+];
+
+export const staffLinks: sideBarType[] = [
+  {
+    title: "Home",
+    url: "/",
+    icon: <Home />,
+  },
+  {
+    title: "Search",
+    url: "/search-media",
+    icon: <Search />,
+  },
+  {
+    title: "Inbox",
+    url: "#",
+    icon: <Inbox />,
+  },
+  {
+    title: "Settings",
+    url: "#",
+    icon: <Settings />,
+  },
+  {
+    title: "Logout",
+    url: "/",
+    icon: <LogOut />,
+    onClick: deleteToken,
+  },
+];
+
+export const managerLinks: sideBarType[] = [
+  {
+    title: "Home",
+    url: "/",
+    icon: <Home />,
+  },
+  {
+    title: "Search",
+    url: "/search-media",
+    icon: <Search />,
+  },
+  {
+    title: "Inbox",
+    url: "#",
+    icon: <Inbox />,
   },
   {
     title: "View Stock",
@@ -63,14 +140,5 @@ export const loggedOnLinks: sideBarType[] = [
     url: "/",
     icon: <LogOut />,
     onClick: deleteToken,
-  },
-];
-
-export const guestLinks: sideBarType[] = [
-  ...base,
-  {
-    title: "Login",
-    url: "/login",
-    icon: <LogIn />,
   },
 ];
