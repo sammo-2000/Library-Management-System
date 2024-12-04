@@ -1,7 +1,7 @@
 import "server-only";
 import { Metadata } from "next";
-import { StockPageTitle } from "@/app/transfer-media/component/stock.page.title";
-import { ListStocks } from "@/app/transfer-media/component/stock.list";
+import { StockPageTitle } from "@/app/view-stock/component/stock.page.title";
+import { ListStocks } from "@/app/view-stock/component/stock.list";
 
 export const metadata: Metadata = {
   title: "Select Stock To Begin Transfer",

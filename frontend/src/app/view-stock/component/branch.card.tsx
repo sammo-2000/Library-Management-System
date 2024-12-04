@@ -1,10 +1,10 @@
 import { Branch } from "@/api/inventory/branch";
 import Link from "next/link";
-import { CardStyle } from "@/app/transfer-media/component/component.css";
+import { CardStyle } from "@/app/view-stock/component/component.css";
 
 export const BranchCard = ({ branch }: { branch: Branch }) => {
   return (
-    <Link href={`/transfer-media/${branch.id}`} className={CardStyle}>
+    <Link href={`/view-stock/${branch.id}`} className={CardStyle}>
       <span>
         <strong>Branch Name: </strong>
         {branch.name}

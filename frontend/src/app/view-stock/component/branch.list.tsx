@@ -1,6 +1,6 @@
 import { getAllBranches } from "@/api/inventory/branch";
-import { BranchCard } from "@/app/transfer-media/component/branch.card";
-import { GridStyle } from "@/app/transfer-media/component/component.css";
+import { BranchCard } from "@/app/view-stock/component/branch.card";
+import { GridStyle } from "@/app/view-stock/component/component.css";
 
 export const BranchList = async ({ branchName }: { branchName?: string }) => {
   const branches = await getAllBranches(branchName);

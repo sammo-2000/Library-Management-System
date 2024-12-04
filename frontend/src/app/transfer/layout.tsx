@@ -1,5 +1,6 @@
 import { Metadata } from "next";
-import { getUser } from "@/functions/auth/getUser";
+import { getTransferPermissions } from "@/api/auth/permission/getTransferPermission";
+import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Transfer Media",
@@ -10,8 +11,8 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // const transfer = await getTransferPermissions();
-  const transfer = await getUser();
+  const transfer = await getTransferPermissions();
+  if (!transfer.transfer) redirect("/");
 
   return <>{children}</>;
 }
