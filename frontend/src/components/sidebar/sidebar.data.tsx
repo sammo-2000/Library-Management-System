@@ -44,6 +44,11 @@ export const loggedOnLinks: sideBarType[] = [
     icon: <Inbox />,
   },
   {
+    title: "My Reservations",
+    url: "/my-reservations",
+    icon: <Calendar />,
+  },
+  {
     title: "View Stock",
     url: "/view-stock",
     icon: <ChartCandlestick />,
