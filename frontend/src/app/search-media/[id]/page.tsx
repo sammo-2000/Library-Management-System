@@ -18,8 +18,7 @@ async function getMediaDetails(id: string) {
     const media: Media = await res.json();
     return media;
   } catch (error) {
-    console.log(error);
-    console.error("Failed to fetch data");
+    console.log("Failed to fetch data");
     return null;
   }
 }
