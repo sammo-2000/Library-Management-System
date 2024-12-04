@@ -23,8 +23,6 @@ export const getReservedQuantity = async (
 
     const data = await response.json();
 
-    console.log(data.length);
-
     return data.length ? data.length : 0;
   } catch (error) {
     console.error(error);

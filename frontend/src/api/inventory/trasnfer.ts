@@ -1,4 +1,6 @@
 import { INVENTORY_API } from "@/lib/apiEndPoint";
+import { getReservedQuantity } from "@/api/reservation/get.reserved.quantity";
+import { getBorrowQuantity } from "@/api/borrow/get.borrow.quantity";
 
 export type Medium = {
   id: number;
@@ -17,6 +19,8 @@ export type StockQuantity = {
   quantity: number;
   BranchId: number;
   MediaId: number;
+  borrowed: number;
+  reserved: number;
   Medium: Medium;
 };
 
@@ -27,5 +31,18 @@ export const getStockQuantityForBranchById = async (
 
   if (!response.ok) return console.error(response.statusText);
 
-  return await response.json();
+  const data: StockQuantity[] = await response.json();
+
+  return await Promise.all(
+    data.map(async (stock) => {
+      const reserved = await getReservedQuantity(stock.MediaId, stock.BranchId);
+      const borrowed = await getBorrowQuantity(stock.MediaId, stock.BranchId);
+
+      return {
+        ...stock,
+        reserved,
+        borrowed,
+      };
+    }),
+  );
 };

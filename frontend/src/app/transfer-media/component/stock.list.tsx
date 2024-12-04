@@ -11,7 +11,7 @@ export const ListStocks = async ({ branchId }: { branchId: string }) => {
   return (
     <div className={GridStyle}>
       {stocks.map((stock) => {
-        return <StockCard key={stock.MediaId} item={stock} />;
+        return <StockCard key={stock.MediaId} stock={stock} />;
       })}
     </div>
   );
