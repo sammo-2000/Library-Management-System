@@ -1,9 +1,9 @@
 import { RESERVATION_API } from "@/lib/apiEndPoint";
 import { getToken } from "@/functions/auth/getToken";
-import { cookies } from "next/headers";
 
 async function getReservations() {
   const token = await getToken();
+  console.log("Token:" + token);
   if (!token) {
     console.log("No token found");
   } else {

@@ -62,6 +62,10 @@ export default function SearchForm({
 
   const [media, setMedia] = React.useState<Media[]>([]);
 
+  const [queryParams, setQueryParams] = React.useState("");
+
+  const [error, setError] = React.useState("");
+
   useEffect(() => {
     // Search media based on initial query params
     async function initialSearch() {
@@ -70,8 +74,6 @@ export default function SearchForm({
     }
     initialSearch();
   }, []);
-
-  const [queryParams, setQueryParams] = React.useState("");
 
   useEffect(() => {
     // Filter branches based on selected city
@@ -135,12 +137,24 @@ export default function SearchForm({
     }
     //Set URL to include query string
     router.push(`?${queryParams.toString()}`);
-    const mediaRes = await fetch(
-      `${INVENTORY_API}media?${queryParams.toString()}`,
-    );
-    const media: MediaResponse = await mediaRes.json();
-    setPageCount(calculatePageCount(media.total));
-    return media.media;
+    try {
+      const mediaRes = await fetch(
+        `${INVENTORY_API}media?${queryParams.toString()}`,
+      );
+      if (!mediaRes.ok) {
+        const error = await mediaRes.json();
+        setError(error.message);
+        throw new Error(error.message);
+      }
+      const media: MediaResponse = await mediaRes.json();
+      setPageCount(calculatePageCount(media.total));
+      setError("");
+      return media.media;
+    } catch (error) {
+      setError("Search Failed");
+      setPageCount(1);
+      return [];
+    }
   }
 
   async function onSearchClick() {
@@ -289,6 +303,9 @@ export default function SearchForm({
           <MediaCard key={pieceOfMedia.id} media={pieceOfMedia} />
         ))}
       </div>
+      {error && (
+        <div className="rounded bg-red-400 text-center text-white">{error}</div>
+      )}
       <div className="flex justify-center">
         <PaginationComponent
           pageCount={pageCount}
