@@ -1,7 +1,7 @@
 import React from "react";
 import {
-  ArrowLeftRight,
   Calendar,
+  ChartCandlestick,
   Home,
   Inbox,
   LogIn,
@@ -44,9 +44,9 @@ export const loggedOnLinks: sideBarType[] = [
     icon: <Inbox />,
   },
   {
-    title: "Transfer",
-    url: "/transfer-media",
-    icon: <ArrowLeftRight />,
+    title: "View Stock",
+    url: "/view-stock",
+    icon: <ChartCandlestick />,
   },
   {
     title: "Settings",

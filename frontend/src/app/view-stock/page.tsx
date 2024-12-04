@@ -1,7 +1,7 @@
 import "server-only";
 import dynamic from "next/dynamic";
 import { notFound } from "next/navigation";
-import { BranchList } from "@/app/transfer-media/component/branch.list";
+import { BranchList } from "@/app/view-stock/component/branch.list";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

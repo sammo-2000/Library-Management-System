@@ -11,9 +11,19 @@ export class MediaController {
     this.mediaService = new MediaService();
   }
 
-  public async getMedia(req: Request, res: Response) {
+  public async getMediaById(req: Request, res: Response) {
     try {
-      const {media, total} = await this.mediaService.getMedia(req.query);
+      const mediaId = parseInt(req.params.id, 10);
+      const media = await this.mediaService.getMediaById(mediaId);
+      res.json(media);
+    } catch (error: any) {
+      res.status(error.statusCode || 500).json({ message: error.message });
+    }
+  }
+
+  public async getAllMedia(req: Request, res: Response) {
+    try {
+      const {media, total} = await this.mediaService.getAllMedia(req.query);
       res.json({media, total});
     } catch (error: any) {
       res.status(error.statusCode || 500).json({ message: error.message });
