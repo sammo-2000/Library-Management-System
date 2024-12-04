@@ -11,6 +11,15 @@ export class BranchController {
     this.branchService = new BranchService();
   }
 
+  public async getBranchById(req: Request, res: Response) {
+    try {
+      const branch = await this.branchService.getBranchById(parseInt(req.params.id));
+      res.json(branch);
+    } catch (error: any) {
+      res.status(error.statusCode || 500).json({ message: error.message });
+    }
+  }
+
   public async getBranches(req: Request, res: Response) {
     try {
       const branches = await this.branchService.getBranches();
