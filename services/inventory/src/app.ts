@@ -7,6 +7,7 @@ import {CityRoutes} from './routes/city.routes';
 import {PublisherRoutes} from './routes/publisher.routes';
 import cors from 'cors';
 import {BranchMediaRoutes} from "./routes/branch.media.routes";
+import {TransferRoutes} from "./routes/transfer.routes";
 
 class App {
   public app: Application;
@@ -51,6 +52,9 @@ class App {
 
     const stockRoutes = new BranchMediaRoutes();
     this.app.use('/api/stocks', stockRoutes.router);
+
+    const transferRoutes = new TransferRoutes();
+    this.app.use('/api/transfers', transferRoutes.router);
 
     this.app.use((req, res) => {
       res.status(404).send('Not found');
