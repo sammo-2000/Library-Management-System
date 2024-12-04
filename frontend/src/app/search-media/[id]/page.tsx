@@ -1,9 +1,9 @@
 import {
   Card,
+  CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-  CardContent,
 } from "@/components/ui/card";
 import { formatDate } from "@/helpers/dates";
 import { INVENTORY_API } from "@/lib/apiEndPoint";
