@@ -1,6 +1,7 @@
 "use server"
 import { USERID_API } from "@/lib/apiEndPoint";
-import { getServerAuth } from "@/components/Auth/ServerProtectedRoute";
+
+import { getToken } from "@/functions/auth/getToken";
 
 export type UserInfo = {
   id: number;
@@ -11,7 +12,7 @@ export type UserInfo = {
 export const getUserInfo = async (): Promise<UserInfo | null> => {
   try {
 
-    const token = await getServerAuth();
+    const token = await getToken();
   
     if (!token) {
       console.error("Authentication token not found.");
@@ -22,7 +23,7 @@ export const getUserInfo = async (): Promise<UserInfo | null> => {
     const response = await fetch(`${USERID_API}userId`, {
       method: "GET",
       headers: {
-        Authorization: `Bearer ${token.value}`, // Include token in the Authorization header.
+        Authorization: `Bearer ${token}`, // Include token in the Authorization header.
         "Content-Type": "application/json",
       },
     });
