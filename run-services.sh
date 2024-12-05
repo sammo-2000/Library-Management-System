@@ -74,3 +74,8 @@ echo "DB_PASSWORD=\"myPassword\"" >> .env
 echo "DB_NAME=\"inventoryDB\"" >> .env
 docker compose up -d
 cd ../
+
+cd ../
+cd frontend
+npm i
+npm run dev
