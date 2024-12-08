@@ -6,12 +6,13 @@ import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.share
 import { toast } from "sonner";
 
 export const handleConfirm = async (
-  accountId: number | null,
+  accountId: number | null | undefined,
   branchId: string,
-  router: AppRouterInstance
+  router: AppRouterInstance,
+  mediaId: string 
 ): Promise<void> => {
   if (!accountId) {
-    toast("User account not found. Please log in.")
+    toast("User account not found. Please log in.");
     return;
   }
 
@@ -20,10 +21,7 @@ export const handleConfirm = async (
     return;
   }
 
-  const mediaId = "1"; 
-
-  // Step 1: Check stock availability
-  const stockQuantity = await getStockQuantity(parseInt(branchId),parseInt(mediaId));
+  const stockQuantity = await getStockQuantity(parseInt(branchId), parseInt(mediaId));
 
   if (stockQuantity === null) {
     toast("Unable to fetch stock data. Please try again later.");
@@ -35,7 +33,6 @@ export const handleConfirm = async (
     return;
   }
 
-  // Step 2: Create a reservation
   const { success, message } = await createReservation(
     accountId.toString(),
     mediaId,
@@ -43,7 +40,6 @@ export const handleConfirm = async (
   );
 
   if (success) {
-    // Step 3: Update stock quantity
     const stockUpdated = await updateStockQuantity(parseInt(branchId), parseInt(mediaId));
 
     if (!stockUpdated) {
