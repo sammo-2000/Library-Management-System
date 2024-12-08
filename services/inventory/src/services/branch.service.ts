@@ -1,4 +1,4 @@
-import { BadRequestError } from '../errors';
+import { BadRequestError, NotFoundError } from '../errors';
 import Branch from '../models/Branch';
 
 //Business Logic Layer
@@ -13,6 +13,9 @@ export class BranchService {
       include: ['City'],
       attributes: { exclude: ['cityId'] }
     });
+    if (!branch) {
+      throw new NotFoundError('Branch not found');
+    }
     return branch;
   }
 
