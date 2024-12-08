@@ -4,7 +4,11 @@ import Branch from '../models/Branch';
 //Business Logic Layer
 
 export class BranchService {
-  public async getBranchById(branchId: number) {
+  public async getBranchById(rawBranchId: string) {
+    const branchId = parseInt(rawBranchId, 10);
+    if (isNaN(branchId)) {
+      throw new BadRequestError('Branch ID should be a number');
+    }
     const branch = await Branch.findByPk(branchId, {
       include: ['City'],
       attributes: { exclude: ['cityId'] }

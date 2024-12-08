@@ -13,7 +13,7 @@ export class BranchController {
 
   public async getBranchById(req: Request, res: Response) {
     try {
-      const branch = await this.branchService.getBranchById(parseInt(req.params.id));
+      const branch = await this.branchService.getBranchById(req.params.id);
       res.json(branch);
     } catch (error: any) {
       res.status(error.statusCode || 500).json({ message: error.message });
