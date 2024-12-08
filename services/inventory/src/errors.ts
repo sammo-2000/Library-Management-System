@@ -1,5 +1,5 @@
 // errors.ts
-class ApiError extends Error {
+export class ApiError extends Error {
     statusCode: number;
     
     constructor(message: string) {
