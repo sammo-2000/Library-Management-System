@@ -13,8 +13,11 @@ import City from '../models/City';
 
 export class MediaService {
 
-public async getMediaById(rawMediaId: string) {
-  const mediaId = parseInt(rawMediaId, 10);
+  public async getMediaById(rawMediaId: string) {
+    const mediaId = parseInt(rawMediaId, 10);
+    if (isNaN(mediaId)) {
+      throw new BadRequestError('Media ID should be a number');
+    }
     const media = await Media.findByPk(mediaId, {
       include: [Author, Genre, Publisher],
       attributes: ['id', 'type', 'title', 'description', 'publishedDate'],
@@ -23,12 +26,10 @@ public async getMediaById(rawMediaId: string) {
       throw new NotFoundError('Media not found');
     }
     return media;
-}
+  }
 
   public async getAllMedia(query: ParsedQs) {
-
-
-  //   // Handle page query parameter for pagination
+    // Handle page query parameter for pagination
     const page = query.page ? parseInt(query.page as string, 10) : 1;
     if (isNaN(page)) {
       throw new BadRequestError('Query parameter page should be a number');
@@ -41,7 +42,7 @@ public async getMediaById(rawMediaId: string) {
     const limit = 20;
     const offset = (page - 1) * limit;
 
-  const {
+    const {
         type,
         title,
         authorId,
