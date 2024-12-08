@@ -13,8 +13,7 @@ export class MediaController {
 
   public async getMediaById(req: Request, res: Response) {
     try {
-      const mediaId = parseInt(req.params.id, 10);
-      const media = await this.mediaService.getMediaById(mediaId);
+      const media = await this.mediaService.getMediaById(req.params.id);
       res.json(media);
     } catch (error: any) {
       res.status(error.statusCode || 500).json({ message: error.message });

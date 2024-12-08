@@ -3,7 +3,7 @@ import Media from '../models/Media';
 import Author from '../models/Author';
 import Genre from '../models/Genre';
 import Publisher from '../models/Publisher';
-import { BadRequestError } from '../errors';
+import { BadRequestError, NotFoundError } from '../errors';
 import { Op } from 'sequelize';
 import Branch from '../models/Branch';
 import BranchMedia from '../models/BranchMedia';
@@ -13,11 +13,15 @@ import City from '../models/City';
 
 export class MediaService {
 
-public async getMediaById(mediaId: number) {
+public async getMediaById(rawMediaId: string) {
+  const mediaId = parseInt(rawMediaId, 10);
     const media = await Media.findByPk(mediaId, {
       include: [Author, Genre, Publisher],
       attributes: ['id', 'type', 'title', 'description', 'publishedDate'],
     });
+    if (!media) {
+      throw new NotFoundError('Media not found');
+    }
     return media;
 }
 
