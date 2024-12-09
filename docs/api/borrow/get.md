@@ -30,3 +30,16 @@ This example shows a `GET` endpoint for single borrow with ID of 1.
     "updatedAt": "2024-12-09T12:15:12.979Z"
 }
 ```
+
+***No Found By Given ID***
+
+- Status: 400 Bad Request
+- Body:
+
+```json
+{
+  "message": "Borrow not found",
+  "error": "Not Found",
+  "statusCode": 404
+}
+```
