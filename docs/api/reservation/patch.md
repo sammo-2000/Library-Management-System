@@ -1,9 +1,9 @@
 # API Endpoint Template
 
 **Endpoint**:
-PATCH /api/borrowing
+PATCH /api/reservation
 
-**Description**: Update a borrow.
+**Description**: Update a reservation.
 
 **Headers**:
 - `Authorization`: Bearer [token] (required)
@@ -13,19 +13,20 @@ PATCH /api/borrowing
 
 ```json
 {
-    "returnedAt": true
+    "notificationSent": true,
+    "collected": true
 }
 ```
 
 ---
 
-This example shows a `PATCH` endpoint for updating a borrow.
+This example shows a `PATCH` endpoint for updating a reservation after notifcation was sent.
 
 **Request Body**:
 
 ```json
 {
-  "returnedAt": true
+  "notificationSent": true
 }
 ```
 
@@ -55,8 +56,8 @@ This example shows a `PATCH` endpoint for updating a borrow.
 
 ```json
 {
-  "message": "Borrow not found",
-  "error": "Not Found",
-  "statusCode": 404
+    "message": "Reservation not found",
+    "error": "Not Found",
+    "statusCode": 404
 }
 ```

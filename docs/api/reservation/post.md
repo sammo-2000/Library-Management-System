@@ -1,9 +1,9 @@
 # API Endpoint Template
 
 **Endpoint**:
-POST /api/borrowing
+POST /api/reservation
 
-**Description**: Create a new borrow.
+**Description**: Create a new reservation.
 
 **Headers**:
 - `Authorization`: Bearer [token] (required)
@@ -21,7 +21,7 @@ POST /api/borrowing
 
 ---
 
-This example shows a `POST` endpoint for creating a borrow.
+This example shows a `POST` endpoint for creating a reservation.
 
 **Request Body**:
 
@@ -40,15 +40,15 @@ This example shows a `POST` endpoint for creating a borrow.
 
 ```json
 {
-    "id": "0508f4c1-4ba9-48c3-b877-3944aaa30031",
+    "id": "f93afa76-a49e-4faa-acde-64b0383e9132",
     "mediaId": "1",
     "accountId": "1",
     "branchId": "1",
-    "collectedAt": "2024-12-09T12:28:28.207Z",
-    "expectedReturn": "2024-12-23T12:28:28.203Z",
-    "actualReturn": null,
-    "createdAt": "2024-12-09T12:28:28.207Z",
-    "updatedAt": "2024-12-09T12:28:28.207Z"
+    "notificationSent": null,
+    "reservedAt": "2024-12-09T12:43:27.369Z",
+    "collectedAt": null,
+    "createdAt": "2024-12-09T12:43:27.369Z",
+    "updatedAt": "2024-12-09T12:43:27.369Z"
 }
 ```
 
@@ -60,8 +60,8 @@ This example shows a `POST` endpoint for creating a borrow.
 ```json
 {
     "message": [
-        "accountId must be a string",
-        "accountId should not be empty"
+        "branchId must be a string",
+        "branchId should not be empty"
     ],
     "error": "Bad Request",
     "statusCode": 400
