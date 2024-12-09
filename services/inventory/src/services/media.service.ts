@@ -47,7 +47,6 @@ export class MediaService {
         title,
         authorId,
         genreId,
-        mediaId,
         cityId,
         branchId,
     } = query;
@@ -58,7 +57,6 @@ export class MediaService {
     if (title) mediaWhere.title = { [Op.iLike]: `%${title}%` };
     if (authorId) mediaWhere.authorId = authorId;
     if (genreId) mediaWhere.genreId = genreId;
-    if (mediaId) mediaWhere.id = mediaId;
 
     // Include array to dynamically add associations
     const include = [];
