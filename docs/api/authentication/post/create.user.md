@@ -1,24 +1,4 @@
-# API Endpoint Template
 
-
-**Query Parameters** (for `GET` requests only):
-
-- `param_name` (type: string, required/optional): Description of the query parameter.
-
-**Request Body** (for `POST` requests):
-
-
-```json
-{
- "first_name": "firstnameexample",
-  "last_name": "lastnameExample",  
-  "username": "exampleUser", 
-  "email": "user@example.com", 
-  "password": "securePassword123" 
-}
-```
-
----
 
 ## Example API Endpoint
 

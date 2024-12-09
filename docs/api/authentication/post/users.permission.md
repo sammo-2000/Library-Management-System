@@ -1,9 +1,9 @@
 ## Example API Endpoint
 
-This example shows a `POST` endpoint for logging users into the system.  
+This example shows a `POST` endpoint for returning userId and a list of associated permissions based on user's role.
 
 **Endpoint**: POST /api/users-permission  
-**Description**: sign a user into the system
+**Description**: return userId and a list of associated permissions based on user's role 
 
 **Headers**:
 - `Authorization`: JWT Bearer
