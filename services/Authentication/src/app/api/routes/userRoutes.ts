@@ -18,7 +18,7 @@ app.use(express.json())
 
 
 //app.get('/accounts', authenticateToken, authorizeRoles('admin', 'manager'), accounts);
-app.get('/accounts', authenticateToken, authorizeRoles("Admin"), accounts);
+app.get('/accounts', authenticateToken, accounts);
 
 //create users table
 //app.get('/create-users-table', createTable)
