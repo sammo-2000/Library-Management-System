@@ -7,13 +7,17 @@ import {Role, Service}  from '../../../types/permissionTypes.js'
 export const permission = async (req: Request, res: Response) => {
   const { service, token } = req.body;
 
-  if (!service || !token) {
-    res.status(400).json({ error: 'Service and token are required' });
+  if (!service) {
+    res.status(400).json({ error: 'Service is required' });
     return 
   }
 
   try {
-    const decoded = verifyToken(token) as { userId: string; role: string };
+    //If token is not provided, set userId to null and role to guest
+    let decoded: { userId: string | null; role: string } = {userId: null, role: 'guest'};
+    if (token){
+      decoded = verifyToken(token) as { userId: string; role: string };
+    }
     const { userId, role } = decoded;
 
     // Check if role is a valid key in permissionsList
