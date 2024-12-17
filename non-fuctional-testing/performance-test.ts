@@ -1,6 +1,8 @@
 import http from 'k6/http';
 import { check, sleep } from 'k6';
 
+//k6 run performance-test.ts
+
 // Test configuration
 export const options = {
   stages: [
