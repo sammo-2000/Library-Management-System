@@ -1,6 +1,7 @@
 import request from 'supertest';  
 import app from '../src/app/api/app'; 
 import { describe, test } from 'node:test';
+import { expect } from 'chai';
 
 describe("POST /signIn", () => {
     describe("given valid username and password", () => {

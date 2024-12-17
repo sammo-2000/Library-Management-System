@@ -8,60 +8,79 @@ boundary Manage Inventory Page
 control Inventory Controller
 entity Inventory Model
 database Inventory Database
+actor Reservation service
+actor Borrow service
 
 activate User
-User->View Branches Page:HTTPS request
+User->View Branches Page:User click view stocks
 activate View Branches Page
-View Branches Page->Branches Controller:request all branches
+View Branches Page->Branches Controller:Get branches
 activate Branches Controller
-Branches Controller->Branches Model:Get all branches
+Branches Controller->Branches Model:Get branches
 activate Branches Model
-Branches Model->Inventory Database:Get all branches
+Branches Model->Inventory Database:Get branches
 activate Inventory Database
 Branches Model<--Inventory Database:Return branches
 deactivate Inventory Database
 Branches Controller<--Branches Model:Return branches
 deactivate Branches Model
-View Branches Page<--Branches Controller:Display branches
+View Branches Page<--Branches Controller:Return branches
 deactivate Branches Controller
-View Branches Page->Branches Controller:Click on branch
-activate Branches Controller
-Branches Controller->Branches Model:Get branch inventory
-activate Branches Model
-Branches Model->Inventory Database:Get inventory
+User<--View Branches Page:Display branches
+User->View Branches Page:Select branch
+View Branches Page->Inventory Controller:Get stock & stock count for selected branch
+activate Inventory Controller
+Inventory Controller->Inventory Model:Get stock count
+activate Inventory Model
+Inventory Model->Inventory Database:Get stock count
 activate Inventory Database
-Branches Model<--Inventory Database:Return inventory
+Inventory Model<--Inventory Database:Return stock count
 deactivate Inventory Database
-Branches Controller<--Branches Model:Return inventory
-deactivate Branches Model
-View Branches Page<--Branches Controller:Display inventory
-deactivate Branches Controller
-View Branches Page->Manage Inventory Page:Select item
+Inventory Controller<--Inventory Model:Return stock count
+deactivate Inventory Model
+Inventory Controller->Reservation service:Get reservation count
+activate Reservation service
+Inventory Controller<--Reservation service:Return reservation count
+deactivate Reservation service
+Inventory Controller->Borrow service:Get borrow count
+activate Borrow service
+Inventory Controller<--Borrow service:Return borrow count
+deactivate Borrow service
+View Branches Page<--Inventory Controller:Return stock & counts
+deactivate Inventory Controller
+User<--View Branches Page:Display info
+User->View Branches Page:Click transfer
+View Branches Page->Manage Inventory Page:Redirect
 activate Manage Inventory Page
-Manage Inventory Page->Inventory Controller:Get inventory from all branch for the item
 deactivate View Branches Page
+Manage Inventory Page->Inventory Controller:Form filled with transfer detail
 activate Inventory Controller
-Inventory Controller->Inventory Model:Get inventory from all branch for the item
+Inventory Controller->Inventory Controller:Validate input is of valid point
+alt Invalid input
+Manage Inventory Page<--Inventory Controller:Return error
+User<--Manage Inventory Page:Display error
+else Valid input
+Inventory Controller->Inventory Model:Check if enough stock to transfer
 activate Inventory Model
-Inventory Model->Inventory Database:Get inventory from all branch for the item
+Inventory Model->Inventory Database:Get stock count
 activate Inventory Database
-Inventory Model<--Inventory Database:Return inventory status
+Inventory Model<--Inventory Database:Return stock count
 deactivate Inventory Database
-Inventory Controller<--Inventory Model:Return inventory status
+Inventory Controller<--Inventory Model:Return stock count
 deactivate Inventory Model
-Manage Inventory Page<--Inventory Controller:Display inventory
-deactivate Inventory Controller
-Manage Inventory Page->Inventory Controller:Move item from branch to another
-activate Inventory Controller
-Inventory Controller->Inventory Model:Check available quantities
-deactivate Inventory Model
+alt Not enough stock
+Manage Inventory Page<--Inventory Controller:Not enough stock error
+User<--Manage Inventory Page:Display error
+else Enough stock
+Inventory Controller->Inventory Model:Update stock count
 activate Inventory Model
-Inventory Controller<--Inventory Model:Return available quantities
-alt There is enough in stock
-Inventory Controller->Inventory Model:Change stock between branches
-Inventory Model->Inventory Database:Update stock
-else There is not enough in stock
+Inventory Model->Inventory Database:Update stock count
 deactivate Inventory Model
-Manage Inventory Page<--Inventory Controller:Display error not enough stock to move around
-end
+activate Inventory Database
+Manage Inventory Page<--Inventory Controller:Return message
 deactivate Inventory Controller
+deactivate Inventory Database
+User<--Manage Inventory Page:Display message
+deactivate Manage Inventory Page
+end
+end
