@@ -32,7 +32,7 @@ export default function PaymentSuccessPage() {
           </CardDescription>
         </CardHeader>
         <CardFooter className="justify-center">
-          <Link href="/frontend/public" className={buttonVariants()}>
+          <Link href="/" className={buttonVariants()}>
             Go to Dashboard
           </Link>
         </CardFooter>
