@@ -8,8 +8,8 @@ import {
 import { formatDate } from "@/helpers/dates";
 import { INVENTORY_API } from "@/lib/apiEndPoint";
 import { Media } from "@/types/inventoryServiceTypes";
-import { redirect } from 'next/navigation'
-import Link from 'next/link'
+import { redirect } from "next/navigation";
+import Link from "next/link";
 
 async function getMediaDetails(id: string) {
   try {
@@ -25,8 +25,6 @@ async function getMediaDetails(id: string) {
   }
 }
 
-
-
 export default async function MediaDetailsPage({
   params,
 }: {
@@ -34,7 +32,6 @@ export default async function MediaDetailsPage({
 }) {
   const { id } = await params;
   const media = await getMediaDetails(id);
-  
 
   return (
     <>
@@ -50,16 +47,15 @@ export default async function MediaDetailsPage({
             <div>Publisher: {media.Publisher.name}</div>
             <div>Type: {media.type}</div>
             <div>Published On: {formatDate(media.publishedDate)}</div>
-           <div>
-           <Link 
-            className=" rounded-md bg-blue-500 px-4 py-2 text-white shadow hover:bg-blue-600"
-            href={`/reservation?mediaId=${media.id}&mediaName=${media.title}`}>
-            Get Media
-            </Link>
-           </div>
+            <div>
+              <Link
+                className="inline-block rounded-md bg-blue-500 px-4 py-2 text-white shadow hover:bg-blue-600"
+                href={`/reservation?mediaId=${media.id}&mediaName=${media.title}`}
+              >
+                Get Media
+              </Link>
+            </div>
           </CardContent>
-          
-         
         </Card>
       ) : (
         <div>Media not found</div>
