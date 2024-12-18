@@ -9,6 +9,7 @@ This project is library management system which is built as part of our student 
 - [Folder Structure](#folder-structure)
 - [Contributors](#contributors)
 - [Setup and Installation](#setup-and-installation)
+- [Disclaimer](#disclaimer)
 
 ## About the Project
 
@@ -76,3 +77,7 @@ git clone https://github.com/sammo-2000/Library-Management-System
 cd Library-Management-System
 ./run-services.sh
 ```
+
+## Disclaimer
+
+**Note:** This project was developed within a short time frame as part of a student assessment. As such, not all features are fully functional or production-ready. The primary goal of the project was to demonstrate knowledge of software engineering concepts and practices, including the use of microservices, Docker, and modern frameworks like NestJS and Next.js.
