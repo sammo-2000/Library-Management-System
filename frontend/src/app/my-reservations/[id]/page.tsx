@@ -4,8 +4,8 @@ import { Reservation } from "@/types/reservationServiceTypes";
 import { getMediaAndBranch } from "../reservation.card";
 import { formatDate } from "@/helpers/dates";
 import { redirect } from "next/navigation";
-import { Button } from "@/components/ui/button";
 import CancelButton from "./cancel.button";
+import CancelSection from "./cancel.section";
 
 async function getReservationById(id: string, token: string) {
   const res = await fetch(RESERVATION_API + id, {
@@ -60,7 +60,7 @@ export default async function ReservationPage({
       <h2>
         <strong>Status:</strong> {reservationStatus}
       </h2>
-      <CancelButton id={id} />
+      <CancelSection id={id} />
     </div>
   );
 }

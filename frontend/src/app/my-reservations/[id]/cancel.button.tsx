@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { getToken } from "@/functions/auth/getToken";
 import { RESERVATION_API } from "@/lib/apiEndPoint";
 import { redirect } from "next/navigation";
+import { MouseEventHandler } from "react";
 
 async function cancelReservation(id: string) {
   const token = await getToken();
@@ -24,11 +25,20 @@ async function cancelReservation(id: string) {
   }
 }
 
-export default function CancelButton({ id }: { id: string }) {
+export default function CancelButton({
+  id,
+  onClick,
+  disabled,
+}: {
+  id: string;
+  onClick: MouseEventHandler<HTMLButtonElement>;
+  disabled?: boolean;
+}) {
   return (
     <Button
-      onClick={() => cancelReservation(id)}
+      onClick={onClick}
       className="bg-red-600 p-4 text-white hover:bg-red-700"
+      disabled={disabled}
     >
       Cancel Reservation
     </Button>
