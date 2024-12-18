@@ -13,7 +13,7 @@ activate authentication-db
 alt User not found
     authentication-db --> Server: No user found
 
-    Server --> Library Member: 401 Invalid email or password
+    Server --> Library Member:  Invalid credential
     deactivate Server
 else User found
     authentication-db --> Server: User data
@@ -25,7 +25,7 @@ deactivate Server
     alt Password invalid
         Middleware --> Server: Password mismatch
 activate Server
-        Server --> Library Member: 401 Invalid email or password
+        Server --> Library Member: Invalid credential
         deactivate Server
     else Password valid
         Middleware --> Server: Password match
@@ -35,7 +35,7 @@ activate Server
         activate Middleware
         Middleware --> Server: JWT Token
         deactivate Middleware
-        Server --> Library Member: 200 OK {token: JWT Token, message: "Sign-in successful"}
+        Server --> Library Member: Sign-in successful! Redirecting...
         deactivate Server
     end
 end
