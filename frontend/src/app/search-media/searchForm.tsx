@@ -299,9 +299,13 @@ export default function SearchForm({
         <Button onClick={onSearchClick}>Search</Button>
       </div>
       <div className="p-2">
-        {media.map((pieceOfMedia) => (
-          <MediaCard key={pieceOfMedia.id} media={pieceOfMedia} />
-        ))}
+        {media.length > 0 ? (
+          media.map((pieceOfMedia) => (
+            <MediaCard key={pieceOfMedia.id} media={pieceOfMedia} />
+          ))
+        ) : (
+          <div className="text-center">No media found</div>
+        )}
       </div>
       {error && (
         <div className="rounded bg-red-400 text-center text-white">{error}</div>

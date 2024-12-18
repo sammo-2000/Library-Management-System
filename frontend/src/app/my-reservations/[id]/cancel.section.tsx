@@ -44,12 +44,12 @@ export default function CancelSection({ id }: { id: string }) {
   const [message, setMessage] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [showModal, setShowModal] = useState(false); // State to control the modal
-  const [isCanceled, setIsCanceled] = useState(false); // Track if the cancellation is completed
+  const [isCancelled, setIsCancelled] = useState(false); // Track if the cancellation is completed
   const router = useRouter();
 
   const handleSuccess = () => {
-    setMessage("Reservation successfully canceled!");
-    setIsCanceled(true); // Mark as canceled
+    setMessage("Reservation successfully cancelled!");
+    setIsCancelled(true); // Mark as cancelled
     setTimeout(() => {
       router.push("/my-reservations");
     }, 2000); // Adjust the delay (in milliseconds) as needed
@@ -69,12 +69,16 @@ export default function CancelSection({ id }: { id: string }) {
   };
 
   const handleCloseModal = () => {
-    setShowModal(false); // Close the modal without canceling
+    setShowModal(false); // Close the modal without cancelling
   };
 
   return (
     <div>
-      <CancelButton onClick={handleCancelClick} id={id} disabled={isCanceled} />
+      <CancelButton
+        onClick={handleCancelClick}
+        id={id}
+        disabled={isCancelled}
+      />
       {message && (
         <p className="my-2 rounded bg-green-500 p-2 text-white">{message}</p>
       )}
