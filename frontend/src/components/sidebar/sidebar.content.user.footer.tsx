@@ -4,7 +4,7 @@ import { isSubscriptionActive } from "@/api/subscription/get.subscription.status
 
 export const FooterName = ({ user }: { user: UserType | null }) => {
   return (
-    <span className={"font-bold"}>{user ? user.role : "Not logged on"}</span>
+    <span className={"font-bold"}>{user ? user.name : "Not logged on"}</span>
   );
 };
 

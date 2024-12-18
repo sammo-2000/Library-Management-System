@@ -1,6 +1,7 @@
 export type UserType = {
   userId: number;
   role: string;
+  name: string;
   token: string;
 };
 
@@ -16,6 +17,7 @@ export const decodeJWT = (token: string): UserType => {
   return {
     userId: data.userId,
     role: data.role,
+    name: data.name,
     token,
   };
 };

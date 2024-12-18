@@ -1,10 +1,10 @@
-import { Request, Response } from 'express';
+import {Request, Response} from 'express';
 import pool from '../config/db.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { serialize } from 'cookie';
+import {serialize} from 'cookie';
 import dotenv from 'dotenv';
-import { env } from '../../../types/envTypes.js';
+import {env} from '../../../types/envTypes.js';
 
 dotenv.config();
 const secret_token = env.JWT_SECRET;
@@ -20,7 +20,7 @@ export const signIn = async (req: Request, res: Response) => {
 
     if (user && (await bcrypt.compare(password, user.password))) {
       const token = jwt.sign(
-        { userId: user.id, role: user.user_role },
+        { userId: user.id, role: user.user_role, name: user.first_name },
         secret_token,
         { expiresIn: '1h' }
       );
