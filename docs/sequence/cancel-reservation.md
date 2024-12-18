@@ -22,12 +22,17 @@ activate Reservation Model
 Reservation Model->Reservation Database:Deletes from database
 activate Reservation Database
 Reservation Model<<--Reservation Database:returns response to delete query
+deactivate Reservation Database
 ReservationService<<--Reservation Model:returns reservation that was deleted
+deactivate Reservation Model
 ReservationController<<--ReservationService:returns reservation that was deleted
 Reservations Page<<--ReservationController:returns successful response
 Library Member<-Reservations Page:Removes reservation from UI
 else The user doesn't have a reservation
 ReservationController<<--ReservationService:throws new NotFoundException()
-Reservations Page<-ReservationController:returns 404 response
+deactivate ReservationService
+Reservations Page<<--ReservationController:returns 404 response
+deactivate ReservationController
 Library Member<-Reservations Page:Displays error message
+deactivate Reservations Page
 end
