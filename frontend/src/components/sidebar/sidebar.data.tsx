@@ -1,15 +1,16 @@
-import React from "react";
+import { deleteToken } from "@/functions/auth/deleteToken";
 import {
   Calendar,
   ChartCandlestick,
   Home,
   Inbox,
+  Lock,
   LogIn,
   LogOut,
   Search,
   Settings,
 } from "lucide-react";
-import { deleteToken } from "@/functions/auth/deleteToken";
+import React from "react";
 
 export type sideBarType = {
   title: string;
@@ -38,6 +39,11 @@ export const guestLinks: sideBarType[] = [
     title: "Login",
     url: "/login",
     icon: <LogIn />,
+  },
+  {
+    title: "Sign Up",
+    url: "/sign-up",
+    icon: <Lock />,
   },
 ];
 
