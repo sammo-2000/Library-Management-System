@@ -3,6 +3,9 @@
 docker network create shared-network
 
 cd frontend
+if [ -f .env ]; then
+    rm .env
+fi
 echo BASE_URL=\""http://localhost:3000/"\">> .env
 echo AUTH_SERVICE_BASE_URL=\""http://localhost:3002/api/"\">> .env
 echo NEXT_PUBLIC_STRIPE_PUBLIC_KEY=\""pk_test_51QNYr3Amxc9dTyf5oQqnf8sLRipuduamkaeSpoH38t0yVI453kmi50sgH7em6x4ctIPKPWEeC1fXk9OVtnjK5B2d00QsQHiGgK"\">> .env

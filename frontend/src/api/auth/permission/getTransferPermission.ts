@@ -1,7 +1,7 @@
 import "server-only";
 
-import { env } from "@/types/envType";
 import { getToken } from "@/functions/auth/getToken";
+import { env } from "@/types/envType";
 import { notFound, redirect } from "next/navigation";
 
 type Permissions = {
@@ -17,10 +17,10 @@ export const getTransferPermissions = async (): Promise<Permissions> => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
       service: "inventory",
-      token,
     }),
   });
 
