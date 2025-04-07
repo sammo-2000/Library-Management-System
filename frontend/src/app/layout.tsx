@@ -1,10 +1,9 @@
+import { AppSidebar } from "@/components/sidebar/sideBar";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { Toaster } from "@/components/ui/sonner";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { AppSidebar } from "@/components/sidebar/sideBar";
-import { Toaster } from "@/components/ui/sonner";
-
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -31,17 +30,17 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} bg-muted text-foreground antialiased`}
-      > 
-          <SidebarProvider>
-            <AppSidebar />
-            <main className="w-full px-2 md:pl-0">
-              <div className="py-2">
-                <SidebarTrigger variant={"outline"} size={"lg"} />
-              </div>
-              {children}
-            </main>
-            <Toaster />
-          </SidebarProvider>
+      >
+        <SidebarProvider>
+          <AppSidebar />
+          <main className="w-full px-2 md:pl-0">
+            <div className="py-2">
+              <SidebarTrigger variant={"outline"} size={"lg"} />
+            </div>
+            {children}
+          </main>
+          <Toaster />
+        </SidebarProvider>
       </body>
     </html>
   );

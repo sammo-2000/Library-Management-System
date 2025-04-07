@@ -20,7 +20,10 @@ export class SigninService {
     const isMatch = await bcrypt.compare(signInDto.password, user.password);
     if (!isMatch) throw new BadRequestException(['Bad credentials']);
 
-    const token = await this.jwtService.signAsync({ id: user.id });
+    const token = await this.jwtService.signAsync({
+      id: user.id,
+      role: user.user_role,
+    });
     await this.databaseService.session.create({
       data: {
         token,

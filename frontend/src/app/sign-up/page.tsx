@@ -1,6 +1,5 @@
 "use client";
 
-import { setToken } from "@/functions/auth/setToken";
 import { SIGN_API } from "@/lib/apiEndPoint";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -32,20 +31,15 @@ const SignIn = () => {
           username: form.username,
           first_name: form.first_name,
           last_name: form.last_name,
-          user_role: "paidMember",
         }),
-        credentials: "include",
       });
 
       const data = await response.json();
 
-      if (!response.ok)
-        return setError(`${data.errors[0].path} - ${data.errors[0].message}`);
-
-      await setToken(data.token); // Save token in cookies
+      if (!response.ok) return setError(`${data.message[0]}`);
 
       setSuccess("Sign-in successful! Redirecting...");
-      router.push("/"); // Redirect to a protected page
+      router.push("/login"); // Redirect to a login page
     } catch (err: any) {
       setError(err.message || "Something went wrong.");
     }

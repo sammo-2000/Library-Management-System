@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { SIGN_API } from "@/lib/apiEndPoint";
 import { setToken } from "@/functions/auth/setToken";
+import { SIGN_API } from "@/lib/apiEndPoint";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
@@ -21,7 +21,6 @@ const SignIn = () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
-        credentials: "include",
       });
 
       if (!response.ok) {
