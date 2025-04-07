@@ -23,11 +23,12 @@ const SignIn = () => {
         body: JSON.stringify({ email, password }),
       });
 
+      const data = await response.json();
+
       if (!response.ok) {
-        throw new Error("Invalid credentials");
+        throw new Error(data.message || "Failed to sign in");
       }
 
-      const data = await response.json();
       await setToken(data.token); // Save token in cookies
 
       setSuccess("Sign-in successful! Redirecting...");

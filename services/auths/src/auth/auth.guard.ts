@@ -26,6 +26,7 @@ export class AuthGuard implements CanActivate {
       if (!session) throw new UnauthorizedException();
 
       delete session.user.password;
+      delete session.user.loginAttempt;
       request['user'] = session.user;
     } catch {
       throw new UnauthorizedException();

@@ -11,6 +11,7 @@ export class AccountsService {
     });
 
     delete user.password;
+    delete user.loginAttempt;
 
     return user;
   }

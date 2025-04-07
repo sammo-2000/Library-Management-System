@@ -31,6 +31,7 @@ export class RegisterService {
     });
 
     delete newUser.password;
+    delete newUser.loginAttempt;
 
     return newUser;
   }
