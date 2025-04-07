@@ -24,8 +24,6 @@ export class PermissionService {
     if (!permissions)
       throw new BadRequestException([`Role ${role} is not valid 3`]);
 
-    console.log(permissions);
-
     const servicePermissions = permissions.default[service];
     if (!servicePermissions)
       throw new BadRequestException([`Service ${service} is not valid 4`]);

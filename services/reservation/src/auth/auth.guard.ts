@@ -20,10 +20,10 @@ export class AuthGuard implements CanActivate {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
           service: 'reservation',
-          token,
         }),
       },
     );
