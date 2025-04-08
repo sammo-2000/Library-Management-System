@@ -27,9 +27,11 @@ model User {
 }
 
 model Session {
-  token  String @id
-  userId Int
-  user   User   @relation(fields: [userId], references: [id])
+  jti        String   @id @unique
+  token      String
+  userId     Int
+  created_at DateTime @default(now())
+  user       User     @relation(fields: [userId], references: [id])
 }
 
 enum UserRole {

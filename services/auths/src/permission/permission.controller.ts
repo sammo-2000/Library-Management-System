@@ -1,4 +1,5 @@
 import { Body, Controller, Post, Request, UseGuards } from '@nestjs/common';
+import { User } from '@prisma/client';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { PermissionDto } from './dto';
 import { PermissionService } from './permission.service';
@@ -9,7 +10,10 @@ export class PermissionController {
 
   @Post('users-permission')
   @UseGuards(AuthGuard)
-  getPermission(@Request() request, @Body() permissionDto: PermissionDto) {
+  getPermission(
+    @Request() request: { user: User },
+    @Body() permissionDto: PermissionDto,
+  ) {
     const role = request.user.user_role;
     const permission = this.permissionService.getPermissions(
       role,

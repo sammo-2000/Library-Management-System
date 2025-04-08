@@ -1,3 +1,4 @@
+import { getUserInfo } from "@/api/auth/getId";
 import {
   guestLinks,
   managerLinks,
@@ -6,20 +7,15 @@ import {
   staffLinks,
 } from "@/components/sidebar/sidebar.data";
 import { SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
-import { decodeJWT } from "@/functions/auth/decodeJWT";
-import { getToken } from "@/functions/auth/getToken";
 import Link from "next/link";
 
 export const SidebarMainContent = async () => {
-  const token = await getToken();
   let role = "";
-  if (token) {
-    const user = decodeJWT(token);
-    role = user.role;
-  }
+
+  const user = await getUserInfo();
+  if (user) role = user.role;
 
   let links: sideBarType[] = [];
-  console.log(role);
   switch (role) {
     case "freeMember":
     case "paidMember":

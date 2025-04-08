@@ -9,6 +9,7 @@ import {
   LogOut,
   Search,
   Settings,
+  TabletSmartphone,
 } from "lucide-react";
 import React from "react";
 
@@ -79,6 +80,11 @@ export const memberLinks: sideBarType[] = [
     icon: <Settings />,
   },
   {
+    title: "Sessions",
+    url: "/sessions",
+    icon: <TabletSmartphone />,
+  },
+  {
     title: "Logout",
     url: "/",
     icon: <LogOut />,
@@ -106,6 +112,11 @@ export const staffLinks: sideBarType[] = [
     title: "Settings",
     url: "#",
     icon: <Settings />,
+  },
+  {
+    title: "Sessions",
+    url: "/sessions",
+    icon: <TabletSmartphone />,
   },
   {
     title: "Logout",
@@ -140,6 +151,11 @@ export const managerLinks: sideBarType[] = [
     title: "Settings",
     url: "#",
     icon: <Settings />,
+  },
+  {
+    title: "Sessions",
+    url: "/sessions",
+    icon: <TabletSmartphone />,
   },
   {
     title: "Logout",

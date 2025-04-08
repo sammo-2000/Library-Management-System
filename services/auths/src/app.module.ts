@@ -6,9 +6,10 @@ import { RegisterModule } from './register/register.module';
 import { SigninModule } from './signin/signin.module';
 import { AccountsModule } from './accounts/accounts.module';
 import { PermissionModule } from './permission/permission.module';
+import { SessionsModule } from './sessions/sessions.module';
 
 @Module({
-  imports: [DatabaseModule, RegisterModule, SigninModule, AccountsModule, PermissionModule],
+  imports: [DatabaseModule, RegisterModule, SigninModule, AccountsModule, PermissionModule, SessionsModule],
   controllers: [AppController],
   providers: [AppService],
 })

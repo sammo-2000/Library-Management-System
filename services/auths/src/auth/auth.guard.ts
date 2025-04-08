@@ -4,32 +4,53 @@ import {
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
 import { DatabaseService } from 'src/database/database.service';
+import { jwtConstants } from './auth.const';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  constructor(private databawseService: DatabaseService) {}
+  constructor(
+    private databawseService: DatabaseService,
+    private jwtService: JwtService,
+  ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
+    // Get token from request
     const request = context.switchToHttp().getRequest();
     const token = this.extractTokenFromHeader(request);
-    if (!token) {
-      throw new UnauthorizedException();
-    }
+    // If no token, throw UnauthorizedException
+    if (!token) throw new UnauthorizedException(['No token provided']);
 
     try {
+      // Get token payload and check if it has jti
+      const payload = await this.jwtService.verifyAsync(token, {
+        secret: jwtConstants.sercet,
+      });
+      if (!payload || !payload.jti)
+        throw new UnauthorizedException(['Invalid token']);
+
+      // Find session by jti from DB and get user information
       const session = await this.databawseService.session.findUnique({
-        where: { token },
+        where: { jti: payload.jti },
         include: { user: true },
       });
-      if (!session) throw new UnauthorizedException();
+      if (!session) throw new UnauthorizedException(['Session not found']);
 
+      // Check if token sent matches the JTI key in the DB
+      if (session.token !== token)
+        throw new UnauthorizedException(['Invalid token']);
+
+      // Remove password and loginAttempt from user object
       delete session.user.password;
       delete session.user.loginAttempt;
+
+      // Attach user information to request object
       request['user'] = session.user;
-    } catch {
-      throw new UnauthorizedException();
+    } catch (error) {
+      console.log(error);
+      throw new UnauthorizedException(['Invalid token']);
     }
     return true;
   }

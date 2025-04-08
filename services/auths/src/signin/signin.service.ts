@@ -1,6 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
+import { randomUUID } from 'crypto';
 import { DatabaseService } from 'src/database/database.service';
 import { SignInrDto } from './dto';
 
@@ -62,21 +63,16 @@ export class SigninService {
 
     await this.resetLoginAttempt(user.id);
 
-    let isNewToken = false;
-    let token = '';
-    while (!isNewToken) {
-      token = await this.jwtService.signAsync({
-        id: user.id,
-        role: user.user_role,
-      });
-      const existingSession = await this.databaseService.session.findUnique({
-        where: { token },
-      });
-      if (!existingSession) isNewToken = true;
-    }
+    const jti = randomUUID();
+    const token = await this.jwtService.signAsync({
+      jti,
+      id: user.id,
+      role: user.user_role,
+    });
 
     await this.databaseService.session.create({
       data: {
+        jti,
         token,
         userId: user.id,
       },
