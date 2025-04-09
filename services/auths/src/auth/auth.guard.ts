@@ -49,7 +49,6 @@ export class AuthGuard implements CanActivate {
       // Attach user information to request object
       request['user'] = session.user;
     } catch (error) {
-      console.log(error);
       throw new UnauthorizedException(['Invalid token']);
     }
     return true;

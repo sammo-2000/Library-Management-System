@@ -1,0 +1,46 @@
+version: "3.8"
+
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    networks:
+      - shared-network
+    depends_on:
+      - authservice
+      - borrowservice
+
+  authservice:
+    build:
+      context: ./services/auths
+      dockerfile: Dockerfile
+    env_file:
+      - ./services/auths/.env
+    networks:
+      - shared-network
+
+  borrowservice:
+    build:
+      context: ./services/borrow
+      dockerfile: Dockerfile
+    env_file:
+      - ./services/borrow/.env
+    networks:
+      - shared-network
+
+  reservationservice:
+    build:
+      context: ./services/reservation
+      dockerfile: Dockerfile
+    env_file:
+      - ./services/reservation/.env
+    networks:
+      - shared-network
+
+networks:
+  shared-network:
+    external: true

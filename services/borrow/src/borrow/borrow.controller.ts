@@ -10,15 +10,15 @@ import {
   UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
+import { OptionalParseBoolPipe } from 'src/optional-parse-bool-pipe/optional-parse-bool-pipe';
+import { QueryType } from 'src/types/query.type';
+import { AuthGuard } from '../auth/auth.guard';
+import { Permissions } from '../types/permissions';
 import { BorrowService } from './borrow.service';
 import { CreateBorrowDto } from './dto/create-borrow.dto';
 import { UpdateBorrowDto } from './dto/update-borrow.dto';
-import { QueryType } from 'src/types/query.type';
-import { OptionalParseBoolPipe } from 'src/optional-parse-bool-pipe/optional-parse-bool-pipe';
-import { AuthGuard } from '../auth/auth.guard';
-import { Permissions } from '../types/permissions';
 
-@Controller('borrowing')
+@Controller()
 @UseGuards(AuthGuard)
 export class BorrowController {
   constructor(private readonly borrowService: BorrowService) {}

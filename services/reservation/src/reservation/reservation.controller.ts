@@ -10,15 +10,15 @@ import {
   Request,
   UseGuards,
 } from '@nestjs/common';
-import { ReservationService } from './reservation.service';
-import { CreateReservationDto } from './dto/create-reservation.dto';
-import { UpdateReservationDto } from './dto/update-reservation.dto';
-import { QueryType } from 'src/types/query.type';
 import { OptionalParseBoolPipe } from 'src/optional-parse-bool-pipe/optional-parse-bool-pipe';
+import { QueryType } from 'src/types/query.type';
 import { AuthGuard } from '../auth/auth.guard';
 import { Permissions } from '../types/permissions';
+import { CreateReservationDto } from './dto/create-reservation.dto';
+import { UpdateReservationDto } from './dto/update-reservation.dto';
+import { ReservationService } from './reservation.service';
 
-@Controller('reservation')
+@Controller()
 @UseGuards(AuthGuard)
 export class ReservationController {
   constructor(private readonly reservationService: ReservationService) {}

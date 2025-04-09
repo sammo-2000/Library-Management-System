@@ -33,7 +33,7 @@ cd auths
 if [ -f .env ]; then
     rm .env
 fi
-echo "PORT=3002">> .env
+echo "PORT=3000">> .env
 echo "DATABASE_URL=\"file:./auth.db\"" >> .env
 npm install
 npm run build
@@ -54,9 +54,9 @@ cd borrow
 if [ -f .env ]; then
     rm .env
 fi
-echo "PORT=\"3005\"" >> .env
+echo "PORT=\"3000\"" >> .env
 echo "DATABASE_URL=\"file:./borrowing.db\"" >> .env
-echo "AUTH_SERVICE_BASE_URL=\"http://app:3002/api/\"" >> .env
+echo "AUTH_SERVICE_BASE_URL=\"http://localhost/api/auth/\"" >> .env
 docker compose up -d
 cd ../
 
