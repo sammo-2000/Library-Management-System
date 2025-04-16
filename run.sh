@@ -58,7 +58,7 @@ if [ -f .env ]; then
     rm .env
 fi
 echo "BASE_URL=\"http://localhost:3000/\"" >> .env
-echo "AUTH_SERVICE_BASE_URL=$AUTH_SERVICE_BASE_URL" >> .env
+echo "AUTH_SERVICE_BASE_URL=\"http://localhost/api/auth/\"" >> .env
 echo "NEXT_PUBLIC_STRIPE_PUBLIC_KEY=$STRIPE_PUBLIC_KEY" >> .env
 npm install --legacy-peer-deps
 

@@ -1,4 +1,4 @@
-import { type ComboBoxValue } from "./comboBox";
+import { INVENTORY_API } from "@/lib/apiEndPoint";
 import type {
   Author,
   Branch,
@@ -6,8 +6,8 @@ import type {
   Genre,
   Publisher,
 } from "@/types/inventoryServiceTypes";
+import { type ComboBoxValue } from "./comboBox";
 import SearchForm from "./searchForm";
-import { INVENTORY_API } from "@/lib/apiEndPoint";
 
 async function getDropdownValues() {
   // Fetch data from an external API
@@ -27,6 +27,13 @@ async function getDropdownValues() {
     !citiesRes.ok ||
     !branchesRes.ok
   ) {
+    console.log("---------------------Error Start---------------------");
+    console.log(genresRes.statusText);
+    console.log(authorsRes.statusText);
+    console.log(publishersRes.statusText);
+    console.log(citiesRes.statusText);
+    console.log(branchesRes.statusText);
+    console.log("---------------------Error End---------------------");
     throw new Error("Failed to fetch data");
   }
 

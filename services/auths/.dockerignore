@@ -9,3 +9,6 @@ node_modules
 # Ignore any other build artifacts
 
 dist
+
+# Ignore database
+prisma/auth.db
