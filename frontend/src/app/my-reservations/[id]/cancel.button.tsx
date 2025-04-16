@@ -21,7 +21,7 @@ async function cancelReservation(id: string) {
     redirect("/my-reservations");
   } else {
     const error = await res.json();
-    console.error("Failed to cancel reservation", error);
+    console.warn("Failed to cancel reservation", error);
   }
 }
 

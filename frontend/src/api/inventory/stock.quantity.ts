@@ -7,7 +7,7 @@ export const getStockQuantity = async (
   try {
     const response = await fetch(`${INVENTORY_API}stocks/${branchId}`);
     if (!response.ok) {
-      console.error("Failed to fetch stock data:", response.statusText);
+      console.warn("Failed to fetch stock data:", response.statusText);
       return null;
     }
 
@@ -20,7 +20,7 @@ export const getStockQuantity = async (
 
     return stock?.quantity ?? null;
   } catch (error) {
-    console.error("Error fetching stock data:", error);
+    console.warn("Error fetching stock data:", error);
     return null;
   }
 };

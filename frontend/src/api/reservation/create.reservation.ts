@@ -1,5 +1,5 @@
-import { RESERVATION_API } from "@/lib/apiEndPoint";
 import { getToken } from "@/functions/auth/getToken";
+import { RESERVATION_API } from "@/lib/apiEndPoint";
 
 export const createReservation = async (
   accountId: string,
@@ -10,7 +10,7 @@ export const createReservation = async (
     const token = await getToken();
 
     if (!token) {
-      console.error("Authentication token not found.");
+      console.warn("Authentication token not found.");
       return { success: false, message: "Authentication token not found." };
     }
     const response = await fetch(RESERVATION_API, {
@@ -32,7 +32,7 @@ export const createReservation = async (
 
     return { success: true, message: "Reservation successful!" };
   } catch (error) {
-    console.error("Error posting reservation:", error);
+    console.warn("Error posting reservation:", error);
     return { success: false, message: "Failed to create reservation." };
   }
 };

@@ -1,6 +1,7 @@
 #!/bin/bash
 
 AUTH_SERVICE_BASE_URL="\"http://authservice:3000/api/auth/\""
+STRIPE_PUBLIC_KEY="\"pk_test_51QNYr3Amxc9dTyf5oQqnf8sLRipuduamkaeSpoH38t0yVI453kmi50sgH7em6x4ctIPKPWEeC1fXk9OVtnjK5B2d00QsQHiGgK\""
 
 # Add .env into the auth service
 cd services/auths
@@ -31,6 +32,7 @@ echo "DATABASE_URL=\"file:./reservation.db\"" >> .env
 echo "AUTH_SERVICE_BASE_URL=$AUTH_SERVICE_BASE_URL" >> .env
 cd ../
 
+# Add .env into inventory service
 cd inventory
 if [ -f .env ]; then
     rm .env
@@ -49,6 +51,19 @@ echo "POSTGRES_PASSWORD=\"myPassword\"" >> .env
 echo "POSTGRES_DB=\"inventoryDB\"" >> .env
 cd ../
 
-# Run docker compose
+# Add .env into frontend service
+cd ../
+cd frontend
+if [ -f .env ]; then
+    rm .env
+fi
+echo "BASE_URL=\"http://localhost:3000/\"" >> .env
+echo "AUTH_SERVICE_BASE_URL=$AUTH_SERVICE_BASE_URL" >> .env
+echo "NEXT_PUBLIC_STRIPE_PUBLIC_KEY=$STRIPE_PUBLIC_KEY" >> .env
+npm install --legacy-peer-deps
+
+# Run docker compose for all services
 cd ../
 docker compose -f docker-compose.yml up -d
+cd frontend
+npm run dev

@@ -13,6 +13,7 @@ services:
       - borrowservice
       - reservationservice
       - inventoryservice
+      - inventorydatabase
 
   authservice:
     build:

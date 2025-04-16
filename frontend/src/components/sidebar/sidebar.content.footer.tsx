@@ -1,12 +1,14 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { getUser } from "@/functions/auth/getUser";
+import { getUserInfo } from "@/api/auth/getId";
 import {
   FooterName,
   FooterNoUser,
   FooterUser,
 } from "@/components/sidebar/sidebar.content.user.footer";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { getUser } from "@/functions/auth/getUser";
 
 export const SidebarContentFooter = async () => {
+  const isLoggedOn = await getUserInfo();
   const user = await getUser();
 
   return (
@@ -18,7 +20,7 @@ export const SidebarContentFooter = async () => {
       <div className={"flex flex-col"}>
         <FooterName user={user} />
 
-        {user ? <FooterUser user={user} /> : <FooterNoUser />}
+        {isLoggedOn && user ? <FooterUser user={user} /> : <FooterNoUser />}
       </div>
     </div>
   );

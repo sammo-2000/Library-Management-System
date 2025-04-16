@@ -23,7 +23,7 @@ export const getAllBranches = async (
 
     return data;
   } catch (error) {
-    console.error(error);
+    console.warn(error);
     return [];
   }
 };
@@ -38,7 +38,7 @@ export const getBranchById = async (
     const branch = data.find((branch) => branch.id === branchId);
     return branch || null;
   } catch (error) {
-    console.error(error);
+    console.warn(error);
     return null;
   }
 };

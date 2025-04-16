@@ -64,11 +64,16 @@ export class SigninService {
     await this.resetLoginAttempt(user.id);
 
     const jti = randomUUID();
-    const token = await this.jwtService.signAsync({
-      jti,
-      id: user.id,
-      role: user.user_role,
-    });
+    const token = await this.jwtService.signAsync(
+      {
+        jti,
+        id: user.id,
+        role: user.user_role,
+      },
+      {
+        expiresIn: '24h',
+      },
+    );
 
     await this.databaseService.session.create({
       data: {

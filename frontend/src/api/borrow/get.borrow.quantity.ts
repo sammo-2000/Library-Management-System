@@ -1,6 +1,6 @@
 import { getToken } from "@/functions/auth/getToken";
-import { redirect } from "next/navigation";
 import { BORROW_API } from "@/lib/apiEndPoint";
+import { redirect } from "next/navigation";
 
 export const getBorrowQuantity = async (
   mediaId: number,
@@ -25,7 +25,7 @@ export const getBorrowQuantity = async (
 
     return data.length ? data.length : 0;
   } catch (error) {
-    console.error(error);
+    console.warn(error);
     return -1;
   }
 };

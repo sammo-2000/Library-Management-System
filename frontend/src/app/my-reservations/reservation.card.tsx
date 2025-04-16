@@ -1,9 +1,9 @@
-import { Reservation } from "@/types/reservationServiceTypes";
-import { CardStyle } from "./component.css";
-import Link from "next/link";
+import { Branch } from "@/api/inventory/branch";
 import { INVENTORY_API } from "@/lib/apiEndPoint";
 import { Media } from "@/types/inventoryServiceTypes";
-import { Branch } from "@/api/inventory/branch";
+import { Reservation } from "@/types/reservationServiceTypes";
+import Link from "next/link";
+import { CardStyle } from "./component.css";
 
 export async function getMediaAndBranch(mediaId: string, branchId: string) {
   try {
@@ -17,7 +17,7 @@ export async function getMediaAndBranch(mediaId: string, branchId: string) {
     ]);
     return { media, branch };
   } catch (error) {
-    console.error("Failed to fetch data");
+    console.warn("Failed to fetch data");
     return { media: null, branch: null };
   }
 }

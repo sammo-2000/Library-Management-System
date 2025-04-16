@@ -4,7 +4,7 @@ export const fetchBranches = async (): Promise<Branch[]> => {
   try {
     return await getAllBranches();
   } catch (error) {
-    console.error("Failed to fetch branches", error);
+    console.warn("Failed to fetch branches", error);
     return [];
   }
 };

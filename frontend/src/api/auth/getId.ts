@@ -1,7 +1,6 @@
 "use server";
 import { SIGN_API, USERID_API } from "@/lib/apiEndPoint";
 
-import { deleteToken } from "@/functions/auth/deleteToken";
 import { getToken } from "@/functions/auth/getToken";
 
 export type UserInfo = {
@@ -22,10 +21,7 @@ export const getUserInfo = async (): Promise<UserInfo | null> => {
       },
     });
 
-    if (!response.ok) {
-      await deleteToken();
-      return null;
-    }
+    if (!response.ok) return null;
 
     const data: UserInfo = await response.json();
 
@@ -58,14 +54,14 @@ export const getSessions = async (): Promise<Session[]> => {
     });
 
     if (!response.ok) {
-      console.error("Failed to fetch sessions");
+      console.warn("Failed to fetch sessions");
       return [];
     }
 
     const data: Session[] = await response.json();
     return data;
   } catch (error) {
-    console.error("Error fetching user info:", error);
+    console.warn("Error fetching user info:", error);
     return [];
   }
 };
@@ -84,14 +80,14 @@ export const deleteSessions = async (sessionId: string): Promise<string[]> => {
     });
 
     if (!response.ok) {
-      console.error("Failed to fetch sessions");
+      console.warn("Failed to fetch sessions");
       return [];
     }
 
     const data: { message: string[] } = await response.json();
     return data.message;
   } catch (error) {
-    console.error("Error fetching user info:", error);
+    console.warn("Error fetching user info:", error);
     return [];
   }
 };
