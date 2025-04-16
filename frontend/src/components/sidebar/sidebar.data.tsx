@@ -20,6 +20,15 @@ export type sideBarType = {
   onClick?: () => void;
 };
 
+export const memberWithLogout: sideBarType[] = [
+  {
+    title: "Logout",
+    url: "/",
+    icon: <LogOut />,
+    onClick: deleteToken,
+  },
+];
+
 export const guestLinks: sideBarType[] = [
   {
     title: "Home",

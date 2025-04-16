@@ -8,6 +8,30 @@ export type UserInfo = {
   role: string;
 };
 
+export const getAuthUser = async (): Promise<UserInfo | string | null> => {
+  try {
+    const token = await getToken();
+    if (!token) return "No token";
+
+    const response = await fetch(`${USERID_API}userId`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      return error.message[0];
+    }
+
+    return await response.json();
+  } catch (error) {
+    return "Something went wrong";
+  }
+};
+
 export const getUserInfo = async (): Promise<UserInfo | null> => {
   try {
     const token = await getToken();
@@ -23,11 +47,7 @@ export const getUserInfo = async (): Promise<UserInfo | null> => {
 
     if (!response.ok) return null;
 
-    const data: UserInfo = await response.json();
-
-    if (!data) return null;
-
-    return data;
+    return await response.json();
   } catch (error) {
     return null;
   }

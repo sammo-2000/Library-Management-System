@@ -29,10 +29,10 @@ const SignIn = () => {
         throw new Error(data.message || "Failed to sign in");
       }
 
-      await setToken(data.token); // Save token in cookies
+      await setToken(data.token);
 
       setSuccess("Sign-in successful! Redirecting...");
-      router.push("/"); // Redirect to a protected page
+      router.push("/");
     } catch (err: any) {
       setError(err.message || "Something went wrong.");
     }

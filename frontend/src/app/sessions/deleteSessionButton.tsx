@@ -7,9 +7,13 @@ import { useState } from "react";
 const DeleteSessionButton = ({ session, index }) => {
   const [deleted, setDeleted] = useState(false);
   const handleLogout = async () => {
-    if (index === -1) await deleteToken();
-    const data = await deleteSessions(session.jti);
-    if (data.length !== 0) setDeleted(true);
+    if (index === -1) {
+      await deleteToken();
+      window.location.replace("/");
+    } else {
+      const data = await deleteSessions(session.jti);
+      if (data.length !== 0) setDeleted(true);
+    }
   };
 
   if (deleted) return null;

@@ -1,6 +1,6 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import { getUserInfo } from "./api/auth/getId";
+import { getAuthUser } from "./api/auth/getId";
 import { deleteToken } from "./functions/auth/deleteToken";
 import { getToken } from "./functions/auth/getToken";
 
@@ -13,28 +13,29 @@ function matches(pathname: string, routes: string[]) {
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  const user = await getUserInfo();
+  const user = await getAuthUser();
+  const isLoggedOn = user !== null && typeof user !== "string";
 
-  if (!user) {
+  if (user && user === "Session not verified") {
+    if (matches(pathname, ["/verify"])) return NextResponse.next();
+    return NextResponse.redirect(new URL("/verify", request.url));
+  } else {
     const token = await getToken();
-    if (token) await deleteToken();
+    if (token && !isLoggedOn) await deleteToken();
   }
 
-  // Unauthenticated-only pages (login/signup)
   if (matches(pathname, unauthOnlyRoutes)) {
-    if (user) {
-      return NextResponse.redirect(new URL("/", request.url)); // Already logged in
-    }
-    return NextResponse.next(); // Not logged in, allowed
+    if (isLoggedOn) return NextResponse.redirect(new URL("/", request.url));
+    return NextResponse.next();
   }
 
-  // Authenticated-only pages
-  if (matches(pathname, authOnlyRoutes)) {
-    if (!user) {
-      return NextResponse.redirect(new URL("/login", request.url)); // Not logged in
-    }
-  }
+  if (matches(pathname, authOnlyRoutes))
+    if (!isLoggedOn)
+      return NextResponse.redirect(new URL("/login", request.url));
 
-  // All other routes are public
   return NextResponse.next();
 }
+
+export const config = {
+  matcher: ["/((?!_next|favicon.ico|static|images|fonts).*)"],
+};

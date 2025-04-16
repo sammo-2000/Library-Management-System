@@ -52,7 +52,7 @@ export class SessionsController {
     // Check if session is expired
     const now = new Date();
     if (session.created_at < new Date(now.getTime() - 10 * 60 * 1000)) {
-      await this.sessionsService.deleteSession(verificationDto.sessionId);
+      await this.sessionsService.deleteSession(jti);
       throw new NotFoundException(['session not found']);
     }
 

@@ -1,8 +1,9 @@
-import { getUserInfo } from "@/api/auth/getId";
+import { getAuthUser } from "@/api/auth/getId";
 import {
   guestLinks,
   managerLinks,
   memberLinks,
+  memberWithLogout,
   sideBarType,
   staffLinks,
 } from "@/components/sidebar/sidebar.data";
@@ -12,8 +13,10 @@ import Link from "next/link";
 export const SidebarMainContent = async () => {
   let role = "";
 
-  const user = await getUserInfo();
-  if (user) role = user.role;
+  const user = await getAuthUser();
+  console.log(user);
+  if (user && typeof user !== "string") role = user.role;
+  if (user && user === "Session not verified") role = "memberWithLogout";
 
   let links: sideBarType[] = [];
   switch (role) {
@@ -27,6 +30,9 @@ export const SidebarMainContent = async () => {
       break;
     case "manager":
       links = managerLinks;
+      break;
+    case "memberWithLogout":
+      links = memberWithLogout;
       break;
     default:
       links = guestLinks;
