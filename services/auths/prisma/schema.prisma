@@ -27,11 +27,13 @@ model User {
 }
 
 model Session {
-  jti        String   @id @unique
-  token      String
-  userId     Int
-  created_at DateTime @default(now())
-  user       User     @relation(fields: [userId], references: [id])
+  jti              String   @id @unique
+  token            String
+  userId           Int
+  isVerified       Boolean  @default(false)
+  verificationCode String?
+  created_at       DateTime @default(now())
+  user             User     @relation(fields: [userId], references: [id])
 }
 
 enum UserRole {

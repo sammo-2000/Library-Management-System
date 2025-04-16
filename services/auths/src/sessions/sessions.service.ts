@@ -6,18 +6,37 @@ export class SessionsService {
   constructor(private readonly databaseService: DatabaseService) {}
 
   async getAllSessions(userId: number) {
-    return await this.databaseService.session.findMany({ where: { userId } });
+    const sessions = await this.databaseService.session.findMany({
+      where: { userId },
+    });
+
+    sessions.forEach((session) => {
+      delete session.isVerified;
+      delete session.verificationCode;
+    });
+
+    return sessions;
   }
 
-  async getSessionById(sessionId: string) {
-    return await this.databaseService.session.findUnique({
-      where: { jti: sessionId },
+  async verifySession(jti: string) {
+    return await this.databaseService.session.update({
+      where: { jti },
+      data: {
+        isVerified: true,
+        verificationCode: null,
+      },
     });
   }
 
-  async deleteSession(sessionId: string) {
+  async getSessionById(jti: string) {
+    return await this.databaseService.session.findUnique({
+      where: { jti },
+    });
+  }
+
+  async deleteSession(jti: string) {
     return await this.databaseService.session.delete({
-      where: { jti: sessionId },
+      where: { jti },
     });
   }
 }

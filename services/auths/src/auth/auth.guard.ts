@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   CanActivate,
   ExecutionContext,
   Injectable,
@@ -38,6 +39,10 @@ export class AuthGuard implements CanActivate {
       });
       if (!session) throw new UnauthorizedException(['Session not found']);
 
+      // Check if session is verified
+      if (!session.isVerified)
+        throw new BadRequestException(['Session not verified']);
+
       // Check if token sent matches the JTI key in the DB
       if (session.token !== token)
         throw new UnauthorizedException(['Invalid token']);
@@ -49,7 +54,9 @@ export class AuthGuard implements CanActivate {
       // Attach user information to request object
       request['user'] = session.user;
     } catch (error) {
-      throw new UnauthorizedException(['Invalid token']);
+      throw new UnauthorizedException(
+        error.response.message || ['Invalid token'],
+      );
     }
     return true;
   }
