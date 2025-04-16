@@ -31,7 +31,23 @@ echo "DATABASE_URL=\"file:./reservation.db\"" >> .env
 echo "AUTH_SERVICE_BASE_URL=$AUTH_SERVICE_BASE_URL" >> .env
 cd ../
 
-# TODO: Add inventory service into the API gateway
+cd inventory
+if [ -f .env ]; then
+    rm .env
+fi
+# Application environment variables
+echo "PORT=\"3000\"" >> .env
+echo "DB_PORT=\"5432\"" >> .env
+echo "DB_HOST=\"inventorydatabase\"" >> .env
+echo "DB_USER=\"myUser\"" >> .env
+echo "DB_PASSWORD=\"myPassword\"" >> .env
+echo "DB_NAME=\"inventoryDB\"" >> .env
+
+# PostgreSQL container environment variables
+echo "POSTGRES_USER=\"myUser\"" >> .env
+echo "POSTGRES_PASSWORD=\"myPassword\"" >> .env
+echo "POSTGRES_DB=\"inventoryDB\"" >> .env
+cd ../
 
 # Run docker compose
 cd ../

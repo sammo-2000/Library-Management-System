@@ -19,8 +19,5 @@ RUN npx prisma db push
 # Build the NestJS application
 RUN npm run build
 
-# Expose port 3004
-EXPOSE 3002
-
 # Run the application
 CMD ["npm", "run", "start:prod"]

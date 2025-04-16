@@ -2,7 +2,7 @@
 FROM node:18
 
 # Set the working directory
-WORKDIR /usr/src/app
+WORKDIR /app
 
 # Copy package.json and package-lock.json
 COPY package*.json ./
@@ -15,9 +15,6 @@ COPY . .
 
 # Compile TypeScript code
 RUN npm run build
-
-# Expose the port your app runs on
-EXPOSE 3003
 
 # Command to start the app
 CMD ["npm", "run", "start"]
