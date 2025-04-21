@@ -6,6 +6,10 @@ export class AccountsService {
   constructor(private readonly databaseService: DatabaseService) {}
 
   async setDefault() {
+    const userCount = await this.databaseService.user.count();
+
+    if (userCount > 0) return;
+
     return await this.databaseService.user.createMany({
       data: [
         {

@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Body,
   Controller,
   Delete,
@@ -54,6 +55,12 @@ export class SessionsController {
     if (session.created_at < new Date(now.getTime() - 10 * 60 * 1000)) {
       await this.sessionsService.deleteSession(jti);
       throw new NotFoundException(['session not found']);
+    }
+
+    // Check if verification code is valid
+    if (session.verificationCode !== verificationDto.verificationCode) {
+      await this.sessionsService.deleteSession(jti);
+      throw new BadRequestException(['Invalid verification code']);
     }
 
     // Update session

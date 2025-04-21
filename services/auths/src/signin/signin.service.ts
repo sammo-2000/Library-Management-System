@@ -80,9 +80,10 @@ export class SigninService {
         jti,
         token,
         userId: user.id,
-        verificationCode: Math.floor(Math.random() * 1000000)
-          .toString()
-          .padStart(6, '0'),
+        verificationCode: '000000',
+        // verificationCode: Math.floor(Math.random() * 1000000)
+        //   .toString()
+        //   .padStart(6, '0'),
       },
     });
 

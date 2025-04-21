@@ -1,5 +1,7 @@
+import { addDefaultUsers } from "@/functions/auth/addDefaultUsers";
 import { deleteToken } from "@/functions/auth/deleteToken";
 import {
+  BadgePlus,
   Calendar,
   ChartCandlestick,
   Home,
@@ -54,6 +56,12 @@ export const guestLinks: sideBarType[] = [
     title: "Sign Up",
     url: "/sign-up",
     icon: <Lock />,
+  },
+  {
+    title: "Add default users",
+    url: "/login",
+    icon: <BadgePlus />,
+    onClick: addDefaultUsers,
   },
 ];
 

@@ -13,7 +13,7 @@ import { jwtConstants } from './auth.const';
 @Injectable()
 export class AuthGuard implements CanActivate {
   constructor(
-    private databawseService: DatabaseService,
+    private databaseService: DatabaseService,
     private jwtService: JwtService,
   ) {}
 
@@ -33,7 +33,7 @@ export class AuthGuard implements CanActivate {
         throw new UnauthorizedException(['Invalid token']);
 
       // Find session by jti from DB and get user information
-      const session = await this.databawseService.session.findUnique({
+      const session = await this.databaseService.session.findUnique({
         where: { jti: payload.jti },
         include: { user: true },
       });

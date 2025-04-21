@@ -58,7 +58,7 @@ const VerifyPage = () => {
     const data = await response.json();
     if (data.message[0] === "Session verified successfully")
       return window.location.replace("/");
-    else setError(data.message[0]);
+    else return window.location.replace("/login");
   }
 
   return (

@@ -60,6 +60,7 @@ fi
 echo "BASE_URL=\"http://localhost:3000/\"" >> .env
 echo "AUTH_SERVICE_BASE_URL=\"http://localhost/api/auth/\"" >> .env
 echo "NEXT_PUBLIC_STRIPE_PUBLIC_KEY=$STRIPE_PUBLIC_KEY" >> .env
+echo "DEV_MODE=true" >> .env
 npm install --legacy-peer-deps
 
 # Run docker compose for all services
