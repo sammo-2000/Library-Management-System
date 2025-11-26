@@ -17,20 +17,15 @@ const app = express();
 app.use(express.json())
 
 
-//app.get('/accounts', authenticateToken, authorizeRoles('admin', 'manager'), accounts);
+
 app.get('/accounts', authenticateToken, accounts);
 
-//create users table
-//app.get('/create-users-table', createTable)
 
 // Endpoint to drop the users table
 if (stage === 'development') 
     {
        app.delete('/drop-users-table', dropUsersTable);
     }
-
-//get user role
-//app.get('/userId', getId);
 
 app.get('/userId', authenticateToken,getUserInfo);
 

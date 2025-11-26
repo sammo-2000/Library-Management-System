@@ -11,5 +11,3 @@ EXPOSE 3002
 # Default command
 CMD ["npm", "run", "dev"]
 
-#to run container
-#docker-compose up
