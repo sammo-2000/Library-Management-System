@@ -2,6 +2,10 @@
 module.exports = {
   testEnvironment: "node",
   transform: {
-    "^.+.tsx?$": ["ts-jest",{}],
+    "^.+.tsx?$": ["ts-jest", {}],
   },
+  testPathIgnorePatterns: [
+    "/node_modules/",
+    "/dist/", // Ignore the dist folder
+  ],
 };
